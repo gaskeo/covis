@@ -1,6 +1,7 @@
 import {useState} from 'react';
 
 import './App.css';
+import RussiaSVG from './Russia'
 import {
     BarChart,
     Bar,
@@ -11,8 +12,8 @@ import {
     Cell,
     LineChart,
     Line,
-    ResponsiveContainer
 } from 'recharts';
+
 
 let diagramWidth;
 let diagramHeight;
@@ -462,6 +463,37 @@ function RenderRussiaRegion(props) {
 
 }
 
+function RenderRussiaCasesMap(props) {
+    const id = 10
+    if (props.activeTab !== id) {
+        return null;
+    }
+
+    let prepareData = Object.keys(props.Data).map(d => {
+        if (props.Data[d]['info']['name'] === "Россия" || props.Data[d]['info']['name'] === "Москва") {
+            return null;
+        }
+        return props.Data[d]['info']
+    }).filter(a => a);
+    console.log(prepareData)
+    let sorted = prepareData.slice()
+    sorted.sort(function (a, b) {
+        return a['cases'] - b['cases']
+    })
+    let maxCases = sorted[sorted.length - 1].cases;
+    console.log(maxCases)
+    let cssBlock = prepareData.map(d => {
+        let name = d.name
+        let opacity = d.cases / maxCases;
+        let cssText = `polyline[data-name="${name}"] {fill: rgba(220, 20, 60, ${opacity})};`
+        return <style type='text/css'>{cssText}</style>
+    })
+    return <div>
+        {cssBlock}
+        {RussiaSVG}
+    </div>
+}
+
 function App() {
     async function getCountriesCasesData() {
         updateAllCountriesCasesDataState(dataStates.requested)
@@ -487,6 +519,7 @@ function App() {
         updateRussiaRegionsDataState(dataStates.requested)
         return fetch('https://milab.s3.yandex.net/2020/covid19-stat/data/v10/default_data.json', {method: 'get'}).then((r) => {
             r.json().then(j => {
+                updateRussiaRegionsData(j['russia_stat_struct']['data'])
                 let data = Object.keys(j['russia_stat_struct']['data']).map(d => {
                     return {name: j['russia_stat_struct']['data'][d]['info']['name'].toString(), code: d}
                 })
@@ -518,6 +551,7 @@ function App() {
 
     // russia cases history
     const [russiaRegions, updateRussiaRegions] = useState(null);
+    const [russiaRegionsData, updateRussiaRegionsData] = useState(null);
     const [russiaRegionsDataState, updateRussiaRegionsDataState] = useState(dataStates.notRequested);
     if (russiaRegionsDataState === dataStates.notRequested) {
         let _ = getRussiaRegionsData();
@@ -536,10 +570,12 @@ function App() {
     let rch = null;
     let rrh = null;
     let rdh = null;
+    let rmc = null;
     if (russiaCasesHistoryDataState === dataStates.received) {
         rch = <RenderRussiaCasesHistory activeTab={allCountriesTab} Data={russiaCasesHistory}/>
         rrh = <RenderRussiaRecoveryHistory activeTab={allCountriesTab} Data={russiaCasesHistory}/>
         rdh = <RenderRussiaDeathsHistory activeTab={allCountriesTab} Data={russiaCasesHistory}/>
+        rmc = <RenderRussiaCasesMap activeTab={allCountriesTab} Data={russiaRegionsData}/>
     } else {
         alccdb = null;
     }
@@ -566,6 +602,8 @@ function App() {
                     <button className='MenuButton' onClick={() => updateAllCountriesTab(8)}>История смертей</button>
                     <button className='MenuButton' onClick={() => updateAllCountriesTab(9)}>Статистика по регионам
                     </button>
+                    <button className='MenuButton' onClick={() => updateAllCountriesTab(10)}>Карта заболеваний
+                    </button>
                 </div>
 
             </div>
@@ -579,6 +617,7 @@ function App() {
                 {rrh}
                 {rdh}
                 {rrd}
+                {rmc}
             </div>
         </div>
     )
