@@ -1,7 +1,7 @@
 import {useState} from 'react';
 
 import './App.css';
-import {BarChart, Bar, XAxis, YAxis, Tooltip, CartesianGrid, Cell} from 'recharts';
+import {BarChart, Bar, XAxis, YAxis, Tooltip, CartesianGrid, Cell, LineChart, Line} from 'recharts';
 
 const countries = {
     'USA': 'США',
@@ -26,7 +26,12 @@ const countries = {
     'Malaysia': 'Малазия'
 };
 
-function RenderCountriesBarChart(props) {
+function RenderCountriesCases(props) {
+    const id = 1;
+    if (props.activeTab !== id) {
+        return null;
+    }
+
     const data = props.Data.map(d => {
         if (countries[d['country']]) {
             return {name: countries[d['country']], uv: 40, 'случаи': d['cases'], amt: 2100}
@@ -34,35 +39,52 @@ function RenderCountriesBarChart(props) {
         return null;
     }).filter(a => a);
     return (
-        <div>
-            <div>
-                <h1>Статистика covid-19</h1>
-            </div>
-            <div className='CasesContainer'>
-                <h2>Случаи заболевания по странам всего</h2>
-                <div className='BarChartContainer'>
-                    <BarChart className='BarChart' width={window.innerWidth / 1.2} height={window.innerHeight / 1.4}
-                              data={data}>
-                        <XAxis dataKey="name"/>
-                        <YAxis width={80}/>
-                        <Tooltip/>
-                        <Bar dataKey="uv" dataKey='случаи' barSize={70} fill="#8884d8">
-                            {
-                                data.map((d, index) => {
-                                        if (d.name == 'Россия') {
-                                            return <Cell key={`cell-${index}`} fill={'#8884d8'}/>
-                                        }
-                                        return <Cell key={`cell-${index}`} fill={'#8882a8'}/>
+        <div className='DiagramContainer'>
+            <h2>Случаи заболевания по странам всего</h2>
+            <div className='BarChartContainer'>
+                <BarChart className='BarChart' width={window.innerWidth / 1.2} height={window.innerHeight / 1.4}
+                          data={data}>
+                    <XAxis dataKey="name"/>
+                    <YAxis width={80} domain={[0, data[0]['случаи'] + 1000000]}/>
+                    <Tooltip/>
+                    <Bar dataKey="uv" dataKey='случаи' barSize={70} fill="#8884d8">
+                        {
+                            data.map((d, index) => {
+                                    if (d.name == 'Россия') {
+                                        return <Cell key={`cell-${index}`} fill={'#8884d8'}/>
                                     }
-                                )
-                            }
-                        </Bar>
-                    </BarChart>
-                </div>
+                                    return <Cell key={`cell-${index}`} fill={'#8882a8'}/>
+                                }
+                            )
+                        }
+                    </Bar>
+                </BarChart>
             </div>
         </div>
     )
 };
+
+function RenderRussiaHistory(props) {
+    const cases = Object.keys(props.Data['timeline']['cases']).map(d => {
+        return {name: d, 'Случаев': props.Data['timeline']['cases'][d]}
+    })
+    return (
+        <div className='DiagramContainer'>
+            <h2>Случаи заболевания по России за месяц</h2>
+            <div className='BarChartContainer'>
+                <LineChart className='BarChart' width={window.innerWidth / 1.2} height={window.innerHeight / 1.4}
+                           data={cases}>
+                    <Line type="monotone" dataKey="Случаев" stroke="#8884d8"/>
+                    <CartesianGrid vertical={false} stroke="#ccc"/>
+                    <XAxis dataKey="name"/>
+                    <YAxis width={80}
+                           domain={[cases[0]['Случаев'] - 100000, cases[cases.length - 1]['Случаев'] + 100000]}/>
+                    <Tooltip/>
+                </LineChart>
+            </div>
+        </div>
+    )
+}
 
 function App() {
     const dataStates = {
@@ -71,30 +93,67 @@ function App() {
         received: 2
     }
 
-    async function getData() {
-        updateDataState(dataStates.requested)
+    async function getCountriesCasesData() {
+        updateAllCountriesCasesDataState(dataStates.requested)
         return fetch('https://disease.sh/v3/covid-19/countries?sort=cases', {method: 'get'}).then((r) => {
             r.json().then((j) => {
-                updateTodayCases(j)
-                updateDataState(dataStates.received)
+                updateAllCountriesCases(j)
+                updateAllCountriesCasesDataState(dataStates.received)
             })
         })
     }
 
-    const [todayCases, updateTodayCases] = useState(null);
-    const [dataState, updateDataState] = useState(dataStates.notRequested);
-    if (dataState == dataStates.notRequested) {
-        getData();
+    async function getRussiaCasesHistoryData() {
+        updateRussiaCasesHistoryDataState(dataStates.requested)
+        return fetch('https://disease.sh/v3/covid-19/historical/Russia?lastdays=30', {method: 'get'}).then((r) => {
+            r.json().then((j) => {
+                updateRussiaCasesHistory(j)
+                updateRussiaCasesHistoryDataState(dataStates.received)
+            })
+        })
     }
 
-    if (dataState == dataStates.received) {
+    // all countries cases
+    const [allCountriesTab, updateAllCountriesTab] = useState(1);
+    const [allCountriesCases, updateAllCountriesCases] = useState(null);
+    const [allCountriesCasesDataState, updateAllCountriesCasesDataState] = useState(dataStates.notRequested);
+    if (allCountriesCasesDataState == dataStates.notRequested) {
+        getCountriesCasesData();
+    }
+    let alccdb;
+    if (allCountriesCasesDataState == dataStates.received) {
+        alccdb = <RenderCountriesCases activeTab={allCountriesTab} Data={allCountriesCases}></RenderCountriesCases>
     } else {
-        return null;
-
+        alccdb = null;
     }
+
+    // russia cases history
+    const [russiaCasesHistory, updateRussiaCasesHistory] = useState(null);
+    const [russiaCasesHistoryDataState, updateRussiaCasesHistoryDataState] = useState(dataStates.notRequested);
+    if (russiaCasesHistoryDataState == dataStates.notRequested) {
+        getRussiaCasesHistoryData();
+    }
+    let rch;
+    if (russiaCasesHistoryDataState == dataStates.received) {
+        rch = <RenderRussiaHistory Data={russiaCasesHistory}></RenderRussiaHistory>
+    } else {
+        alccdb = null;
+    }
+
     return (
         <div>
-            <RenderCountriesBarChart Data={todayCases}></RenderCountriesBarChart>
+            <div>
+                <h1>Статистика covid-19</h1>
+            </div>
+            <div className='Menu'>
+                <h3>Мир</h3>
+                <button className='MenuButton' onClick={() => updateAllCountriesTab(1)}>Всего заболеваний</button>
+                <button className='MenuButton' onClick={() => updateAllCountriesTab(2)}>Заболеваний сегодня</button>
+            </div>
+            <div className='Diagrams'>
+                {alccdb}
+                {rch}
+            </div>
         </div>
     )
 }
