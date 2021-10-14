@@ -1,5 +1,6 @@
 .App {
   text-align: center;
+  height: 100%;
 }
 
 .App-logo {
@@ -35,4 +36,19 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+.CasesContainer {
+  margin-left: 10%;
+  margin-right: 10%;
+  width: 80%;
+}
+
+.BarChart {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+text {
+  color: blue;
 }
