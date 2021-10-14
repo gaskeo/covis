@@ -1,0 +1,12 @@
+.border{
+    fill: none;
+    stroke: green;
+    stroke-width: 1px;
+}
+.sector{
+    fill: none;
+    stroke: green;
+    stroke-width: 50px;
+    stroke-dasharray: 60 61;
+    stroke-dashoffset: 25;
+}

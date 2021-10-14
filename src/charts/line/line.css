@@ -1,0 +1,25 @@
+.diagram-one-column {
+    width: 1rem;
+    bottom: 0;
+    border-radius: 0.5rem 0.5rem 0 0;
+    color: black;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    max-width: 6rem;
+}
+
+.diagram-one-column > p {
+    margin: 0.2rem;
+    color: white;
+    transform: rotate(-90deg);
+}
+
+.column-diagram {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    width: 80%;
+    margin-left: 10%;
+    height: 20rem;
+}
