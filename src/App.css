@@ -54,7 +54,7 @@ text {
 .Diagrams {
     position: absolute;
     top: 4rem;
-    left: 15%;
+    left: 15rem;
 }
 
 .Menu {
@@ -70,8 +70,22 @@ text {
     color: black;
     border: 0 solid;
     -webkit-appearance: button !important;
+    line-height: 2rem;
     border-image: none;
+    font-size: 1em;
     outline-offset: 0;
     outline: black;
+    width: 12rem;
+    text-align: left;
+    border-radius: 0.3rem;
     box-shadow: none;
+    margin-bottom: 0.3rem;
+}
+
+.MenuButton:hover {
+    background-color: #eee;
+}
+
+.MenuButton:focus {
+    background-color: #eee;
 }
