@@ -64,6 +64,46 @@ function RenderCountriesCases(props) {
     )
 };
 
+function RenderCountriesCasesToday(props) {
+    const id = 2;
+    if (props.activeTab !== id) {
+        return null;
+    }
+
+    const data = props.Data.map(d => {
+        if (countries[d['country']]) {
+            return {name: countries[d['country']], 'случаев сегодня': d['todayCases']}
+        }
+        return null;
+    }).filter(a => a);
+    let sorted = data.slice();
+    sorted.sort((a, b) => a['случаев сегодня'] - b['случаев сегодня'])
+    return (
+        <div className='DiagramContainer'>
+            <h2>Случаи заболевания по странам сегодня</h2>
+            <div className='BarChartContainer'>
+                <BarChart className='BarChart' width={window.innerWidth / 1.2} height={window.innerHeight / 1.4}
+                          data={data}>
+                    <XAxis dataKey="name"/>
+                    <YAxis width={80} domain={[0, sorted[sorted.length - 1]['случаев сегодня'] + 1000]}/>
+                    <Tooltip/>
+                    <Bar dataKey="uv" dataKey='случаев сегодня' barSize={70} fill="#8884d8">
+                        {
+                            data.map((d, index) => {
+                                    if (d.name == 'Россия') {
+                                        return <Cell key={`cell-${index}`} fill={'#8884d8'}/>
+                                    }
+                                    return <Cell key={`cell-${index}`} fill={'#8882a8'}/>
+                                }
+                            )
+                        }
+                    </Bar>
+                </BarChart>
+            </div>
+        </div>
+    )
+};
+
 function RenderRussiaHistory(props) {
     const cases = Object.keys(props.Data['timeline']['cases']).map(d => {
         return {name: d, 'Случаев': props.Data['timeline']['cases'][d]}
@@ -120,11 +160,11 @@ function App() {
     if (allCountriesCasesDataState == dataStates.notRequested) {
         getCountriesCasesData();
     }
-    let alccdb;
+    let alccdb = null;
+    let alccdbt = null;
     if (allCountriesCasesDataState == dataStates.received) {
         alccdb = <RenderCountriesCases activeTab={allCountriesTab} Data={allCountriesCases}></RenderCountriesCases>
-    } else {
-        alccdb = null;
+        alccdbt = <RenderCountriesCasesToday activeTab={allCountriesTab} Data={allCountriesCases}></RenderCountriesCasesToday>
     }
 
     // russia cases history
@@ -152,6 +192,7 @@ function App() {
             </div>
             <div className='Diagrams'>
                 {alccdb}
+                {alccdbt}
                 {rch}
             </div>
         </div>
