@@ -85,6 +85,46 @@
     background-color: #dcd;
 }
 
+.SearchButton {
+    z-index: 20;
+    display: inline;
+    background-color: #eee;
+    color: black;
+    border: 0 solid;
+    -webkit-appearance: button !important;
+    line-height: 3rem;
+    border-image: none;
+    font-size: 1.4em;
+    outline-offset: 0;
+    outline: black;
+    text-align: center;
+    border-radius: 0.3rem;
+    box-shadow: none;
+    margin-bottom: 0.3rem;
+}
+
+.SearchButton:disabled {
+    color: #aaa;
+}
+
+.RegionInput {
+    height: 3rem;
+    margin-right: 0.5rem;
+    border-radius: 0.3rem;
+    border: none;
+    font-size: 1.4em;
+    background-color: #eee;
+    padding-left: 0.4rem;
+    outline: none;
+}
+
+.InputForm {
+    margin-top: 1rem;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+}
+
 @media only screen and (min-width: 800px) {
     .DiagramContainer {
         width: 80%;
@@ -111,46 +151,6 @@
         left: 1.5rem;
         top: 4rem
     }
-
-    .SearchButton {
-        z-index: 20;
-        display: inline;
-        background-color: #eee;
-        color: black;
-        border: 0 solid;
-        -webkit-appearance: button !important;
-        line-height: 3rem;
-        border-image: none;
-        font-size: 1.4em;
-        outline-offset: 0;
-        outline: black;
-        text-align: center;
-        border-radius: 0.3rem;
-        box-shadow: none;
-        margin-bottom: 0.3rem;
-    }
-
-    .SearchButton:disabled {
-        color: #aaa;
-    }
-
-    .RegionInput {
-        height: 3rem;
-        margin-right: 0.5rem;
-        border-radius: 0.3rem;
-        border: none;
-        font-size: 1.4em;
-        background-color: #eee;
-        padding-left: 0.4rem;
-        outline: none;
-    }
-
-    .InputForm {
-        margin-top: 1rem;
-        text-align: center;
-        display: flex;
-        justify-content: center;
-    }
 }
 
 @media screen and (max-width: 799px) {
@@ -166,7 +166,7 @@
         display: block;
         background-color: #fef;
         line-height: 1.6rem;
-        width: auto;
+        width: 90%;
         margin-left: 0.2rem;
         margin-right: 0.2rem;
     }
@@ -186,6 +186,14 @@
     .Diagrams {
         margin-left: 1rem;
         margin-right: 1rem;
+    }
+
+    .InputForm {
+        justify-content: center;
+    }
+
+    .RegionInput {
+        width: 77%;
     }
 }
 
