@@ -38,6 +38,53 @@
     }
 }
 
+
+.Header {
+    font-family: 'Open Sans', sans-serif;
+    margin-left: 2rem;
+    margin-right: 2rem;
+    width: calc(100% - 4rem);
+}
+
+.RedBack {
+    background-color: red;
+    color: white;
+    width: 40px;
+    border-radius: 5px;
+    height: 30px;
+    padding-left: 6px;
+    padding-right: 6px;
+    padding-bottom: 3px;
+    margin-left: 3px;
+}
+
+.MenuButton {
+    z-index: 20;
+    display: block;
+    background-color: transparent;
+    color: black;
+    border: 0 solid;
+    -webkit-appearance: button !important;
+    line-height: 2rem;
+    border-image: none;
+    font-size: 1em;
+    outline-offset: 0;
+    outline: black;
+    width: 12rem;
+    text-align: left;
+    border-radius: 0.3rem;
+    box-shadow: none;
+    margin-bottom: 0.3rem;
+}
+
+.MenuButton:hover {
+    background-color: #eee;
+}
+
+.MenuButton:focus {
+    background-color: #dcd;
+}
+
 @media only screen and (min-width: 800px) {
     .DiagramContainer {
         width: 80%;
@@ -63,33 +110,6 @@
         position: absolute;
         left: 1.5rem;
         top: 4rem
-    }
-
-    .MenuButton {
-        z-index: 20;
-        display: block;
-        background-color: transparent;
-        color: black;
-        border: 0 solid;
-        -webkit-appearance: button !important;
-        line-height: 2rem;
-        border-image: none;
-        font-size: 1em;
-        outline-offset: 0;
-        outline: black;
-        width: 12rem;
-        text-align: left;
-        border-radius: 0.3rem;
-        box-shadow: none;
-        margin-bottom: 0.3rem;
-    }
-
-    .MenuButton:hover {
-        background-color: #eee;
-    }
-
-    .MenuButton:focus {
-        background-color: #eee;
     }
 
     .SearchButton {
@@ -136,25 +156,36 @@
 @media screen and (max-width: 799px) {
     .Header {
         text-align: center;
+        margin-bottom: 0;
+    }
+    .Header > h1 {
+        margin-bottom: 0;
+    }
+
+    .MenuButton {
+        display: block;
+        background-color: #fef;
+        line-height: 1.6rem;
+        width: auto;
+        margin-left: 0.2rem;
+        margin-right: 0.2rem;
+    }
+
+    .Menu {
+        margin-left: 1rem;
+        margin-right: 1rem;
+        display: flex;
+        justify-content: space-around;
+    }
+    .MenuHeader {
+        line-height: 1rem;
+        display: block;
+        text-align: center;
+    }
+
+    .Diagrams {
+        margin-left: 1rem;
+        margin-right: 1rem;
     }
 }
 
-
-.Header {
-    font-family: 'Open Sans', sans-serif;
-    margin-left: 2rem;
-    margin-right: 2rem;
-    width: calc(100% - 4rem);
-}
-
-.RedBack {
-    background-color: red;
-    color: white;
-    width: 40px;
-    border-radius: 5px;
-    height: 30px;
-    padding-left: 6px;
-    padding-right: 6px;
-    padding-bottom: 3px;
-    margin-left: 3px;
-}

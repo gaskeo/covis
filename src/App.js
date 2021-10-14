@@ -69,25 +69,24 @@ function RenderCountriesCases(props) {
         <div className='DiagramContainer'>
             <h2>Случаи заболевания по странам всего</h2>
             <div className='BarChartContainer'>
-                <ResponsiveContainer width={window.innerWidth / diagramWidth} height={window.innerHeight / diagramHeight}>
-                    <BarChart className='BarChart'
-                              data={data}>
-                        <XAxis dataKey="name"/>
-                        <YAxis width={80} domain={[0, data[0]['случаи'] + 1000000]}/>
-                        <Tooltip/>
-                        <Bar dataKey='случаи' barSize={70} fill="#8884d8">
-                            {
-                                data.map((d, index) => {
-                                        if (d.name === 'Россия') {
-                                            return <Cell key={`cell-${index}`} fill={'#8884d8'}/>
-                                        }
-                                        return <Cell key={`cell-${index}`} fill={'#8882a8'}/>
+                <BarChart className='BarChart' width={window.innerWidth / diagramWidth}
+                          height={window.innerHeight / diagramHeight}
+                          data={data}>
+                    <XAxis dataKey="name"/>
+                    <YAxis width={80} domain={[0, data[0]['случаи'] + 1000000]}/>
+                    <Tooltip/>
+                    <Bar dataKey='случаи' barSize={70} fill="#8884d8">
+                        {
+                            data.map((d, index) => {
+                                    if (d.name === 'Россия') {
+                                        return <Cell key={`cell-${index}`} fill={'#8884d8'}/>
                                     }
-                                )
-                            }
-                        </Bar>
-                    </BarChart>
-                </ResponsiveContainer>
+                                    return <Cell key={`cell-${index}`} fill={'#8882a8'}/>
+                                }
+                            )
+                        }
+                    </Bar>
+                </BarChart>
             </div>
         </div>
     )
@@ -111,7 +110,8 @@ function RenderCountriesCasesToday(props) {
         <div className='DiagramContainer'>
             <h2>Случаи заболевания по странам сегодня</h2>
             <div className='BarChartContainer'>
-                <BarChart className='BarChart' width={window.innerWidth / diagramWidth} height={window.innerHeight / diagramHeight}
+                <BarChart className='BarChart' width={window.innerWidth / diagramWidth}
+                          height={window.innerHeight / diagramHeight}
                           data={data}>
                     <XAxis dataKey="name"/>
                     <YAxis width={80} domain={[0, sorted[sorted.length - 1]['случаев сегодня'] + 1000]}/>
@@ -151,7 +151,8 @@ function RenderCountriesRecovered(props) {
         <div className='DiagramContainer'>
             <h2>Выздоровело по странам всего</h2>
             <div className='BarChartContainer'>
-                <BarChart className='BarChart' width={window.innerWidth / diagramWidth} height={window.innerHeight / diagramHeight}
+                <BarChart className='BarChart' width={window.innerWidth / diagramWidth}
+                          height={window.innerHeight / diagramHeight}
                           data={data}>
                     <XAxis dataKey="name"/>
                     <YAxis width={80} domain={[0, sorted[sorted.length - 1]['выздоровело'] + 1000000]}/>
@@ -191,7 +192,8 @@ function RenderCountriesRecoveredToday(props) {
         <div className='DiagramContainer'>
             <h2>Выздоровело сегодня</h2>
             <div className='BarChartContainer'>
-                <BarChart className='BarChart' width={window.innerWidth / diagramWidth} height={window.innerHeight / diagramHeight}
+                <BarChart className='BarChart' width={window.innerWidth / diagramWidth}
+                          height={window.innerHeight / diagramHeight}
                           data={data}>
                     <XAxis dataKey="name"/>
                     <YAxis width={80} domain={[0, sorted[sorted.length - 1]['выздоровело сегодня'] + 1000]}/>
@@ -231,7 +233,8 @@ function RenderCountriesTests(props) {
         <div className='DiagramContainer'>
             <h2>Всего тестов сделано</h2>
             <div className='BarChartContainer'>
-                <BarChart className='BarChart' width={window.innerWidth / diagramWidth} height={window.innerHeight / diagramHeight}
+                <BarChart className='BarChart' width={window.innerWidth / diagramWidth}
+                          height={window.innerHeight / diagramHeight}
                           data={data}>
                     <XAxis dataKey="name"/>
                     <YAxis width={80} domain={[0, sorted[sorted.length - 1]['тестов'] + 10000000]}/>
@@ -269,7 +272,8 @@ function RenderRussiaCasesHistory(props) {
         <div className='DiagramContainer'>
             <h2>Случаи заболевания по России за месяц</h2>
             <div className='BarChartContainer'>
-                <LineChart className='BarChart' width={window.innerWidth / diagramWidth} height={window.innerHeight / diagramHeight}
+                <LineChart className='BarChart' width={window.innerWidth / diagramWidth}
+                           height={window.innerHeight / diagramHeight}
                            data={cases}>
                     <Line type="monotone" dataKey="Случаев" stroke="#8884d8" activeDot={{r: 12}}/>
                     <CartesianGrid vertical={false} stroke="#ccc"/>
@@ -299,7 +303,8 @@ function RenderRussiaRecoveryHistory(props) {
         <div className='DiagramContainer'>
             <h2>Случаи выздоровления по России за месяц</h2>
             <div className='BarChartContainer'>
-                <LineChart className='BarChart' width={window.innerWidth / diagramWidth} height={window.innerHeight / diagramHeight}
+                <LineChart className='BarChart' width={window.innerWidth / diagramWidth}
+                           height={window.innerHeight / diagramHeight}
                            data={cases}>
                     <Line type="monotone" dataKey="Выздоровело" stroke="#8884d8" activeDot={{r: 12}}/>
                     <CartesianGrid vertical={false} stroke="#ccc"/>
@@ -329,7 +334,8 @@ function RenderRussiaDeathsHistory(props) {
         <div className='DiagramContainer'>
             <h2>Случаи смертей по России за месяц</h2>
             <div className='BarChartContainer'>
-                <LineChart className='BarChart' width={window.innerWidth / diagramWidth} height={window.innerHeight / diagramHeight}
+                <LineChart className='BarChart' width={window.innerWidth / diagramWidth}
+                           height={window.innerHeight / diagramHeight}
                            data={cases}>
                     <Line type="monotone" dataKey="Смертей" stroke="#8884d8" activeDot={{r: 12}}/>
                     <CartesianGrid vertical={false} stroke="#ccc"/>
@@ -411,7 +417,8 @@ function RenderRussiaRegion(props) {
             <div className='DiagramContainer'>
                 <h2>Случаи заболевания по региону {region}</h2>
                 <div className='BarChartContainer'>
-                    <LineChart className='BarChart' width={window.innerWidth / diagramWidth} height={window.innerHeight / diagramHeight}
+                    <LineChart className='BarChart' width={window.innerWidth / diagramWidth}
+                               height={window.innerHeight / diagramHeight}
                                data={cases}>
                         <Line type="monotone" dataKey="Случаев" stroke="#8884d8" activeDot={{r: 12}}/>
                         <CartesianGrid vertical={false} stroke="#ccc"/>
@@ -425,7 +432,8 @@ function RenderRussiaRegion(props) {
             <div className='DiagramContainer'>
                 <h2>Случаи смертей по региону {region}</h2>
                 <div className='BarChartContainer'>
-                    <LineChart className='BarChart' width={window.innerWidth / diagramWidth} height={window.innerHeight / diagramHeight}
+                    <LineChart className='BarChart' width={window.innerWidth / diagramWidth}
+                               height={window.innerHeight / diagramHeight}
                                data={deaths}>
                         <Line type="monotone" dataKey="Смертей" stroke="#8884d8" activeDot={{r: 12}}/>
                         <CartesianGrid vertical={false} stroke="#ccc"/>
@@ -542,17 +550,24 @@ function App() {
                 <h1>co<span className='RedBack'>vis</span></h1>
             </div>
             <div className='Menu'>
-                <h3>Мир</h3>
-                <button className='MenuButton' onClick={() => updateAllCountriesTab(1)}>Всего заболеваний</button>
-                <button className='MenuButton' onClick={() => updateAllCountriesTab(2)}>Заболеваний сегодня</button>
-                <button className='MenuButton' onClick={() => updateAllCountriesTab(3)}>Всего выздоровело</button>
-                <button className='MenuButton' onClick={() => updateAllCountriesTab(4)}>Выздоровело сегодня</button>
-                <button className='MenuButton' onClick={() => updateAllCountriesTab(5)}>Тестов сделано</button>
-                <h3>Россия</h3>
-                <button className='MenuButton' onClick={() => updateAllCountriesTab(6)}>История заболеваний</button>
-                <button className='MenuButton' onClick={() => updateAllCountriesTab(7)}>История выздоровлений</button>
-                <button className='MenuButton' onClick={() => updateAllCountriesTab(8)}>История смертей</button>
-                <button className='MenuButton' onClick={() => updateAllCountriesTab(9)}>Статистика по регионам</button>
+                <div className='MenuSection'>
+                    <h3 className='MenuHeader'>Мир</h3>
+                    <button className='MenuButton' onClick={() => updateAllCountriesTab(1)}>Всего заболеваний</button>
+                    <button className='MenuButton' onClick={() => updateAllCountriesTab(2)}>Заболеваний сегодня</button>
+                    <button className='MenuButton' onClick={() => updateAllCountriesTab(3)}>Всего выздоровело</button>
+                    <button className='MenuButton' onClick={() => updateAllCountriesTab(4)}>Выздоровело сегодня</button>
+                    <button className='MenuButton' onClick={() => updateAllCountriesTab(5)}>Тестов сделано</button>
+                </div>
+                <div className='MenuSection'>
+                    <h3 className='MenuHeader'>Россия</h3>
+                    <button className='MenuButton' onClick={() => updateAllCountriesTab(6)}>История заболеваний</button>
+                    <button className='MenuButton' onClick={() => updateAllCountriesTab(7)}>История выздоровлений
+                    </button>
+                    <button className='MenuButton' onClick={() => updateAllCountriesTab(8)}>История смертей</button>
+                    <button className='MenuButton' onClick={() => updateAllCountriesTab(9)}>Статистика по регионам
+                    </button>
+                </div>
+
             </div>
             <div className='Diagrams'>
                 {alccdb}
