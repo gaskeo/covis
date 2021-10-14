@@ -14,8 +14,16 @@ import {
     ResponsiveContainer
 } from 'recharts';
 
-const diagramWidth = 1.3;
-const diagramHeight = 1.6;
+let diagramWidth;
+let diagramHeight;
+
+if (window.innerWidth >= 800) {
+    diagramWidth = 1.4;
+    diagramHeight = 1.6;
+} else {
+    diagramWidth = 1.1;
+    diagramHeight = 2.4;
+}
 const dataStates = {
     notRequested: 0,
     requested: 1,
