@@ -104,6 +104,126 @@ function RenderCountriesCasesToday(props) {
     )
 };
 
+function RenderCountriesRecovered(props) {
+    const id = 3;
+    if (props.activeTab !== id) {
+        return null;
+    }
+
+    const data = props.Data.map(d => {
+        if (countries[d['country']]) {
+            return {name: countries[d['country']], 'выздоровело': d['recovered']}
+        }
+        return null;
+    }).filter(a => a);
+    let sorted = data.slice();
+    sorted.sort((a, b) => a['выздоровело'] - b['выздоровело'])
+    return (
+        <div className='DiagramContainer'>
+            <h2>Выздоровело по странам всего</h2>
+            <div className='BarChartContainer'>
+                <BarChart className='BarChart' width={window.innerWidth / 1.2} height={window.innerHeight / 1.4}
+                          data={data}>
+                    <XAxis dataKey="name"/>
+                    <YAxis width={80} domain={[0, sorted[sorted.length - 1]['выздоровело'] + 1000000]}/>
+                    <Tooltip/>
+                    <Bar dataKey='выздоровело' barSize={70} fill="#8884d8">
+                        {
+                            data.map((d, index) => {
+                                    if (d.name == 'Россия') {
+                                        return <Cell key={`cell-${index}`} fill={'#8884d8'}/>
+                                    }
+                                    return <Cell key={`cell-${index}`} fill={'#8882a8'}/>
+                                }
+                            )
+                        }
+                    </Bar>
+                </BarChart>
+            </div>
+        </div>
+    )
+};
+
+function RenderCountriesRecoveredToday(props) {
+    const id = 4;
+    if (props.activeTab !== id) {
+        return null;
+    }
+
+    const data = props.Data.map(d => {
+        if (countries[d['country']]) {
+            return {name: countries[d['country']], 'выздоровело сегодня': d['todayRecovered']}
+        }
+        return null;
+    }).filter(a => a);
+    let sorted = data.slice();
+    sorted.sort((a, b) => a['выздоровело сегодня'] - b['выздоровело сегодня'])
+    return (
+        <div className='DiagramContainer'>
+            <h2>Случаи заболевания по странам сегодня</h2>
+            <div className='BarChartContainer'>
+                <BarChart className='BarChart' width={window.innerWidth / 1.2} height={window.innerHeight / 1.4}
+                          data={data}>
+                    <XAxis dataKey="name"/>
+                    <YAxis width={80} domain={[0, sorted[sorted.length - 1]['выздоровело сегодня'] + 1000]}/>
+                    <Tooltip/>
+                    <Bar dataKey='выздоровело сегодня' barSize={70} fill="#8884d8">
+                        {
+                            data.map((d, index) => {
+                                    if (d.name == 'Россия') {
+                                        return <Cell key={`cell-${index}`} fill={'#8884d8'}/>
+                                    }
+                                    return <Cell key={`cell-${index}`} fill={'#8882a8'}/>
+                                }
+                            )
+                        }
+                    </Bar>
+                </BarChart>
+            </div>
+        </div>
+    )
+};
+
+function RenderCountriesTests(props) {
+    const id = 5;
+    if (props.activeTab !== id) {
+        return null;
+    }
+
+    const data = props.Data.map(d => {
+        if (countries[d['country']]) {
+            return {name: countries[d['country']], 'тестов': d['tests']}
+        }
+        return null;
+    }).filter(a => a);
+    let sorted = data.slice();
+    sorted.sort((a, b) => a['тестов'] - b['тестов'])
+    return (
+        <div className='DiagramContainer'>
+            <h2>Случаи заболевания по странам сегодня</h2>
+            <div className='BarChartContainer'>
+                <BarChart className='BarChart' width={window.innerWidth / 1.2} height={window.innerHeight / 1.4}
+                          data={data}>
+                    <XAxis dataKey="name"/>
+                    <YAxis width={80} domain={[0, sorted[sorted.length - 1]['тестов'] + 10000000]}/>
+                    <Tooltip/>
+                    <Bar dataKey='тестов' barSize={70} fill="#8884d8">
+                        {
+                            data.map((d, index) => {
+                                    if (d.name == 'Россия') {
+                                        return <Cell key={`cell-${index}`} fill={'#8884d8'}/>
+                                    }
+                                    return <Cell key={`cell-${index}`} fill={'#8882a8'}/>
+                                }
+                            )
+                        }
+                    </Bar>
+                </BarChart>
+            </div>
+        </div>
+    )
+};
+
 function RenderRussiaHistory(props) {
     const cases = Object.keys(props.Data['timeline']['cases']).map(d => {
         return {name: d, 'Случаев': props.Data['timeline']['cases'][d]}
@@ -135,7 +255,7 @@ function App() {
 
     async function getCountriesCasesData() {
         updateAllCountriesCasesDataState(dataStates.requested)
-        return fetch('https://disease.sh/v3/covid-19/countries?sort=cases', {method: 'get'}).then((r) => {
+        return fetch('https://disease.sh/v3/covid-19/countries?sort=cases&yesterday=1', {method: 'get'}).then((r) => {
             r.json().then((j) => {
                 updateAllCountriesCases(j)
                 updateAllCountriesCasesDataState(dataStates.received)
@@ -162,9 +282,15 @@ function App() {
     }
     let alccdb = null;
     let alccdbt = null;
+    let alcrd = null;
+    let alcrdt = null;
+    let alctd = null;
     if (allCountriesCasesDataState == dataStates.received) {
         alccdb = <RenderCountriesCases activeTab={allCountriesTab} Data={allCountriesCases}></RenderCountriesCases>
         alccdbt = <RenderCountriesCasesToday activeTab={allCountriesTab} Data={allCountriesCases}></RenderCountriesCasesToday>
+        alcrd = <RenderCountriesRecovered activeTab={allCountriesTab} Data={allCountriesCases}></RenderCountriesRecovered>
+        alcrdt = <RenderCountriesRecoveredToday activeTab={allCountriesTab} Data={allCountriesCases}></RenderCountriesRecoveredToday>
+        alctd = <RenderCountriesTests activeTab={allCountriesTab} Data={allCountriesCases}></RenderCountriesTests>
     }
 
     // russia cases history
@@ -189,10 +315,16 @@ function App() {
                 <h3>Мир</h3>
                 <button className='MenuButton' onClick={() => updateAllCountriesTab(1)}>Всего заболеваний</button>
                 <button className='MenuButton' onClick={() => updateAllCountriesTab(2)}>Заболеваний сегодня</button>
+                <button className='MenuButton' onClick={() => updateAllCountriesTab(3)}>Всего выздоровело</button>
+                <button className='MenuButton' onClick={() => updateAllCountriesTab(4)}>Выздоровело сегодня</button>
+                <button className='MenuButton' onClick={() => updateAllCountriesTab(5)}>Тестов сделано</button>
             </div>
             <div className='Diagrams'>
                 {alccdb}
                 {alccdbt}
+                {alcrd}
+                {alcrdt}
+                {alctd}
                 {rch}
             </div>
         </div>
