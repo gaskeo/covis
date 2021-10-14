@@ -1,8 +1,21 @@
 import {useState} from 'react';
 
 import './App.css';
-import {BarChart, Bar, XAxis, YAxis, Tooltip, CartesianGrid, Cell, LineChart, Line} from 'recharts';
+import {
+    BarChart,
+    Bar,
+    XAxis,
+    YAxis,
+    Tooltip,
+    CartesianGrid,
+    Cell,
+    LineChart,
+    Line,
+    ResponsiveContainer
+} from 'recharts';
 
+const diagramWidth = 1.3;
+const diagramHeight = 1.6;
 const dataStates = {
     notRequested: 0,
     requested: 1,
@@ -48,23 +61,25 @@ function RenderCountriesCases(props) {
         <div className='DiagramContainer'>
             <h2>Случаи заболевания по странам всего</h2>
             <div className='BarChartContainer'>
-                <BarChart className='BarChart' width={window.innerWidth / 1.2} height={window.innerHeight / 1.4}
-                          data={data}>
-                    <XAxis dataKey="name"/>
-                    <YAxis width={80} domain={[0, data[0]['случаи'] + 1000000]}/>
-                    <Tooltip/>
-                    <Bar dataKey='случаи' barSize={70} fill="#8884d8">
-                        {
-                            data.map((d, index) => {
-                                    if (d.name === 'Россия') {
-                                        return <Cell key={`cell-${index}`} fill={'#8884d8'}/>
+                <ResponsiveContainer width={window.innerWidth / diagramWidth} height={window.innerHeight / diagramHeight}>
+                    <BarChart className='BarChart'
+                              data={data}>
+                        <XAxis dataKey="name"/>
+                        <YAxis width={80} domain={[0, data[0]['случаи'] + 1000000]}/>
+                        <Tooltip/>
+                        <Bar dataKey='случаи' barSize={70} fill="#8884d8">
+                            {
+                                data.map((d, index) => {
+                                        if (d.name === 'Россия') {
+                                            return <Cell key={`cell-${index}`} fill={'#8884d8'}/>
+                                        }
+                                        return <Cell key={`cell-${index}`} fill={'#8882a8'}/>
                                     }
-                                    return <Cell key={`cell-${index}`} fill={'#8882a8'}/>
-                                }
-                            )
-                        }
-                    </Bar>
-                </BarChart>
+                                )
+                            }
+                        </Bar>
+                    </BarChart>
+                </ResponsiveContainer>
             </div>
         </div>
     )
@@ -88,7 +103,7 @@ function RenderCountriesCasesToday(props) {
         <div className='DiagramContainer'>
             <h2>Случаи заболевания по странам сегодня</h2>
             <div className='BarChartContainer'>
-                <BarChart className='BarChart' width={window.innerWidth / 1.2} height={window.innerHeight / 1.4}
+                <BarChart className='BarChart' width={window.innerWidth / diagramWidth} height={window.innerHeight / diagramHeight}
                           data={data}>
                     <XAxis dataKey="name"/>
                     <YAxis width={80} domain={[0, sorted[sorted.length - 1]['случаев сегодня'] + 1000]}/>
@@ -128,9 +143,9 @@ function RenderCountriesRecovered(props) {
         <div className='DiagramContainer'>
             <h2>Выздоровело по странам всего</h2>
             <div className='BarChartContainer'>
-                <BarChart className='BarChart' width={window.innerWidth / 1.2} height={window.innerHeight / 1.4}
+                <BarChart className='BarChart' width={window.innerWidth / diagramWidth} height={window.innerHeight / diagramHeight}
                           data={data}>
-                    <XAxis dataKey="name" />
+                    <XAxis dataKey="name"/>
                     <YAxis width={80} domain={[0, sorted[sorted.length - 1]['выздоровело'] + 1000000]}/>
                     <Tooltip/>
                     <Bar dataKey='выздоровело' barSize={70} fill="#8884d8">
@@ -168,7 +183,7 @@ function RenderCountriesRecoveredToday(props) {
         <div className='DiagramContainer'>
             <h2>Выздоровело сегодня</h2>
             <div className='BarChartContainer'>
-                <BarChart className='BarChart' width={window.innerWidth / 1.2} height={window.innerHeight / 1.4}
+                <BarChart className='BarChart' width={window.innerWidth / diagramWidth} height={window.innerHeight / diagramHeight}
                           data={data}>
                     <XAxis dataKey="name"/>
                     <YAxis width={80} domain={[0, sorted[sorted.length - 1]['выздоровело сегодня'] + 1000]}/>
@@ -208,7 +223,7 @@ function RenderCountriesTests(props) {
         <div className='DiagramContainer'>
             <h2>Всего тестов сделано</h2>
             <div className='BarChartContainer'>
-                <BarChart className='BarChart' width={window.innerWidth / 1.2} height={window.innerHeight / 1.4}
+                <BarChart className='BarChart' width={window.innerWidth / diagramWidth} height={window.innerHeight / diagramHeight}
                           data={data}>
                     <XAxis dataKey="name"/>
                     <YAxis width={80} domain={[0, sorted[sorted.length - 1]['тестов'] + 10000000]}/>
@@ -246,9 +261,9 @@ function RenderRussiaCasesHistory(props) {
         <div className='DiagramContainer'>
             <h2>Случаи заболевания по России за месяц</h2>
             <div className='BarChartContainer'>
-                <LineChart className='BarChart' width={window.innerWidth / 1.2} height={window.innerHeight / 1.4}
+                <LineChart className='BarChart' width={window.innerWidth / diagramWidth} height={window.innerHeight / diagramHeight}
                            data={cases}>
-                    <Line type="monotone" dataKey="Случаев" stroke="#8884d8" activeDot={{ r: 12 }}/>
+                    <Line type="monotone" dataKey="Случаев" stroke="#8884d8" activeDot={{r: 12}}/>
                     <CartesianGrid vertical={false} stroke="#ccc"/>
                     <XAxis dataKey="name"/>
                     <YAxis width={80}
@@ -276,9 +291,9 @@ function RenderRussiaRecoveryHistory(props) {
         <div className='DiagramContainer'>
             <h2>Случаи выздоровления по России за месяц</h2>
             <div className='BarChartContainer'>
-                <LineChart className='BarChart' width={window.innerWidth / 1.2} height={window.innerHeight / 1.4}
+                <LineChart className='BarChart' width={window.innerWidth / diagramWidth} height={window.innerHeight / diagramHeight}
                            data={cases}>
-                    <Line type="monotone" dataKey="Выздоровело" stroke="#8884d8" activeDot={{ r: 12 }}/>
+                    <Line type="monotone" dataKey="Выздоровело" stroke="#8884d8" activeDot={{r: 12}}/>
                     <CartesianGrid vertical={false} stroke="#ccc"/>
                     <XAxis dataKey="name"/>
                     <YAxis width={80}
@@ -306,9 +321,9 @@ function RenderRussiaDeathsHistory(props) {
         <div className='DiagramContainer'>
             <h2>Случаи смертей по России за месяц</h2>
             <div className='BarChartContainer'>
-                <LineChart className='BarChart' width={window.innerWidth / 1.2} height={window.innerHeight / 1.4}
+                <LineChart className='BarChart' width={window.innerWidth / diagramWidth} height={window.innerHeight / diagramHeight}
                            data={cases}>
-                    <Line type="monotone" dataKey="Смертей" stroke="#8884d8" activeDot={{ r: 12 }}/>
+                    <Line type="monotone" dataKey="Смертей" stroke="#8884d8" activeDot={{r: 12}}/>
                     <CartesianGrid vertical={false} stroke="#ccc"/>
                     <XAxis dataKey="name"/>
                     <YAxis width={80}
@@ -371,7 +386,8 @@ function RenderRussiaRegion(props) {
             let year = date.getFullYear()
             return {
                 name: `${day}-${month}-${year}`, 'Случаев': d[0]
-            }})
+            }
+        })
 
         date = new Date(Date.now() - 30 * 3600 * 1000)
         let deaths = data['deaths'].slice(data['deaths'].length - 32).map(d => {
@@ -381,14 +397,15 @@ function RenderRussiaRegion(props) {
             let year = date.getFullYear()
             return {
                 name: `${day}-${month}-${year}`, 'Смертей': d[0]
-            }})
+            }
+        })
         mainData = <div>
             <div className='DiagramContainer'>
                 <h2>Случаи заболевания по региону {region}</h2>
                 <div className='BarChartContainer'>
-                    <LineChart className='BarChart' width={window.innerWidth / 1.2} height={window.innerHeight / 1.4}
+                    <LineChart className='BarChart' width={window.innerWidth / diagramWidth} height={window.innerHeight / diagramHeight}
                                data={cases}>
-                        <Line type="monotone" dataKey="Случаев" stroke="#8884d8" activeDot={{ r: 12 }}/>
+                        <Line type="monotone" dataKey="Случаев" stroke="#8884d8" activeDot={{r: 12}}/>
                         <CartesianGrid vertical={false} stroke="#ccc"/>
                         <XAxis dataKey="name"/>
                         <YAxis width={80}
@@ -400,9 +417,9 @@ function RenderRussiaRegion(props) {
             <div className='DiagramContainer'>
                 <h2>Случаи смертей по региону {region}</h2>
                 <div className='BarChartContainer'>
-                    <LineChart className='BarChart' width={window.innerWidth / 1.2} height={window.innerHeight / 1.4}
+                    <LineChart className='BarChart' width={window.innerWidth / diagramWidth} height={window.innerHeight / diagramHeight}
                                data={deaths}>
-                        <Line type="monotone" dataKey="Смертей" stroke="#8884d8" activeDot={{ r: 12 }}/>
+                        <Line type="monotone" dataKey="Смертей" stroke="#8884d8" activeDot={{r: 12}}/>
                         <CartesianGrid vertical={false} stroke="#ccc"/>
                         <XAxis dataKey="name"/>
                         <YAxis width={80}
@@ -413,14 +430,17 @@ function RenderRussiaRegion(props) {
             </div>
         </div>
     }
-    return <div>
-        <input type='text' list='suggestions' onChange={findRegionByStart}/>
-        <datalist id='suggestions'>
-            {props.Data.map(d => {
-                return <option key={d.code} id={d.code} value={d.name}/>
-            })}
-        </datalist>
-        <button className='SearchButton' disabled={!complete} onClick={searchRegion}>Найти</button>
+    return <div style={{width: '100%'}}>
+        <div className='InputForm'>
+            <input type='text' className='RegionInput' list='suggestions' onChange={findRegionByStart}
+                   placeholder='Введите регион'/>
+            <datalist id='suggestions'>
+                {props.Data.map(d => {
+                    return <option key={d.code} id={d.code} value={d.name}/>
+                })}
+            </datalist>
+            <button className='SearchButton' disabled={!complete} onClick={searchRegion}>Найти</button>
+        </div>
         {mainData}
     </div>
 
@@ -510,8 +530,8 @@ function App() {
 
     return (
         <div>
-            <div>
-                <h1>Статистика covid-19</h1>
+            <div className='Header'>
+                <h1>co<span className='RedBack'>vis</span></h1>
             </div>
             <div className='Menu'>
                 <h3>Мир</h3>

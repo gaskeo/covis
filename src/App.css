@@ -55,6 +55,7 @@ text {
     position: absolute;
     top: 4rem;
     left: 15rem;
+    width: calc(100% - 30rem);
 }
 
 .Menu {
@@ -97,9 +98,9 @@ text {
     color: black;
     border: 0 solid;
     -webkit-appearance: button !important;
-    line-height: 2rem;
+    line-height: 3rem;
     border-image: none;
-    font-size: 1em;
+    font-size: 1.4em;
     outline-offset: 0;
     outline: black;
     text-align: center;
@@ -110,4 +111,41 @@ text {
 
 .SearchButton:disabled {
     color: #aaa;
+}
+
+.RegionInput {
+    height: 3rem;
+    margin-right: 0.5rem;
+    border-radius: 0.3rem;
+    border: none;
+    font-size: 1.4em;
+    background-color: #eee;
+    padding-left: 0.4rem;
+    outline: none;
+}
+
+.InputForm {
+    margin-top: 1rem;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+}
+
+.Header {
+    font-family: 'Open Sans', sans-serif;
+    margin-left: 2rem;
+    margin-right: 2rem;
+    width: calc(100% - 4rem);
+}
+
+.RedBack {
+    background-color: red;
+    color: white;
+    width: 40px;
+    border-radius: 5px;
+    height: 30px;
+    padding-left: 6px;
+    padding-right: 6px;
+    padding-bottom: 3px;
+    margin-left: 3px;
 }
