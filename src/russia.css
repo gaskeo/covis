@@ -5,3 +5,7 @@
 .cls-1, .cls-2 {
     fill: #89FF7E;
 }
+
+.cls-1:hover {
+    opacity: 0.4;
+}

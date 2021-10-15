@@ -511,12 +511,12 @@ function RenderRussiaCasesMap(props) {
 
     let tt = null;
     if (activeRegion) {
-        tt = <div className='MapToolTip' style={{left: activeRegionPosition.x, top: activeRegionPosition.y}}><h4>{activeRegion}</h4><p>случаев: {getCasesByName(activeRegion)}</p></div>
+        tt = <div className='MapToolTip'><h4>{activeRegion}</h4><p>случаев: {getCasesByName(activeRegion)}</p></div>
     }
 
     return <div style={{position: "relative"}}>
-        {cssBlock}
         {tt}
+        {cssBlock}
         <RussiaSVG sendClick={onMapClick}/>
     </div>
 }
@@ -569,12 +569,12 @@ function RenderRussiaDeathsMap(props) {
 
     let tt = null;
     if (activeRegion) {
-        tt = <div className='MapToolTip' style={{left: activeRegionPosition.x, top: activeRegionPosition.y}}><h4>{activeRegion}</h4><p>случаев: {getCasesByName(activeRegion)}</p></div>
+        tt = <div className='MapToolTip'><h4>{activeRegion}</h4><p>случаев: {getCasesByName(activeRegion)}</p></div>
     }
 
     return <div style={{position: "relative"}}>
-        {cssBlock}
         {tt}
+        {cssBlock}
         <RussiaSVG sendClick={onMapClick}/>
     </div>
 }
