@@ -464,10 +464,28 @@ function RenderRussiaRegion(props) {
 }
 
 function RenderRussiaCasesMap(props) {
+    const [activeRegion, updateActiveRegion] = useState('');
+    const [activeRegionPosition, updateActiveRegionPosition] = useState({});
+
+    function onMapClick(e, region) {
+        updateActiveRegionPosition({x: e.target.getBoundingClientRect().x, y: e.target.getBoundingClientRect().y})
+        updateActiveRegion(region)
+    }
+
+    function getCasesByName(r) {
+        for (let d of prepareData) {
+            if (d.name === r) {
+                return d.cases;
+            }
+        }
+        return 0;
+    }
+
     const id = 10
     if (props.activeTab !== id) {
         return null;
     }
+
 
     let prepareData = Object.keys(props.Data).map(d => {
         if (props.Data[d]['info']['name'] === "Россия" || props.Data[d]['info']['name'] === "Москва") {
@@ -475,22 +493,89 @@ function RenderRussiaCasesMap(props) {
         }
         return props.Data[d]['info']
     }).filter(a => a);
-    console.log(prepareData)
+
     let sorted = prepareData.slice()
     sorted.sort(function (a, b) {
         return a['cases'] - b['cases']
     })
-    let maxCases = sorted[sorted.length - 1].cases;
-    console.log(maxCases)
+
     let cssBlock = prepareData.map(d => {
         let name = d.name
-        let opacity = d.cases / maxCases;
-        let cssText = `polyline[data-name="${name}"] {fill: rgba(220, 20, 60, ${opacity})};`
+        let opacity = Math.max(d.cases / d.population * 6, 0.05);
+        let cssText = `polyline[data-name="${name}"] {fill: rgba(220, 20, 60, ${opacity}) !important}
+        polygon[data-name="${name}"] {fill: rgba(220, 20, 60, ${opacity}) !important}
+        g[data-name="${name}"] {fill: rgba(220, 20, 60, ${opacity}) !important}
+        path[data-name="${name}"] {fill: rgba(220, 20, 60, ${opacity}) !important}`
         return <style type='text/css'>{cssText}</style>
     })
-    return <div>
+
+    let tt = null;
+    if (activeRegion) {
+        tt = <div className='MapToolTip' style={{left: activeRegionPosition.x, top: activeRegionPosition.y}}><h4>{activeRegion}</h4><p>случаев: {getCasesByName(activeRegion)}</p></div>
+    }
+
+    return <div style={{position: "relative"}}>
         {cssBlock}
-        {RussiaSVG}
+        {tt}
+        <RussiaSVG sendClick={onMapClick}/>
+    </div>
+}
+
+function RenderRussiaDeathsMap(props) {
+    const [activeRegion, updateActiveRegion] = useState('');
+    const [activeRegionPosition, updateActiveRegionPosition] = useState({});
+
+    function onMapClick(e, region) {
+        updateActiveRegionPosition({x: e.target.getBoundingClientRect().x, y: e.target.getBoundingClientRect().y})
+        updateActiveRegion(region)
+    }
+
+    function getCasesByName(r) {
+        for (let d of prepareData) {
+            if (d.name === r) {
+                return d.deaths;
+            }
+        }
+        return 0;
+    }
+
+    const id = 11
+    if (props.activeTab !== id) {
+        return null;
+    }
+
+
+    let prepareData = Object.keys(props.Data).map(d => {
+        if (props.Data[d]['info']['name'] === "Россия" || props.Data[d]['info']['name'] === "Москва") {
+            return null;
+        }
+        return props.Data[d]['info']
+    }).filter(a => a);
+
+    let sorted = prepareData.slice()
+    sorted.sort(function (a, b) {
+        return a['deaths'] - b['deaths']
+    })
+
+    let cssBlock = prepareData.map(d => {
+        let name = d.name
+        let opacity = Math.max(d.deaths / d.population * 200, 0.05);
+        let cssText = `polyline[data-name="${name}"] {fill: rgba(220, 20, 60, ${opacity}) !important}
+        polygon[data-name="${name}"] {fill: rgba(220, 20, 60, ${opacity}) !important}
+        g[data-name="${name}"] {fill: rgba(220, 20, 60, ${opacity}) !important}
+        path[data-name="${name}"] {fill: rgba(220, 20, 60, ${opacity}) !important}`
+        return <style type='text/css'>{cssText}</style>
+    })
+
+    let tt = null;
+    if (activeRegion) {
+        tt = <div className='MapToolTip' style={{left: activeRegionPosition.x, top: activeRegionPosition.y}}><h4>{activeRegion}</h4><p>случаев: {getCasesByName(activeRegion)}</p></div>
+    }
+
+    return <div style={{position: "relative"}}>
+        {cssBlock}
+        {tt}
+        <RussiaSVG sendClick={onMapClick}/>
     </div>
 }
 
@@ -571,11 +656,13 @@ function App() {
     let rrh = null;
     let rdh = null;
     let rmc = null;
+    let rmd = null;
     if (russiaCasesHistoryDataState === dataStates.received) {
         rch = <RenderRussiaCasesHistory activeTab={allCountriesTab} Data={russiaCasesHistory}/>
         rrh = <RenderRussiaRecoveryHistory activeTab={allCountriesTab} Data={russiaCasesHistory}/>
         rdh = <RenderRussiaDeathsHistory activeTab={allCountriesTab} Data={russiaCasesHistory}/>
         rmc = <RenderRussiaCasesMap activeTab={allCountriesTab} Data={russiaRegionsData}/>
+        rmd = <RenderRussiaDeathsMap activeTab={allCountriesTab} Data={russiaRegionsData}/>
     } else {
         alccdb = null;
     }
@@ -602,7 +689,9 @@ function App() {
                     <button className='MenuButton' onClick={() => updateAllCountriesTab(8)}>История смертей</button>
                     <button className='MenuButton' onClick={() => updateAllCountriesTab(9)}>Статистика по регионам
                     </button>
-                    <button className='MenuButton' onClick={() => updateAllCountriesTab(10)}>Карта заболеваний
+                    <button className='MenuButton' onClick={() => updateAllCountriesTab(10)}>плотность случаев заболевания
+                    </button>
+                    <button className='MenuButton' onClick={() => updateAllCountriesTab(11)}>плотность случаев смертей
                     </button>
                 </div>
 
@@ -618,6 +707,7 @@ function App() {
                 {rdh}
                 {rrd}
                 {rmc}
+                {rmd}
             </div>
         </div>
     )
