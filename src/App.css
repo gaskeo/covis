@@ -137,6 +137,63 @@
     justify-content: center;
 }
 
+.RegionSuggestions > p {
+    background-color: #fef;
+    width: calc(21% - 0.2rem);
+    padding: 0.1rem;
+    border-radius: 1rem;
+    text-align: center;
+    height: 6rem;
+    margin-left: 2%;
+    margin-right: 2%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.4em;
+}
+
+.CloseButton {
+    position: absolute;
+    background-color: transparent;
+    right: 1rem;
+    top: 1rem;
+    width: 2rem;
+    height: 2rem;
+    display: flex;
+    border: none;
+    outline: none;
+    border-radius: 50%;
+
+}
+
+.CloseButton:hover {
+    background-color: #ddd;
+}
+
+.close-x {
+    stroke: black;
+    fill: transparent;
+    stroke-linecap: round;
+    stroke-width: 5;
+}
+
+
+.RegionSuggestionBlock {
+    position: relative;
+    width: 100%;
+    background-color: #eee;
+    padding-top: 3rem;
+    border-radius: 2rem;
+}
+
+.RegionSuggestions {
+    width: 100%;
+    display: flex;
+    justify-content: left;
+    flex-wrap: wrap;
+}
+
+
 @media only screen and (min-width: 800px) {
     .DiagramContainer {
         width: 80%;
@@ -223,7 +280,20 @@
         margin-top: 0;
         margin-bottom: 0;
     }
+
+    .RegionSuggestionBlock {
+        border-radius: 0.3rem;
+    }
+
+    .RegionSuggestions {
+        flex-direction: column;
+    }
+    .RegionSuggestions > p {
+        width: auto;
+        padding: 0.6rem 0.2rem;
+        height: auto;
+        margin-top: 0.4rem;
+        margin-bottom: 0.4rem;
+    }
 }
-
-
 

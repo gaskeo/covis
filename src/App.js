@@ -78,7 +78,7 @@ function RenderCountriesCases(props) {
                     <XAxis dataKey="name"/>
                     <YAxis width={80} domain={[0, data[0]['случаев заболевания'] + 1000000]}/>
                     <Tooltip/>
-                    <Bar dataKey='случаев заболевания' barSize={70} >
+                    <Bar dataKey='случаев заболевания' barSize={70}>
                         {
                             data.map((d, index) => {
                                     if (d.name === 'Россия') {
@@ -164,7 +164,7 @@ function RenderCountriesRecovered(props) {
                         {
                             data.map((d, index) => {
                                     if (d.name === 'Россия') {
-                                        return <Cell key={`cell-${index}`}  fill={goodColor} style={{opacity: 0.5}}/>
+                                        return <Cell key={`cell-${index}`} fill={goodColor} style={{opacity: 0.5}}/>
                                     }
                                     return <Cell key={`cell-${index}`} fill={goodColor}/>
                                 }
@@ -309,7 +309,8 @@ function RenderRussiaRecoveryHistory(props) {
                 <LineChart className='BarChart' width={window.innerWidth / diagramWidth}
                            height={window.innerHeight / diagramHeight}
                            data={cases}>
-                    <Line type="monotone" dataKey="выздоровлений на данный день" stroke={goodColor} activeDot={{r: 12}}/>
+                    <Line type="monotone" dataKey="выздоровлений на данный день" stroke={goodColor}
+                          activeDot={{r: 12}}/>
                     <CartesianGrid vertical={false} stroke="#ccc"/>
                     <XAxis dataKey="name"/>
                     <YAxis width={80}
@@ -355,37 +356,49 @@ function RenderRussiaDeathsHistory(props) {
 function RenderRussiaRegion(props) {
     function findRegionByStart(e) {
         updateRegion(e.target.value)
+
+        updateSuggestions(names.map(r => {
+            if (r.toLowerCase().startsWith(e.target.value.toLowerCase())) {
+                return r
+            }
+            return null
+        }).filter(a => a))
+
         if (names.includes(e.target.value.toLowerCase())) {
             return updateComplete(true)
         }
         return updateComplete(false)
     }
 
-    async function searchRegion() {
+    async function searchRegion(reg) {
         if (dataState === dataStates.requested) {
             return
         }
         updateDataState(dataStates.requested)
         let index = 1;
-        for (let [name, i] in Object.entries(props.Data)) {
-            if (name === region) {
-                index = i;
+        for (let i in Object.entries(props.Data)) {
+            if (props.Data[i].name.toLowerCase() === reg.toLowerCase()) {
+                index = props.Data[i].code;
                 break;
             }
         }
         return fetch(`https://milab.s3.yandex.net/2020/covid19-stat/data/v10/data-by-region/${index}.json?`, {method: 'get'}).then((r) => {
             r.json().then(j => {
                 updateData(j)
+                updateFoundRegion(reg)
                 updateDataState(dataStates.received)
             })
         })
     }
+    let names = props.Data.map(d => d.name.toLowerCase())
 
     let [complete, updateComplete] = useState(false);
-    let [region, updateRegion] = useState(null);
+    let [region, updateRegion] = useState('');
     let [data, updateData] = useState(null);
     let [dataState, updateDataState] = useState(dataStates.notRequested)
-    let names = props.Data.map(d => d.name.toLowerCase())
+    let [isSearch, updateIsSearch] = useState(0);
+    let [suggestions, updateSuggestions] = useState(names);
+    let [foundRegion, updateFoundRegion] = useState('');
     const id = 9
     if (props.activeTab !== id) {
         return null;
@@ -418,12 +431,13 @@ function RenderRussiaRegion(props) {
         })
         mainData = <div>
             <div className='DiagramContainer'>
-                <h2>Случаи заболевания по региону {region}</h2>
+                <h2>Случаи заболевания по региону: {foundRegion}</h2>
                 <div className='BarChartContainer'>
                     <LineChart className='BarChart' width={window.innerWidth / diagramWidth}
                                height={window.innerHeight / diagramHeight}
                                data={cases}>
-                        <Line type="monotone" dataKey="заболеваний на данный день" stroke={badColor} activeDot={{r: 12}}/>
+                        <Line type="monotone" dataKey="заболеваний на данный день" stroke={badColor}
+                              activeDot={{r: 12}}/>
                         <CartesianGrid vertical={false} stroke="#ccc"/>
                         <XAxis dataKey="name"/>
                         <YAxis width={80}
@@ -433,7 +447,7 @@ function RenderRussiaRegion(props) {
                 </div>
             </div>
             <div className='DiagramContainer'>
-                <h2>Случаи смертей по региону {region}</h2>
+                <h2>Случаи смертей по региону: {foundRegion}</h2>
                 <div className='BarChartContainer'>
                     <LineChart className='BarChart' width={window.innerWidth / diagramWidth}
                                height={window.innerHeight / diagramHeight}
@@ -449,17 +463,38 @@ function RenderRussiaRegion(props) {
             </div>
         </div>
     }
+
+    let searchData = null;
+    if (isSearch) {
+        searchData = (
+            <div className='RegionSuggestionBlock'>
+                <button className='CloseButton' onClick={() => updateIsSearch(0)}>
+                        <svg viewBox="0 0 40 40">
+                            <path className="close-x" d="M 10,10 L 30,30 M 30,10 L 10,30"/>
+                        </svg>
+                </button>
+                <div className='RegionSuggestions'>
+                    {suggestions.map((d, index) => <p onClick={(e) => {
+                        updateRegion(d);
+                        updateIsSearch(0);
+                        searchRegion(d);
+                    }} key={index}>{d}</p>)}
+                </div>
+            </div>
+        )
+    }
     return <div style={{width: '100%'}}>
         <div className='InputForm'>
-            <input type='text' className='RegionInput' list='suggestions' onChange={findRegionByStart}
+            <input type='text' className='RegionInput' list='suggestions' value={region} onChange={findRegionByStart}
+                   onFocus={() => updateIsSearch(1)}
                    placeholder='Введите регион'/>
-            <datalist id='suggestions'>
-                {props.Data.map(d => {
-                    return <option key={d.code} id={d.code} value={d.name}/>
-                })}
-            </datalist>
-            <button className='SearchButton' disabled={!complete} onClick={searchRegion}>Найти</button>
+            <button className='SearchButton' disabled={!complete} onClick={() => {
+                searchRegion(region);
+                updateIsSearch(0);
+            }}>Найти</button>
         </div>
+        {searchData}
+
         {mainData}
     </div>
 
@@ -511,7 +546,8 @@ function RenderRussiaCasesMap(props) {
 
     let tt = <div className='MapToolTip' style={{color: 'transparent'}}><h4>1</h4><p>1</p></div>;
     if (activeRegion) {
-        tt = <div className='MapToolTip'><h4>{activeRegion}</h4><p>случаев заболевания: {getCasesByName(activeRegion)}</p></div>
+        tt = <div className='MapToolTip'><h4>{activeRegion}</h4><p>случаев
+            заболевания: {getCasesByName(activeRegion)}</p></div>
     }
 
     return <div style={{position: "relative"}}>
@@ -567,7 +603,8 @@ function RenderRussiaDeathsMap(props) {
 
     let tt = <div className='MapToolTip' style={{color: 'transparent'}}><h4>1</h4><p>1</p></div>;
     if (activeRegion) {
-        tt = <div className='MapToolTip'><h4>{activeRegion}</h4><p>случаев смертей: {getCasesByName(activeRegion)}</p></div>
+        tt = <div className='MapToolTip'><h4>{activeRegion}</h4><p>случаев смертей: {getCasesByName(activeRegion)}</p>
+        </div>
     }
 
     return <div style={{position: "relative"}}>
@@ -673,23 +710,41 @@ function App() {
             <div className='Menu'>
                 <div className='MenuSection'>
                     <h3 className='MenuHeader'>Мир</h3>
-                    <button className={['MenuButton', 'BadButton'].join(' ')} onClick={() => updateAllCountriesTab(1)}>Всего заболеваний</button>
-                    <button className={['MenuButton', 'BadButton'].join(' ')} onClick={() => updateAllCountriesTab(2)}>Заболеваний сегодня</button>
-                    <button className={['MenuButton', 'GoodButton'].join(' ')} onClick={() => updateAllCountriesTab(3)}>Всего выздоровлений</button>
-                    <button className={['MenuButton', 'GoodButton'].join(' ')} onClick={() => updateAllCountriesTab(4)}>Выздоровлений сегодня</button>
-                    <button className={['MenuButton', 'GoodButton'].join(' ')} onClick={() => updateAllCountriesTab(5)}>Тестов сделано</button>
+                    <button className={['MenuButton', 'BadButton'].join(' ')}
+                            onClick={() => updateAllCountriesTab(1)}>Всего заболеваний
+                    </button>
+                    <button className={['MenuButton', 'BadButton'].join(' ')}
+                            onClick={() => updateAllCountriesTab(2)}>Заболеваний сегодня
+                    </button>
+                    <button className={['MenuButton', 'GoodButton'].join(' ')}
+                            onClick={() => updateAllCountriesTab(3)}>Всего выздоровлений
+                    </button>
+                    <button className={['MenuButton', 'GoodButton'].join(' ')}
+                            onClick={() => updateAllCountriesTab(4)}>Выздоровлений сегодня
+                    </button>
+                    <button className={['MenuButton', 'GoodButton'].join(' ')}
+                            onClick={() => updateAllCountriesTab(5)}>Тестов сделано
+                    </button>
                 </div>
                 <div className='MenuSection'>
                     <h3 className='MenuHeader'>Россия</h3>
-                    <button className={['MenuButton', 'BadButton'].join(' ')} onClick={() => updateAllCountriesTab(6)}>Заболеваний за месяц</button>
-                    <button className={['MenuButton', 'GoodButton'].join(' ')} onClick={() => updateAllCountriesTab(7)}>Выздоровлений за месяц
+                    <button className={['MenuButton', 'BadButton'].join(' ')}
+                            onClick={() => updateAllCountriesTab(6)}>Заболеваний за месяц
                     </button>
-                    <button className={['MenuButton', 'BadButton'].join(' ')}  onClick={() => updateAllCountriesTab(8)}>Смертей за месяц</button>
-                    <button className={['MenuButton', 'BadButton'].join(' ')} onClick={() => updateAllCountriesTab(9)}>Поиск по регионам
+                    <button className={['MenuButton', 'GoodButton'].join(' ')}
+                            onClick={() => updateAllCountriesTab(7)}>Выздоровлений за месяц
                     </button>
-                    <button className={['MenuButton', 'BadButton'].join(' ')} onClick={() => updateAllCountriesTab(10)}>Заболевания на карте
+                    <button className={['MenuButton', 'BadButton'].join(' ')}
+                            onClick={() => updateAllCountriesTab(8)}>Смертей за месяц
                     </button>
-                    <button className={['MenuButton', 'BadButton'].join(' ')} onClick={() => updateAllCountriesTab(11)}>Смерти на карте
+                    <button className={['MenuButton', 'BadButton'].join(' ')}
+                            onClick={() => updateAllCountriesTab(9)}>Поиск по регионам
+                    </button>
+                    <button className={['MenuButton', 'BadButton'].join(' ')}
+                            onClick={() => updateAllCountriesTab(10)}>Заболевания на карте
+                    </button>
+                    <button className={['MenuButton', 'BadButton'].join(' ')}
+                            onClick={() => updateAllCountriesTab(11)}>Смерти на карте
                     </button>
                 </div>
 
