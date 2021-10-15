@@ -14,6 +14,8 @@ import {
     Line,
 } from 'recharts';
 
+const goodColor = '#0fff83';
+const badColor = '#ff7a66'
 
 let diagramWidth;
 let diagramHeight;
@@ -80,9 +82,9 @@ function RenderCountriesCases(props) {
                         {
                             data.map((d, index) => {
                                     if (d.name === 'Россия') {
-                                        return <Cell key={`cell-${index}`} fill={'#8884d8'}/>
+                                        return <Cell key={`cell-${index}`} fill={badColor} style={{opacity: 0.5}}/>
                                     }
-                                    return <Cell key={`cell-${index}`} fill={'#8882a8'}/>
+                                    return <Cell key={`cell-${index}`} fill={badColor}/>
                                 }
                             )
                         }
@@ -121,9 +123,9 @@ function RenderCountriesCasesToday(props) {
                         {
                             data.map((d, index) => {
                                     if (d.name === 'Россия') {
-                                        return <Cell key={`cell-${index}`} fill={'#8884d8'}/>
+                                        return <Cell key={`cell-${index}`} fill={badColor} style={{opacity: 0.5}}/>
                                     }
-                                    return <Cell key={`cell-${index}`} fill={'#8882a8'}/>
+                                    return <Cell key={`cell-${index}`} fill={badColor}/>
                                 }
                             )
                         }
@@ -162,9 +164,9 @@ function RenderCountriesRecovered(props) {
                         {
                             data.map((d, index) => {
                                     if (d.name === 'Россия') {
-                                        return <Cell key={`cell-${index}`} fill={'#8884d8'}/>
+                                        return <Cell key={`cell-${index}`}  fill={goodColor} style={{opacity: 0.5}}/>
                                     }
-                                    return <Cell key={`cell-${index}`} fill={'#8882a8'}/>
+                                    return <Cell key={`cell-${index}`} fill={goodColor}/>
                                 }
                             )
                         }
@@ -203,9 +205,9 @@ function RenderCountriesRecoveredToday(props) {
                         {
                             data.map((d, index) => {
                                     if (d.name === 'Россия') {
-                                        return <Cell key={`cell-${index}`} fill={'#8884d8'}/>
+                                        return <Cell key={`cell-${index}`} fill={goodColor} style={{opacity: 0.5}}/>
                                     }
-                                    return <Cell key={`cell-${index}`} fill={'#8882a8'}/>
+                                    return <Cell key={`cell-${index}`} fill={goodColor}/>
                                 }
                             )
                         }
@@ -244,9 +246,9 @@ function RenderCountriesTests(props) {
                         {
                             data.map((d, index) => {
                                     if (d.name === 'Россия') {
-                                        return <Cell key={`cell-${index}`} fill={'#8884d8'}/>
+                                        return <Cell key={`cell-${index}`} fill={goodColor} style={{opacity: 0.5}}/>
                                     }
-                                    return <Cell key={`cell-${index}`} fill={'#8882a8'}/>
+                                    return <Cell key={`cell-${index}`} fill={goodColor}/>
                                 }
                             )
                         }
@@ -276,7 +278,7 @@ function RenderRussiaCasesHistory(props) {
                 <LineChart className='BarChart' width={window.innerWidth / diagramWidth}
                            height={window.innerHeight / diagramHeight}
                            data={cases}>
-                    <Line type="monotone" dataKey="Случаев" stroke="#8884d8" activeDot={{r: 12}}/>
+                    <Line type="monotone" dataKey="Случаев" stroke={badColor} activeDot={{r: 12}}/>
                     <CartesianGrid vertical={false} stroke="#ccc"/>
                     <XAxis dataKey="name"/>
                     <YAxis width={80}
@@ -307,7 +309,7 @@ function RenderRussiaRecoveryHistory(props) {
                 <LineChart className='BarChart' width={window.innerWidth / diagramWidth}
                            height={window.innerHeight / diagramHeight}
                            data={cases}>
-                    <Line type="monotone" dataKey="Выздоровело" stroke="#8884d8" activeDot={{r: 12}}/>
+                    <Line type="monotone" dataKey="Выздоровело" stroke={goodColor} activeDot={{r: 12}}/>
                     <CartesianGrid vertical={false} stroke="#ccc"/>
                     <XAxis dataKey="name"/>
                     <YAxis width={80}
@@ -338,7 +340,7 @@ function RenderRussiaDeathsHistory(props) {
                 <LineChart className='BarChart' width={window.innerWidth / diagramWidth}
                            height={window.innerHeight / diagramHeight}
                            data={cases}>
-                    <Line type="monotone" dataKey="Смертей" stroke="#8884d8" activeDot={{r: 12}}/>
+                    <Line type="monotone" dataKey="Смертей" stroke={badColor} activeDot={{r: 12}}/>
                     <CartesianGrid vertical={false} stroke="#ccc"/>
                     <XAxis dataKey="name"/>
                     <YAxis width={80}
@@ -421,7 +423,7 @@ function RenderRussiaRegion(props) {
                     <LineChart className='BarChart' width={window.innerWidth / diagramWidth}
                                height={window.innerHeight / diagramHeight}
                                data={cases}>
-                        <Line type="monotone" dataKey="Случаев" stroke="#8884d8" activeDot={{r: 12}}/>
+                        <Line type="monotone" dataKey="Случаев" stroke={badColor} activeDot={{r: 12}}/>
                         <CartesianGrid vertical={false} stroke="#ccc"/>
                         <XAxis dataKey="name"/>
                         <YAxis width={80}
@@ -436,7 +438,7 @@ function RenderRussiaRegion(props) {
                     <LineChart className='BarChart' width={window.innerWidth / diagramWidth}
                                height={window.innerHeight / diagramHeight}
                                data={deaths}>
-                        <Line type="monotone" dataKey="Смертей" stroke="#8884d8" activeDot={{r: 12}}/>
+                        <Line type="monotone" dataKey="Смертей" stroke={badColor} activeDot={{r: 12}}/>
                         <CartesianGrid vertical={false} stroke="#ccc"/>
                         <XAxis dataKey="name"/>
                         <YAxis width={80}
@@ -465,10 +467,8 @@ function RenderRussiaRegion(props) {
 
 function RenderRussiaCasesMap(props) {
     const [activeRegion, updateActiveRegion] = useState('');
-    const [activeRegionPosition, updateActiveRegionPosition] = useState({});
 
     function onMapClick(e, region) {
-        updateActiveRegionPosition({x: e.target.getBoundingClientRect().x, y: e.target.getBoundingClientRect().y})
         updateActiveRegion(region)
     }
 
@@ -523,10 +523,8 @@ function RenderRussiaCasesMap(props) {
 
 function RenderRussiaDeathsMap(props) {
     const [activeRegion, updateActiveRegion] = useState('');
-    const [activeRegionPosition, updateActiveRegionPosition] = useState({});
 
     function onMapClick(e, region) {
-        updateActiveRegionPosition({x: e.target.getBoundingClientRect().x, y: e.target.getBoundingClientRect().y})
         updateActiveRegion(region)
     }
 
@@ -675,23 +673,23 @@ function App() {
             <div className='Menu'>
                 <div className='MenuSection'>
                     <h3 className='MenuHeader'>Мир</h3>
-                    <button className='MenuButton' onClick={() => updateAllCountriesTab(1)}>Всего заболеваний</button>
-                    <button className='MenuButton' onClick={() => updateAllCountriesTab(2)}>Заболеваний сегодня</button>
-                    <button className='MenuButton' onClick={() => updateAllCountriesTab(3)}>Всего выздоровело</button>
-                    <button className='MenuButton' onClick={() => updateAllCountriesTab(4)}>Выздоровело сегодня</button>
-                    <button className='MenuButton' onClick={() => updateAllCountriesTab(5)}>Тестов сделано</button>
+                    <button className={['MenuButton', 'BadButton'].join(' ')} onClick={() => updateAllCountriesTab(1)}>Всего заболеваний</button>
+                    <button className={['MenuButton', 'BadButton'].join(' ')} onClick={() => updateAllCountriesTab(2)}>Заболеваний сегодня</button>
+                    <button className={['MenuButton', 'GoodButton'].join(' ')} onClick={() => updateAllCountriesTab(3)}>Всего выздоровело</button>
+                    <button className={['MenuButton', 'GoodButton'].join(' ')} onClick={() => updateAllCountriesTab(4)}>Выздоровело сегодня</button>
+                    <button className={['MenuButton', 'GoodButton'].join(' ')} onClick={() => updateAllCountriesTab(5)}>Тестов сделано</button>
                 </div>
                 <div className='MenuSection'>
                     <h3 className='MenuHeader'>Россия</h3>
-                    <button className='MenuButton' onClick={() => updateAllCountriesTab(6)}>История заболеваний</button>
-                    <button className='MenuButton' onClick={() => updateAllCountriesTab(7)}>История выздоровлений
+                    <button className={['MenuButton', 'BadButton'].join(' ')} onClick={() => updateAllCountriesTab(6)}>История заболеваний</button>
+                    <button className={['MenuButton', 'GoodButton'].join(' ')} onClick={() => updateAllCountriesTab(7)}>История выздоровлений
                     </button>
-                    <button className='MenuButton' onClick={() => updateAllCountriesTab(8)}>История смертей</button>
-                    <button className='MenuButton' onClick={() => updateAllCountriesTab(9)}>Статистика по регионам
+                    <button className={['MenuButton', 'BadButton'].join(' ')}  onClick={() => updateAllCountriesTab(8)}>История смертей</button>
+                    <button className={['MenuButton', 'BadButton'].join(' ')} onClick={() => updateAllCountriesTab(9)}>Статистика по регионам
                     </button>
-                    <button className='MenuButton' onClick={() => updateAllCountriesTab(10)}>плотность случаев заболевания
+                    <button className={['MenuButton', 'BadButton'].join(' ')} onClick={() => updateAllCountriesTab(10)}>плотность случаев заболевания
                     </button>
-                    <button className='MenuButton' onClick={() => updateAllCountriesTab(11)}>плотность случаев смертей
+                    <button className={['MenuButton', 'BadButton'].join(' ')} onClick={() => updateAllCountriesTab(11)}>плотность случаев смертей
                     </button>
                 </div>
 

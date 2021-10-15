@@ -77,12 +77,20 @@
     margin-bottom: 0.3rem;
 }
 
-.MenuButton:hover {
-    background-color: #eee;
+.BadButton:hover {
+    background-color: #ff7a66;
 }
 
-.MenuButton:focus {
-    background-color: #dcd;
+.BadButton:focus {
+    background-color: #ff7a66;
+}
+
+.GoodButton:hover {
+    background-color: #0fff83;
+}
+
+.GoodButton:focus {
+    background-color: #0fff83;
 }
 
 .SearchButton {
@@ -200,7 +208,6 @@
 }
 
 .MapToolTip {
-    background-color: white;
     position: absolute;
     padding: 2rem;
 }
