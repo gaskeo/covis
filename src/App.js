@@ -548,14 +548,14 @@ function RenderRussiaCasesMap(props) {
         return a['cases'] - b['cases']
     })
 
-    let cssBlock = prepareData.map(d => {
+    let cssBlock = prepareData.map((d, index) => {
         let name = d.name
         let opacity = Math.max(d.cases / d.population * 6, 0.05);
         let cssText = `polyline[data-name="${name}"] {fill: rgba(220, 20, 60, ${opacity}) !important}
         polygon[data-name="${name}"] {fill: rgba(220, 20, 60, ${opacity}) !important}
         g[data-name="${name}"] {fill: rgba(220, 20, 60, ${opacity}) !important}
         path[data-name="${name}"] {fill: rgba(220, 20, 60, ${opacity}) !important}`
-        return <style type='text/css'>{cssText}</style>
+        return <style key={index} type='text/css'>{cssText}</style>
     })
 
     let tt = <div className='MapToolTip' style={{color: 'transparent'}}><h4>1</h4><p>1</p></div>;
@@ -605,14 +605,14 @@ function RenderRussiaDeathsMap(props) {
         return a['deaths'] - b['deaths']
     })
 
-    let cssBlock = prepareData.map(d => {
+    let cssBlock = prepareData.map((d, index) => {
         let name = d.name
         let opacity = Math.max(d.deaths / d.population * 200, 0.05);
         let cssText = `polyline[data-name="${name}"] {fill: rgba(220, 20, 60, ${opacity}) !important}
         polygon[data-name="${name}"] {fill: rgba(220, 20, 60, ${opacity}) !important}
         g[data-name="${name}"] {fill: rgba(220, 20, 60, ${opacity}) !important}
         path[data-name="${name}"] {fill: rgba(220, 20, 60, ${opacity}) !important}`
-        return <style type='text/css'>{cssText}</style>
+        return <style key={index} type='text/css'>{cssText}</style>
     })
 
     let tt = <div className='MapToolTip' style={{color: 'transparent'}}><h4>1</h4><p>1</p></div>;

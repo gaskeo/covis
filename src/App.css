@@ -160,6 +160,8 @@
     width: 2rem;
     height: 2rem;
     display: flex;
+    justify-content: center;
+    align-items: center;
     border: none;
     outline: none;
     border-radius: 50%;
