@@ -32,7 +32,10 @@ const dataStates = {
     requested: 1,
     received: 2
 }
-
+const countriesRu = [
+    'США', 'Индия', 'Бразилия', 'Великобритания', 'Россия', 'Турция', 'Франция', 'Иран', 'Аргентина',
+    'Испания', 'Колумбия', 'Италия', 'Германия', 'Индонезия', 'Мексика', 'Польша', 'ЮАР', 'Филиппины', 'Украина'
+]
 const countries = {
     'USA': 'США',
     'India': 'Индия',
@@ -62,12 +65,15 @@ function RenderCountriesCases(props) {
         return null;
     }
 
-    const data = props.Data.map(d => {
-        if (countries[d['country']]) {
-            return {name: countries[d['country']], 'случаев заболевания': d['cases']}
+    const data = Object.keys(props.Data).map(d => {
+        if (countriesRu.includes(props.Data[d].info['name'])) {
+            return {name: props.Data[d].info['name'], 'случаев заболевания': props.Data[d].info['cases']}
         }
         return null;
     }).filter(a => a);
+
+    data.sort((a, b) => a.name.localeCompare(b.name))
+
     return (
         <div className='DiagramContainer'>
             <h2>Всего заболеваний</h2>
@@ -101,12 +107,15 @@ function RenderCountriesCasesToday(props) {
         return null;
     }
 
-    const data = props.Data.map(d => {
-        if (countries[d['country']]) {
-            return {name: countries[d['country']], 'случаев заболевания сегодня': d['todayCases']}
+    const data = Object.keys(props.Data).map(d => {
+        if (countriesRu.includes(props.Data[d].info['name'])) {
+            return {name: props.Data[d].info['name'], 'случаев заболевания сегодня': props.Data[d].info['cases_delta']}
         }
         return null;
     }).filter(a => a);
+
+    data.sort((a, b) => a.name.localeCompare(b.name))
+
     let sorted = data.slice();
     sorted.sort((a, b) => a['случаев заболевания сегодня'] - b['случаев заболевания сегодня'])
     return (
@@ -136,37 +145,38 @@ function RenderCountriesCasesToday(props) {
     )
 }
 
-function RenderCountriesRecovered(props) {
+function RenderCountriesDeaths(props) {
     const id = 3;
     if (props.activeTab !== id) {
         return null;
     }
 
-    const data = props.Data.map(d => {
-        if (countries[d['country']]) {
-            return {name: countries[d['country']], 'выздоровлений': d['recovered']}
+    const data = Object.keys(props.Data).map(d => {
+        if (countriesRu.includes(props.Data[d].info['name'])) {
+            return {name: props.Data[d].info['name'], 'случаев смертей': props.Data[d].info['deaths']}
         }
         return null;
     }).filter(a => a);
-    let sorted = data.slice();
-    sorted.sort((a, b) => a['выздоровлений'] - b['выздоровлений'])
+
+    data.sort((a, b) => a.name.localeCompare(b.name))
+
     return (
         <div className='DiagramContainer'>
-            <h2>Всего выздоровелений</h2>
+            <h2>Всего заболеваний</h2>
             <div className='BarChartContainer'>
                 <BarChart className='BarChart' width={window.innerWidth / diagramWidth}
                           height={window.innerHeight / diagramHeight}
                           data={data}>
                     <XAxis dataKey="name"/>
-                    <YAxis width={80} domain={[0, sorted[sorted.length - 1]['выздоровлений'] + 1000000]}/>
+                    <YAxis width={80} domain={[0, data[0]['случаев смертей'] + 1000000]}/>
                     <Tooltip/>
-                    <Bar dataKey='выздоровлений' barSize={70}>
+                    <Bar dataKey='случаев смертей' barSize={70}>
                         {
                             data.map((d, index) => {
                                     if (d.name === 'Россия') {
-                                        return <Cell key={`cell-${index}`} fill={goodColor} style={{opacity: 0.5}}/>
+                                        return <Cell key={`cell-${index}`} fill={badColor} style={{opacity: 0.5}}/>
                                     }
-                                    return <Cell key={`cell-${index}`} fill={goodColor}/>
+                                    return <Cell key={`cell-${index}`} fill={badColor}/>
                                 }
                             )
                         }
@@ -177,31 +187,77 @@ function RenderCountriesRecovered(props) {
     )
 }
 
-function RenderCountriesRecoveredToday(props) {
+function RenderCountriesDeathsToday(props) {
     const id = 4;
     if (props.activeTab !== id) {
         return null;
     }
 
-    const data = props.Data.map(d => {
-        if (countries[d['country']]) {
-            return {name: countries[d['country']], 'выздоровлений сегодня': d['todayRecovered']}
+    const data = Object.keys(props.Data).map(d => {
+        if (countriesRu.includes(props.Data[d].info['name'])) {
+            return {name: props.Data[d].info['name'], 'случаев смертей сегодня': props.Data[d].info['deaths_delta']}
         }
         return null;
     }).filter(a => a);
+
+    data.sort((a, b) => a.name.localeCompare(b.name))
+
     let sorted = data.slice();
-    sorted.sort((a, b) => a['выздоровлений сегодня'] - b['выздоровлений сегодня'])
+    sorted.sort((a, b) => a['случаев смертей сегодня'] - b['случаев смертей сегодня'])
     return (
         <div className='DiagramContainer'>
-            <h2>Выздоровлений сегодня</h2>
+            <h2>Заболеваний сегодня</h2>
             <div className='BarChartContainer'>
                 <BarChart className='BarChart' width={window.innerWidth / diagramWidth}
                           height={window.innerHeight / diagramHeight}
                           data={data}>
                     <XAxis dataKey="name"/>
-                    <YAxis width={80} domain={[0, sorted[sorted.length - 1]['выздоровлений сегодня'] + 1000]}/>
+                    <YAxis width={80} domain={[0, sorted[sorted.length - 1]['случаев смертей сегодня'] + 1000]}/>
                     <Tooltip/>
-                    <Bar dataKey='выздоровлений сегодня' barSize={70} fill="#8884d8">
+                    <Bar dataKey='случаев смертей сегодня' barSize={70}>
+                        {
+                            data.map((d, index) => {
+                                    if (d.name === 'Россия') {
+                                        return <Cell key={`cell-${index}`} fill={badColor} style={{opacity: 0.5}}/>
+                                    }
+                                    return <Cell key={`cell-${index}`} fill={badColor}/>
+                                }
+                            )
+                        }
+                    </Bar>
+                </BarChart>
+            </div>
+        </div>
+    )
+}
+
+function RenderCountriesVaccines(props) {
+    const id = 12;
+    if (props.activeTab !== id) {
+        return null;
+    }
+    let data = Object.keys(props.Data).map(d => {
+        if (countriesRu.includes(props.Data[d]['name_ru'])) {
+            return {name: props.Data[d]['name_ru'], 'вакцин сделано': props.Data[d]['vac']}
+        }
+        return null;
+    }).filter(a => a);
+
+    data.sort((a, b) => a.name.localeCompare(b.name))
+
+    let sorted = data.slice();
+    sorted.sort((a, b) => a['вакцин сделано'] - b['вакцин сделано'])
+    return (
+        <div className='DiagramContainer'>
+            <h2>Вакцин сделано</h2>
+            <div className='BarChartContainer'>
+                <BarChart className='BarChart' width={window.innerWidth / diagramWidth}
+                          height={window.innerHeight / diagramHeight}
+                          data={data}>
+                    <XAxis dataKey="name"/>
+                    <YAxis width={80} domain={[0, sorted[sorted.length - 1]['вакцин сделано'] + 10000000]}/>
+                    <Tooltip/>
+                    <Bar dataKey='вакцин сделано' barSize={70}>
                         {
                             data.map((d, index) => {
                                     if (d.name === 'Россия') {
@@ -218,31 +274,33 @@ function RenderCountriesRecoveredToday(props) {
     )
 }
 
-function RenderCountriesTests(props) {
-    const id = 5;
+function RenderCountriesFullVaccines(props) {
+    const id = 13;
     if (props.activeTab !== id) {
         return null;
     }
-
-    const data = props.Data.map(d => {
-        if (countries[d['country']]) {
-            return {name: countries[d['country']], 'тестов сделано': d['tests']}
+    let data = Object.keys(props.Data).map(d => {
+        if (countriesRu.includes(props.Data[d]['name_ru'])) {
+            return {name: props.Data[d]['name_ru'], 'полных вакцин сделано': props.Data[d]['peop_full_vac']}
         }
         return null;
     }).filter(a => a);
+
+    data.sort((a, b) => a.name.localeCompare(b.name))
+
     let sorted = data.slice();
-    sorted.sort((a, b) => a['тестов сделано'] - b['тестов сделано'])
+    sorted.sort((a, b) => a['полных вакцин сделано'] - b['полных вакцин сделано'])
     return (
         <div className='DiagramContainer'>
-            <h2>Тестов сделано</h2>
+            <h2>Вакцин сделано</h2>
             <div className='BarChartContainer'>
                 <BarChart className='BarChart' width={window.innerWidth / diagramWidth}
                           height={window.innerHeight / diagramHeight}
                           data={data}>
                     <XAxis dataKey="name"/>
-                    <YAxis width={80} domain={[0, sorted[sorted.length - 1]['тестов сделано'] + 10000000]}/>
+                    <YAxis width={80} domain={[0, sorted[sorted.length - 1]['полных вакцин сделано'] + 10000000]}/>
                     <Tooltip/>
-                    <Bar dataKey='тестов сделано' barSize={70}>
+                    <Bar dataKey='полных вакцин сделано' barSize={70}>
                         {
                             data.map((d, index) => {
                                     if (d.name === 'Россия') {
@@ -390,6 +448,7 @@ function RenderRussiaRegion(props) {
             })
         })
     }
+
     let names = props.Data.map(d => d.name.toLowerCase())
 
     let [complete, updateComplete] = useState(false);
@@ -469,9 +528,9 @@ function RenderRussiaRegion(props) {
         searchData = (
             <div className='RegionSuggestionBlock'>
                 <button className='CloseButton' onClick={() => updateIsSearch(0)}>
-                        <svg viewBox="0 0 40 40">
-                            <path className="close-x" d="M 10,10 L 30,30 M 30,10 L 10,30"/>
-                        </svg>
+                    <svg viewBox="0 0 40 40">
+                        <path className="close-x" d="M 10,10 L 30,30 M 30,10 L 10,30"/>
+                    </svg>
                 </button>
                 <div className='RegionSuggestions'>
                     {suggestions.map((d, index) => <p onClick={(e) => {
@@ -491,7 +550,8 @@ function RenderRussiaRegion(props) {
             <button className='SearchButton' disabled={!complete} onClick={() => {
                 searchRegion(region);
                 updateIsSearch(0);
-            }}>Найти</button>
+            }}>Найти
+            </button>
         </div>
         {searchData}
 
@@ -615,16 +675,6 @@ function RenderRussiaDeathsMap(props) {
 }
 
 function App() {
-    async function getCountriesCasesData() {
-        updateAllCountriesCasesDataState(dataStates.requested)
-        return fetch('https://disease.sh/v3/covid-19/countries?sort=cases&yesterday=1', {method: 'get'}).then((r) => {
-            r.json().then((j) => {
-                updateAllCountriesCases(j)
-                updateAllCountriesCasesDataState(dataStates.received)
-            })
-        })
-    }
-
     async function getRussiaCasesHistoryData() {
         updateRussiaCasesHistoryDataState(dataStates.requested)
         return fetch('https://disease.sh/v3/covid-19/historical/Russia?lastdays=30', {method: 'get'}).then((r) => {
@@ -635,11 +685,13 @@ function App() {
         })
     }
 
-    async function getRussiaRegionsData() {
+    async function getCountriesAndRussianRegionsData() {
         updateRussiaRegionsDataState(dataStates.requested)
         return fetch('https://milab.s3.yandex.net/2020/covid19-stat/data/v10/default_data.json', {method: 'get'}).then((r) => {
             r.json().then(j => {
+                updateAllCountriesCases(j['world_stat_struct']['data'])
                 updateRussiaRegionsData(j['russia_stat_struct']['data'])
+                updateAllCountriesVaccineData(j['vaccination_struct'])
                 let data = Object.keys(j['russia_stat_struct']['data']).map(d => {
                     return {name: j['russia_stat_struct']['data'][d]['info']['name'].toString(), code: d}
                 })
@@ -652,29 +704,35 @@ function App() {
     // all countries cases
     const [allCountriesTab, updateAllCountriesTab] = useState(1);
     const [allCountriesCases, updateAllCountriesCases] = useState(null);
-    const [allCountriesCasesDataState, updateAllCountriesCasesDataState] = useState(dataStates.notRequested);
-    if (allCountriesCasesDataState === dataStates.notRequested) {
-        let _ = getCountriesCasesData();
-    }
+
+    const [russiaRegions, updateRussiaRegions] = useState(null);
+    const [russiaRegionsData, updateRussiaRegionsData] = useState(null);
+    const [russiaRegionsDataState, updateRussiaRegionsDataState] = useState(dataStates.notRequested);
+
     let alccdb = null;
     let alccdbt = null;
     let alcrd = null;
     let alcrdt = null;
     let alctd = null;
-    if (allCountriesCasesDataState === dataStates.received) {
+    if (russiaRegionsDataState === dataStates.received) {
         alccdb = <RenderCountriesCases activeTab={allCountriesTab} Data={allCountriesCases}/>
         alccdbt = <RenderCountriesCasesToday activeTab={allCountriesTab} Data={allCountriesCases}/>
-        alcrd = <RenderCountriesRecovered activeTab={allCountriesTab} Data={allCountriesCases}/>
-        alcrdt = <RenderCountriesRecoveredToday activeTab={allCountriesTab} Data={allCountriesCases}/>
-        alctd = <RenderCountriesTests activeTab={allCountriesTab} Data={allCountriesCases}/>
+        alcrd = <RenderCountriesDeaths activeTab={allCountriesTab} Data={allCountriesCases}/>
+        alcrdt = <RenderCountriesDeathsToday activeTab={allCountriesTab} Data={allCountriesCases}/>
+    }
+
+    const [allCountriesVaccineData, updateAllCountriesVaccineData] = useState(null);
+    let acvd = null;
+    let acfvd = null;
+    if (russiaRegionsDataState === dataStates.received) {
+        acvd = <RenderCountriesVaccines activeTab={allCountriesTab} Data={allCountriesVaccineData}/>
+        acfvd = <RenderCountriesFullVaccines activeTab={allCountriesTab} Data={allCountriesVaccineData}/>
     }
 
     // russia cases history
-    const [russiaRegions, updateRussiaRegions] = useState(null);
-    const [russiaRegionsData, updateRussiaRegionsData] = useState(null);
-    const [russiaRegionsDataState, updateRussiaRegionsDataState] = useState(dataStates.notRequested);
+
     if (russiaRegionsDataState === dataStates.notRequested) {
-        let _ = getRussiaRegionsData();
+        let _ = getCountriesAndRussianRegionsData();
     }
 
     const [russiaCasesHistory, updateRussiaCasesHistory] = useState(null);
@@ -716,14 +774,17 @@ function App() {
                     <button className={['MenuButton', 'BadButton'].join(' ')}
                             onClick={() => updateAllCountriesTab(2)}>Заболеваний сегодня
                     </button>
-                    <button className={['MenuButton', 'GoodButton'].join(' ')}
-                            onClick={() => updateAllCountriesTab(3)}>Всего выздоровлений
+                    <button className={['MenuButton', 'BadButton'].join(' ')}
+                            onClick={() => updateAllCountriesTab(3)}>Всего смертей
+                    </button>
+                    <button className={['MenuButton', 'BadButton'].join(' ')}
+                            onClick={() => updateAllCountriesTab(4)}>Смертей сегодня
                     </button>
                     <button className={['MenuButton', 'GoodButton'].join(' ')}
-                            onClick={() => updateAllCountriesTab(4)}>Выздоровлений сегодня
+                            onClick={() => updateAllCountriesTab(12)}>Вакцин сделано
                     </button>
                     <button className={['MenuButton', 'GoodButton'].join(' ')}
-                            onClick={() => updateAllCountriesTab(5)}>Тестов сделано
+                            onClick={() => updateAllCountriesTab(13)}>Количество полных вакцинаций
                     </button>
                 </div>
                 <div className='MenuSection'>
@@ -755,6 +816,8 @@ function App() {
                 {alcrd}
                 {alcrdt}
                 {alctd}
+                {acvd}
+                {acfvd}
                 {rch}
                 {rrh}
                 {rdh}
