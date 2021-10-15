@@ -78,19 +78,19 @@
 }
 
 .BadButton:hover {
-    background-color: #ff7a66;
+    background-color: #CD5C5C;
 }
 
 .BadButton:focus {
-    background-color: #ff7a66;
+    background-color: #CD5C5C;
 }
 
 .GoodButton:hover {
-    background-color: #0fff83;
+    background-color: #00F067;
 }
 
 .GoodButton:focus {
-    background-color: #0fff83;
+    background-color: #00F067;
 }
 
 .SearchButton {

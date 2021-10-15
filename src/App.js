@@ -14,8 +14,8 @@ import {
     Line,
 } from 'recharts';
 
-const goodColor = '#0fff83';
-const badColor = '#ff7a66'
+const goodColor = '#00F067';
+const badColor = '#CD5C5C'
 
 let diagramWidth;
 let diagramHeight;
