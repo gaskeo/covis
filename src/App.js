@@ -36,29 +36,8 @@ const countriesRu = [
     'США', 'Индия', 'Бразилия', 'Великобритания', 'Россия', 'Турция', 'Франция', 'Иран', 'Аргентина',
     'Испания', 'Колумбия', 'Италия', 'Германия', 'Индонезия', 'Мексика', 'Польша', 'ЮАР', 'Филиппины', 'Украина'
 ]
-const countries = {
-    'USA': 'США',
-    'India': 'Индия',
-    'Brazil': 'Бразилия',
-    'UK': 'Англия',
-    'Russia': 'Россия',
-    'Turkey': 'Турция',
-    'France': 'Франция',
-    'Iran': 'Иран',
-    'Argentina': 'Аргентина',
-    'Spain': 'Испания',
-    'Colombia': 'Колумбия',
-    'Italy': 'Италия',
-    'Germany': 'Германия',
-    'Indonesia': 'Индонезия',
-    'Mexico': 'Мексика',
-    'Poland': 'Польша',
-    'South Africa': 'Южная Африка',
-    'Philippines': 'Филипины',
-    'Ukraine': 'Украина',
-    'Malaysia': 'Малазия'
-};
 
+// countries
 function RenderCountriesCases(props) {
     const id = 1;
     if (props.activeTab !== id) {
@@ -317,17 +296,21 @@ function RenderCountriesFullVaccines(props) {
     )
 }
 
+// russia
 function RenderRussiaCasesHistory(props) {
     const id = 6;
     if (props.activeTab !== id) {
         return null;
     }
-    const cases = Object.keys(props.Data['timeline']['cases']).map(d => {
-        let date = new Date(d)
+    let date = new Date()
+    date.setDate(date.getDate() - 30)
+    const cases = Object.keys(props.Data['cases']).slice(Object.keys(props.Data['cases']).length - 30).map(d => {
+        console.log(1)
         let day = (date.getDate()).toString().padStart(2, '0')
         let month = (date.getMonth() + 1).toString().padStart(2, '0')
         let year = date.getFullYear()
-        return {name: `${day}-${month}-${year}`, 'заболеваний на данный день': props.Data['timeline']['cases'][d]}
+        date.setDate(date.getDate() + 1)
+        return {name: `${day}-${month}-${year}`, 'заболеваний на данный день': props.Data['cases'][d][1]}
     })
     return (
         <div className='DiagramContainer'>
@@ -348,49 +331,20 @@ function RenderRussiaCasesHistory(props) {
     )
 }
 
-function RenderRussiaRecoveryHistory(props) {
-    const id = 7;
-    if (props.activeTab !== id) {
-        return null;
-    }
-    const cases = Object.keys(props.Data['timeline']['recovered']).map(d => {
-        let date = new Date(d)
-        let day = (date.getDate()).toString().padStart(2, '0')
-        let month = (date.getMonth() + 1).toString().padStart(2, '0')
-        let year = date.getFullYear()
-        return {name: `${day}-${month}-${year}`, 'выздоровлений на данный день': props.Data['timeline']['recovered'][d]}
-    })
-    return (
-        <div className='DiagramContainer'>
-            <h2>Выздоровлений за месяц</h2>
-            <div className='BarChartContainer'>
-                <LineChart className='BarChart' width={window.innerWidth / diagramWidth}
-                           height={window.innerHeight / diagramHeight}
-                           data={cases}>
-                    <Line type="monotone" dataKey="выздоровлений на данный день" stroke={goodColor}
-                          activeDot={{r: 12}}/>
-                    <CartesianGrid vertical={false} stroke="#ccc"/>
-                    <XAxis dataKey="name"/>
-                    <YAxis width={80}
-                           domain={[cases[0]['выздоровлений на данный день'] - 100000, cases[cases.length - 1]['выздоровлений на данный день'] + 100000]}/>
-                    <Tooltip/>
-                </LineChart>
-            </div>
-        </div>
-    )
-}
-
 function RenderRussiaDeathsHistory(props) {
     const id = 8;
     if (props.activeTab !== id) {
         return null;
     }
-    const cases = Object.keys(props.Data['timeline']['deaths']).map(d => {
-        let date = new Date(d)
+    let date = new Date()
+    date.setDate(date.getDate() - 30)
+    const cases = Object.keys(props.Data['deaths']).slice(Object.keys(props.Data['deaths']).length - 30).map(d => {
+        console.log(1)
         let day = (date.getDate()).toString().padStart(2, '0')
         let month = (date.getMonth() + 1).toString().padStart(2, '0')
         let year = date.getFullYear()
-        return {name: `${day}-${month}-${year}`, 'смертей на данный день': props.Data['timeline']['deaths'][d]}
+        date.setDate(date.getDate() + 1)
+        return {name: `${day}-${month}-${year}`, 'смертей на данный день': props.Data['deaths'][d][0]}
     })
     return (
         <div className='DiagramContainer'>
@@ -677,7 +631,7 @@ function RenderRussiaDeathsMap(props) {
 function App() {
     async function getRussiaCasesHistoryData() {
         updateRussiaCasesHistoryDataState(dataStates.requested)
-        return fetch('https://disease.sh/v3/covid-19/historical/Russia?lastdays=30', {method: 'get'}).then((r) => {
+        return fetch('https://milab.s3.yandex.net/2020/covid19-stat/data/v10/data-by-region/225.json', {method: 'get'}).then((r) => {
             r.json().then((j) => {
                 updateRussiaCasesHistory(j)
                 updateRussiaCasesHistoryDataState(dataStates.received)
@@ -687,25 +641,31 @@ function App() {
 
     async function getCountriesAndRussianRegionsData() {
         updateRussiaRegionsDataState(dataStates.requested)
+        updateAllCountriesDataState(dataStates.requested)
+        updateAllCountriesVaccineDataState(dataStates.requested)
         return fetch('https://milab.s3.yandex.net/2020/covid19-stat/data/v10/default_data.json', {method: 'get'}).then((r) => {
             r.json().then(j => {
-                updateAllCountriesCases(j['world_stat_struct']['data'])
+                updateAllCountriesData(j['world_stat_struct']['data'])
                 updateRussiaRegionsData(j['russia_stat_struct']['data'])
                 updateAllCountriesVaccineData(j['vaccination_struct'])
+
+                updateAllCountriesDataState(dataStates.received)
+                updateAllCountriesVaccineDataState(dataStates.received)
                 let data = Object.keys(j['russia_stat_struct']['data']).map(d => {
                     return {name: j['russia_stat_struct']['data'][d]['info']['name'].toString(), code: d}
                 })
-                updateRussiaRegions(data)
+                updateRussiaRegionsIds(data)
                 updateRussiaRegionsDataState(dataStates.received)
             })
         })
     }
 
     // all countries cases
-    const [allCountriesTab, updateAllCountriesTab] = useState(1);
-    const [allCountriesCases, updateAllCountriesCases] = useState(null);
+    const [activeTab, updateActiveTab] = useState(1);
+    const [allCountriesData, updateAllCountriesData] = useState(null);
+    const [allCountriesDataState, updateAllCountriesDataState] = useState(dataStates.notRequested);
 
-    const [russiaRegions, updateRussiaRegions] = useState(null);
+    const [russiaRegionsIds, updateRussiaRegionsIds] = useState(null);
     const [russiaRegionsData, updateRussiaRegionsData] = useState(null);
     const [russiaRegionsDataState, updateRussiaRegionsDataState] = useState(dataStates.notRequested);
 
@@ -713,20 +673,21 @@ function App() {
     let alccdbt = null;
     let alcrd = null;
     let alcrdt = null;
-    let alctd = null;
-    if (russiaRegionsDataState === dataStates.received) {
-        alccdb = <RenderCountriesCases activeTab={allCountriesTab} Data={allCountriesCases}/>
-        alccdbt = <RenderCountriesCasesToday activeTab={allCountriesTab} Data={allCountriesCases}/>
-        alcrd = <RenderCountriesDeaths activeTab={allCountriesTab} Data={allCountriesCases}/>
-        alcrdt = <RenderCountriesDeathsToday activeTab={allCountriesTab} Data={allCountriesCases}/>
+    if (allCountriesDataState === dataStates.received) {
+        alccdb = <RenderCountriesCases activeTab={activeTab} Data={allCountriesData}/>
+        alccdbt = <RenderCountriesCasesToday activeTab={activeTab} Data={allCountriesData}/>
+        alcrd = <RenderCountriesDeaths activeTab={activeTab} Data={allCountriesData}/>
+        alcrdt = <RenderCountriesDeathsToday activeTab={activeTab} Data={allCountriesData}/>
     }
 
     const [allCountriesVaccineData, updateAllCountriesVaccineData] = useState(null);
+    const [allCountriesVaccineDataState, updateAllCountriesVaccineDataState] = useState(dataStates.notRequested);
+
     let acvd = null;
     let acfvd = null;
-    if (russiaRegionsDataState === dataStates.received) {
-        acvd = <RenderCountriesVaccines activeTab={allCountriesTab} Data={allCountriesVaccineData}/>
-        acfvd = <RenderCountriesFullVaccines activeTab={allCountriesTab} Data={allCountriesVaccineData}/>
+    if (allCountriesVaccineDataState === dataStates.received) {
+        acvd = <RenderCountriesVaccines activeTab={activeTab} Data={allCountriesVaccineData}/>
+        acfvd = <RenderCountriesFullVaccines activeTab={activeTab} Data={allCountriesVaccineData}/>
     }
 
     // russia cases history
@@ -742,20 +703,18 @@ function App() {
     }
     let rrd = null;
     if (russiaRegionsDataState === dataStates.received) {
-        rrd = <RenderRussiaRegion activeTab={allCountriesTab} Data={russiaRegions}/>
+        rrd = <RenderRussiaRegion activeTab={activeTab} Data={russiaRegionsIds}/>
     }
 
     let rch = null;
-    let rrh = null;
     let rdh = null;
     let rmc = null;
     let rmd = null;
     if (russiaCasesHistoryDataState === dataStates.received) {
-        rch = <RenderRussiaCasesHistory activeTab={allCountriesTab} Data={russiaCasesHistory}/>
-        rrh = <RenderRussiaRecoveryHistory activeTab={allCountriesTab} Data={russiaCasesHistory}/>
-        rdh = <RenderRussiaDeathsHistory activeTab={allCountriesTab} Data={russiaCasesHistory}/>
-        rmc = <RenderRussiaCasesMap activeTab={allCountriesTab} Data={russiaRegionsData}/>
-        rmd = <RenderRussiaDeathsMap activeTab={allCountriesTab} Data={russiaRegionsData}/>
+        rch = <RenderRussiaCasesHistory activeTab={activeTab} Data={russiaCasesHistory}/>
+        rdh = <RenderRussiaDeathsHistory activeTab={activeTab} Data={russiaCasesHistory}/>
+        rmc = <RenderRussiaCasesMap activeTab={activeTab} Data={russiaRegionsData}/>
+        rmd = <RenderRussiaDeathsMap activeTab={activeTab} Data={russiaRegionsData}/>
     } else {
         alccdb = null;
     }
@@ -769,43 +728,40 @@ function App() {
                 <div className='MenuSection'>
                     <h3 className='MenuHeader'>Мир</h3>
                     <button className={['MenuButton', 'BadButton'].join(' ')}
-                            onClick={() => updateAllCountriesTab(1)}>Всего заболеваний
+                            onClick={() => updateActiveTab(1)}>Всего заболеваний
                     </button>
                     <button className={['MenuButton', 'BadButton'].join(' ')}
-                            onClick={() => updateAllCountriesTab(2)}>Заболеваний сегодня
+                            onClick={() => updateActiveTab(2)}>Заболеваний сегодня
                     </button>
                     <button className={['MenuButton', 'BadButton'].join(' ')}
-                            onClick={() => updateAllCountriesTab(3)}>Всего смертей
+                            onClick={() => updateActiveTab(3)}>Всего смертей
                     </button>
                     <button className={['MenuButton', 'BadButton'].join(' ')}
-                            onClick={() => updateAllCountriesTab(4)}>Смертей сегодня
+                            onClick={() => updateActiveTab(4)}>Смертей сегодня
                     </button>
                     <button className={['MenuButton', 'GoodButton'].join(' ')}
-                            onClick={() => updateAllCountriesTab(12)}>Вакцин сделано
+                            onClick={() => updateActiveTab(12)}>Вакцин сделано
                     </button>
                     <button className={['MenuButton', 'GoodButton'].join(' ')}
-                            onClick={() => updateAllCountriesTab(13)}>Количество полных вакцинаций
+                            onClick={() => updateActiveTab(13)}>Количество полных вакцинаций
                     </button>
                 </div>
                 <div className='MenuSection'>
                     <h3 className='MenuHeader'>Россия</h3>
                     <button className={['MenuButton', 'BadButton'].join(' ')}
-                            onClick={() => updateAllCountriesTab(6)}>Заболеваний за месяц
-                    </button>
-                    <button className={['MenuButton', 'GoodButton'].join(' ')}
-                            onClick={() => updateAllCountriesTab(7)}>Выздоровлений за месяц
+                            onClick={() => updateActiveTab(6)}>Заболеваний за месяц
                     </button>
                     <button className={['MenuButton', 'BadButton'].join(' ')}
-                            onClick={() => updateAllCountriesTab(8)}>Смертей за месяц
+                            onClick={() => updateActiveTab(8)}>Смертей за месяц
                     </button>
                     <button className={['MenuButton', 'BadButton'].join(' ')}
-                            onClick={() => updateAllCountriesTab(9)}>Поиск по регионам
+                            onClick={() => updateActiveTab(9)}>Поиск по регионам
                     </button>
                     <button className={['MenuButton', 'BadButton'].join(' ')}
-                            onClick={() => updateAllCountriesTab(10)}>Заболевания на карте
+                            onClick={() => updateActiveTab(10)}>Заболевания на карте
                     </button>
                     <button className={['MenuButton', 'BadButton'].join(' ')}
-                            onClick={() => updateAllCountriesTab(11)}>Смерти на карте
+                            onClick={() => updateActiveTab(11)}>Смерти на карте
                     </button>
                 </div>
 
@@ -815,11 +771,9 @@ function App() {
                 {alccdbt}
                 {alcrd}
                 {alcrdt}
-                {alctd}
                 {acvd}
                 {acfvd}
                 {rch}
-                {rrh}
                 {rdh}
                 {rrd}
                 {rmc}
