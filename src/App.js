@@ -64,21 +64,21 @@ function RenderCountriesCases(props) {
 
     const data = props.Data.map(d => {
         if (countries[d['country']]) {
-            return {name: countries[d['country']], uv: 40, 'случаи': d['cases'], amt: 2100}
+            return {name: countries[d['country']], 'случаев заболевания': d['cases']}
         }
         return null;
     }).filter(a => a);
     return (
         <div className='DiagramContainer'>
-            <h2>Случаи заболевания по странам всего</h2>
+            <h2>Всего заболеваний</h2>
             <div className='BarChartContainer'>
                 <BarChart className='BarChart' width={window.innerWidth / diagramWidth}
                           height={window.innerHeight / diagramHeight}
                           data={data}>
                     <XAxis dataKey="name"/>
-                    <YAxis width={80} domain={[0, data[0]['случаи'] + 1000000]}/>
+                    <YAxis width={80} domain={[0, data[0]['случаев заболевания'] + 1000000]}/>
                     <Tooltip/>
-                    <Bar dataKey='случаи' barSize={70} fill="#8884d8">
+                    <Bar dataKey='случаев заболевания' barSize={70} >
                         {
                             data.map((d, index) => {
                                     if (d.name === 'Россия') {
@@ -103,23 +103,23 @@ function RenderCountriesCasesToday(props) {
 
     const data = props.Data.map(d => {
         if (countries[d['country']]) {
-            return {name: countries[d['country']], 'случаев сегодня': d['todayCases']}
+            return {name: countries[d['country']], 'случаев заболевания сегодня': d['todayCases']}
         }
         return null;
     }).filter(a => a);
     let sorted = data.slice();
-    sorted.sort((a, b) => a['случаев сегодня'] - b['случаев сегодня'])
+    sorted.sort((a, b) => a['случаев заболевания сегодня'] - b['случаев заболевания сегодня'])
     return (
         <div className='DiagramContainer'>
-            <h2>Случаи заболевания по странам сегодня</h2>
+            <h2>Заболеваний сегодня</h2>
             <div className='BarChartContainer'>
                 <BarChart className='BarChart' width={window.innerWidth / diagramWidth}
                           height={window.innerHeight / diagramHeight}
                           data={data}>
                     <XAxis dataKey="name"/>
-                    <YAxis width={80} domain={[0, sorted[sorted.length - 1]['случаев сегодня'] + 1000]}/>
+                    <YAxis width={80} domain={[0, sorted[sorted.length - 1]['случаев заболевания сегодня'] + 1000]}/>
                     <Tooltip/>
-                    <Bar dataKey='случаев сегодня' barSize={70} fill="#8884d8">
+                    <Bar dataKey='случаев заболевания сегодня' barSize={70}>
                         {
                             data.map((d, index) => {
                                     if (d.name === 'Россия') {
@@ -144,23 +144,23 @@ function RenderCountriesRecovered(props) {
 
     const data = props.Data.map(d => {
         if (countries[d['country']]) {
-            return {name: countries[d['country']], 'выздоровело': d['recovered']}
+            return {name: countries[d['country']], 'выздоровлений': d['recovered']}
         }
         return null;
     }).filter(a => a);
     let sorted = data.slice();
-    sorted.sort((a, b) => a['выздоровело'] - b['выздоровело'])
+    sorted.sort((a, b) => a['выздоровлений'] - b['выздоровлений'])
     return (
         <div className='DiagramContainer'>
-            <h2>Выздоровело по странам всего</h2>
+            <h2>Всего выздоровелений</h2>
             <div className='BarChartContainer'>
                 <BarChart className='BarChart' width={window.innerWidth / diagramWidth}
                           height={window.innerHeight / diagramHeight}
                           data={data}>
                     <XAxis dataKey="name"/>
-                    <YAxis width={80} domain={[0, sorted[sorted.length - 1]['выздоровело'] + 1000000]}/>
+                    <YAxis width={80} domain={[0, sorted[sorted.length - 1]['выздоровлений'] + 1000000]}/>
                     <Tooltip/>
-                    <Bar dataKey='выздоровело' barSize={70} fill="#8884d8">
+                    <Bar dataKey='выздоровлений' barSize={70}>
                         {
                             data.map((d, index) => {
                                     if (d.name === 'Россия') {
@@ -185,23 +185,23 @@ function RenderCountriesRecoveredToday(props) {
 
     const data = props.Data.map(d => {
         if (countries[d['country']]) {
-            return {name: countries[d['country']], 'выздоровело сегодня': d['todayRecovered']}
+            return {name: countries[d['country']], 'выздоровлений сегодня': d['todayRecovered']}
         }
         return null;
     }).filter(a => a);
     let sorted = data.slice();
-    sorted.sort((a, b) => a['выздоровело сегодня'] - b['выздоровело сегодня'])
+    sorted.sort((a, b) => a['выздоровлений сегодня'] - b['выздоровлений сегодня'])
     return (
         <div className='DiagramContainer'>
-            <h2>Выздоровело сегодня</h2>
+            <h2>Выздоровлений сегодня</h2>
             <div className='BarChartContainer'>
                 <BarChart className='BarChart' width={window.innerWidth / diagramWidth}
                           height={window.innerHeight / diagramHeight}
                           data={data}>
                     <XAxis dataKey="name"/>
-                    <YAxis width={80} domain={[0, sorted[sorted.length - 1]['выздоровело сегодня'] + 1000]}/>
+                    <YAxis width={80} domain={[0, sorted[sorted.length - 1]['выздоровлений сегодня'] + 1000]}/>
                     <Tooltip/>
-                    <Bar dataKey='выздоровело сегодня' barSize={70} fill="#8884d8">
+                    <Bar dataKey='выздоровлений сегодня' barSize={70} fill="#8884d8">
                         {
                             data.map((d, index) => {
                                     if (d.name === 'Россия') {
@@ -226,23 +226,23 @@ function RenderCountriesTests(props) {
 
     const data = props.Data.map(d => {
         if (countries[d['country']]) {
-            return {name: countries[d['country']], 'тестов': d['tests']}
+            return {name: countries[d['country']], 'тестов сделано': d['tests']}
         }
         return null;
     }).filter(a => a);
     let sorted = data.slice();
-    sorted.sort((a, b) => a['тестов'] - b['тестов'])
+    sorted.sort((a, b) => a['тестов сделано'] - b['тестов сделано'])
     return (
         <div className='DiagramContainer'>
-            <h2>Всего тестов сделано</h2>
+            <h2>Тестов сделано</h2>
             <div className='BarChartContainer'>
                 <BarChart className='BarChart' width={window.innerWidth / diagramWidth}
                           height={window.innerHeight / diagramHeight}
                           data={data}>
                     <XAxis dataKey="name"/>
-                    <YAxis width={80} domain={[0, sorted[sorted.length - 1]['тестов'] + 10000000]}/>
+                    <YAxis width={80} domain={[0, sorted[sorted.length - 1]['тестов сделано'] + 10000000]}/>
                     <Tooltip/>
-                    <Bar dataKey='тестов' barSize={70} fill="#8884d8">
+                    <Bar dataKey='тестов сделано' barSize={70}>
                         {
                             data.map((d, index) => {
                                     if (d.name === 'Россия') {
@@ -269,20 +269,20 @@ function RenderRussiaCasesHistory(props) {
         let day = (date.getDate()).toString().padStart(2, '0')
         let month = (date.getMonth() + 1).toString().padStart(2, '0')
         let year = date.getFullYear()
-        return {name: `${day}-${month}-${year}`, 'Случаев': props.Data['timeline']['cases'][d]}
+        return {name: `${day}-${month}-${year}`, 'заболеваний на данный день': props.Data['timeline']['cases'][d]}
     })
     return (
         <div className='DiagramContainer'>
-            <h2>Случаи заболевания по России за месяц</h2>
+            <h2>Заболеваний за месяц</h2>
             <div className='BarChartContainer'>
                 <LineChart className='BarChart' width={window.innerWidth / diagramWidth}
                            height={window.innerHeight / diagramHeight}
                            data={cases}>
-                    <Line type="monotone" dataKey="Случаев" stroke={badColor} activeDot={{r: 12}}/>
+                    <Line type="monotone" dataKey="заболеваний на данный день" stroke={badColor} activeDot={{r: 12}}/>
                     <CartesianGrid vertical={false} stroke="#ccc"/>
                     <XAxis dataKey="name"/>
                     <YAxis width={80}
-                           domain={[cases[0]['Случаев'] - 100000, cases[cases.length - 1]['Случаев'] + 100000]}/>
+                           domain={[cases[0]['заболеваний на данный день'] - 100000, cases[cases.length - 1]['заболеваний на данный день'] + 100000]}/>
                     <Tooltip/>
                 </LineChart>
             </div>
@@ -300,20 +300,20 @@ function RenderRussiaRecoveryHistory(props) {
         let day = (date.getDate()).toString().padStart(2, '0')
         let month = (date.getMonth() + 1).toString().padStart(2, '0')
         let year = date.getFullYear()
-        return {name: `${day}-${month}-${year}`, 'Выздоровело': props.Data['timeline']['recovered'][d]}
+        return {name: `${day}-${month}-${year}`, 'выздоровлений на данный день': props.Data['timeline']['recovered'][d]}
     })
     return (
         <div className='DiagramContainer'>
-            <h2>Случаи выздоровления по России за месяц</h2>
+            <h2>Выздоровлений за месяц</h2>
             <div className='BarChartContainer'>
                 <LineChart className='BarChart' width={window.innerWidth / diagramWidth}
                            height={window.innerHeight / diagramHeight}
                            data={cases}>
-                    <Line type="monotone" dataKey="Выздоровело" stroke={goodColor} activeDot={{r: 12}}/>
+                    <Line type="monotone" dataKey="выздоровлений на данный день" stroke={goodColor} activeDot={{r: 12}}/>
                     <CartesianGrid vertical={false} stroke="#ccc"/>
                     <XAxis dataKey="name"/>
                     <YAxis width={80}
-                           domain={[cases[0]['Выздоровело'] - 100000, cases[cases.length - 1]['Выздоровело'] + 100000]}/>
+                           domain={[cases[0]['выздоровлений на данный день'] - 100000, cases[cases.length - 1]['выздоровлений на данный день'] + 100000]}/>
                     <Tooltip/>
                 </LineChart>
             </div>
@@ -331,7 +331,7 @@ function RenderRussiaDeathsHistory(props) {
         let day = (date.getDate()).toString().padStart(2, '0')
         let month = (date.getMonth() + 1).toString().padStart(2, '0')
         let year = date.getFullYear()
-        return {name: `${day}-${month}-${year}`, 'Смертей': props.Data['timeline']['deaths'][d]}
+        return {name: `${day}-${month}-${year}`, 'смертей на данный день': props.Data['timeline']['deaths'][d]}
     })
     return (
         <div className='DiagramContainer'>
@@ -340,11 +340,11 @@ function RenderRussiaDeathsHistory(props) {
                 <LineChart className='BarChart' width={window.innerWidth / diagramWidth}
                            height={window.innerHeight / diagramHeight}
                            data={cases}>
-                    <Line type="monotone" dataKey="Смертей" stroke={badColor} activeDot={{r: 12}}/>
+                    <Line type="monotone" dataKey="смертей на данный день" stroke={badColor} activeDot={{r: 12}}/>
                     <CartesianGrid vertical={false} stroke="#ccc"/>
                     <XAxis dataKey="name"/>
                     <YAxis width={80}
-                           domain={[cases[0]['Смертей'] - 100000, cases[cases.length - 1]['Смертей'] + 100000]}/>
+                           domain={[cases[0]['смертей на данный день'] - 100000, cases[cases.length - 1]['смертей на данный день'] + 100000]}/>
                     <Tooltip/>
                 </LineChart>
             </div>
@@ -402,7 +402,7 @@ function RenderRussiaRegion(props) {
             let month = (date.getMonth()).toString().padStart(2, '0')
             let year = date.getFullYear()
             return {
-                name: `${day}-${month}-${year}`, 'Случаев': d[0]
+                name: `${day}-${month}-${year}`, 'заболеваний на данный день': d[0]
             }
         })
 
@@ -413,7 +413,7 @@ function RenderRussiaRegion(props) {
             let month = (date.getMonth()).toString().padStart(2, '0')
             let year = date.getFullYear()
             return {
-                name: `${day}-${month}-${year}`, 'Смертей': d[0]
+                name: `${day}-${month}-${year}`, 'смертей на данный день': d[0]
             }
         })
         mainData = <div>
@@ -423,11 +423,11 @@ function RenderRussiaRegion(props) {
                     <LineChart className='BarChart' width={window.innerWidth / diagramWidth}
                                height={window.innerHeight / diagramHeight}
                                data={cases}>
-                        <Line type="monotone" dataKey="Случаев" stroke={badColor} activeDot={{r: 12}}/>
+                        <Line type="monotone" dataKey="заболеваний на данный день" stroke={badColor} activeDot={{r: 12}}/>
                         <CartesianGrid vertical={false} stroke="#ccc"/>
                         <XAxis dataKey="name"/>
                         <YAxis width={80}
-                               domain={[cases[0]['Случаев'] - 1000, cases[cases.length - 1]['Случаев'] + 1000]}/>
+                               domain={[cases[0]['заболеваний на данный день'] - 1000, cases[cases.length - 1]['заболеваний на данный день'] + 1000]}/>
                         <Tooltip/>
                     </LineChart>
                 </div>
@@ -438,11 +438,11 @@ function RenderRussiaRegion(props) {
                     <LineChart className='BarChart' width={window.innerWidth / diagramWidth}
                                height={window.innerHeight / diagramHeight}
                                data={deaths}>
-                        <Line type="monotone" dataKey="Смертей" stroke={badColor} activeDot={{r: 12}}/>
+                        <Line type="monotone" dataKey="смертей на данный день" stroke={badColor} activeDot={{r: 12}}/>
                         <CartesianGrid vertical={false} stroke="#ccc"/>
                         <XAxis dataKey="name"/>
                         <YAxis width={80}
-                               domain={[deaths[0]['Смертей'] - 1000, deaths[cases.length - 1]['Смертей'] + 1000]}/>
+                               domain={[deaths[0]['смертей на данный день'] - 1000, deaths[cases.length - 1]['смертей на данный день'] + 1000]}/>
                         <Tooltip/>
                     </LineChart>
                 </div>
@@ -675,21 +675,21 @@ function App() {
                     <h3 className='MenuHeader'>Мир</h3>
                     <button className={['MenuButton', 'BadButton'].join(' ')} onClick={() => updateAllCountriesTab(1)}>Всего заболеваний</button>
                     <button className={['MenuButton', 'BadButton'].join(' ')} onClick={() => updateAllCountriesTab(2)}>Заболеваний сегодня</button>
-                    <button className={['MenuButton', 'GoodButton'].join(' ')} onClick={() => updateAllCountriesTab(3)}>Всего выздоровело</button>
-                    <button className={['MenuButton', 'GoodButton'].join(' ')} onClick={() => updateAllCountriesTab(4)}>Выздоровело сегодня</button>
+                    <button className={['MenuButton', 'GoodButton'].join(' ')} onClick={() => updateAllCountriesTab(3)}>Всего выздоровлений</button>
+                    <button className={['MenuButton', 'GoodButton'].join(' ')} onClick={() => updateAllCountriesTab(4)}>Выздоровлений сегодня</button>
                     <button className={['MenuButton', 'GoodButton'].join(' ')} onClick={() => updateAllCountriesTab(5)}>Тестов сделано</button>
                 </div>
                 <div className='MenuSection'>
                     <h3 className='MenuHeader'>Россия</h3>
-                    <button className={['MenuButton', 'BadButton'].join(' ')} onClick={() => updateAllCountriesTab(6)}>История заболеваний</button>
-                    <button className={['MenuButton', 'GoodButton'].join(' ')} onClick={() => updateAllCountriesTab(7)}>История выздоровлений
+                    <button className={['MenuButton', 'BadButton'].join(' ')} onClick={() => updateAllCountriesTab(6)}>Заболеваний за месяц</button>
+                    <button className={['MenuButton', 'GoodButton'].join(' ')} onClick={() => updateAllCountriesTab(7)}>Выздоровлений за месяц
                     </button>
-                    <button className={['MenuButton', 'BadButton'].join(' ')}  onClick={() => updateAllCountriesTab(8)}>История смертей</button>
-                    <button className={['MenuButton', 'BadButton'].join(' ')} onClick={() => updateAllCountriesTab(9)}>Статистика по регионам
+                    <button className={['MenuButton', 'BadButton'].join(' ')}  onClick={() => updateAllCountriesTab(8)}>Смертей за месяц</button>
+                    <button className={['MenuButton', 'BadButton'].join(' ')} onClick={() => updateAllCountriesTab(9)}>Поиск по регионам
                     </button>
-                    <button className={['MenuButton', 'BadButton'].join(' ')} onClick={() => updateAllCountriesTab(10)}>плотность случаев заболевания
+                    <button className={['MenuButton', 'BadButton'].join(' ')} onClick={() => updateAllCountriesTab(10)}>Заболевания на карте
                     </button>
-                    <button className={['MenuButton', 'BadButton'].join(' ')} onClick={() => updateAllCountriesTab(11)}>плотность случаев смертей
+                    <button className={['MenuButton', 'BadButton'].join(' ')} onClick={() => updateAllCountriesTab(11)}>Смерти на карте
                     </button>
                 </div>
 
