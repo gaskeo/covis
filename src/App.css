@@ -115,6 +115,10 @@
     color: #aaa;
 }
 
+.MapToolTip {
+    padding-top: 2rem;
+}
+
 .RegionInput {
     height: 3rem;
     margin-right: 0.5rem;
@@ -205,10 +209,21 @@
     .RegionInput {
         width: 77%;
     }
+
+    .MapToolTip {
+        padding-top: 0;
+        padding-left: 1rem;
+    }
+
+    .MapToolTip > h4 {
+        margin-bottom: 0.3rem;
+    }
+
+    .MapToolTip > p {
+        margin-top: 0;
+        margin-bottom: 0;
+    }
 }
 
-.MapToolTip {
-    position: absolute;
-    padding: 2rem;
-}
+
 

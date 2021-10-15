@@ -509,9 +509,9 @@ function RenderRussiaCasesMap(props) {
         return <style type='text/css'>{cssText}</style>
     })
 
-    let tt = null;
+    let tt = <div className='MapToolTip' style={{color: 'transparent'}}><h4>1</h4><p>1</p></div>;
     if (activeRegion) {
-        tt = <div className='MapToolTip'><h4>{activeRegion}</h4><p>случаев: {getCasesByName(activeRegion)}</p></div>
+        tt = <div className='MapToolTip'><h4>{activeRegion}</h4><p>случаев заболевания: {getCasesByName(activeRegion)}</p></div>
     }
 
     return <div style={{position: "relative"}}>
@@ -565,9 +565,9 @@ function RenderRussiaDeathsMap(props) {
         return <style type='text/css'>{cssText}</style>
     })
 
-    let tt = null;
+    let tt = <div className='MapToolTip' style={{color: 'transparent'}}><h4>1</h4><p>1</p></div>;
     if (activeRegion) {
-        tt = <div className='MapToolTip'><h4>{activeRegion}</h4><p>случаев: {getCasesByName(activeRegion)}</p></div>
+        tt = <div className='MapToolTip'><h4>{activeRegion}</h4><p>случаев смертей: {getCasesByName(activeRegion)}</p></div>
     }
 
     return <div style={{position: "relative"}}>
