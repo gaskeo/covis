@@ -97,11 +97,11 @@ function RenderCountrySearch(props) {
             let day = (date.getDate()).toString().padStart(2, '0')
             let month = (date.getMonth()).toString().padStart(2, '0')
             let year = date.getFullYear()
-            max_cases = d[0] > max_cases ? d[0] : max_cases;
-            min_cases = d[0] < min_cases ? d[0] : min_cases;
+            max_cases = d[1] > max_cases ? d[1] : max_cases;
+            min_cases = d[1] < min_cases ? d[1] : min_cases;
 
             return {
-                name: `${day}-${month}-${year}`, 'заболеваний на данный день': d[0]
+                name: `${day}-${month}-${year}`, 'заболеваний на данный день': d[1]
             }
         })
 
@@ -114,11 +114,11 @@ function RenderCountrySearch(props) {
             let day = (date.getDate()).toString().padStart(2, '0')
             let month = (date.getMonth()).toString().padStart(2, '0')
             let year = date.getFullYear()
-            max_deaths = d[0] > max_deaths ? d[0] : max_deaths;
-            min_deaths = d[0] < min_deaths ? d[0] : min_deaths;
+            max_deaths = d[1] > max_deaths ? d[1] : max_deaths;
+            min_deaths = d[1] < min_deaths ? d[1] : min_deaths;
 
             return {
-                name: `${day}-${month}-${year}`, 'смертей на данный день': d[0]
+                name: `${day}-${month}-${year}`, 'смертей на данный день': d[1]
             }
         })
         mainData = <div>
