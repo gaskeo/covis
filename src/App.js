@@ -14,6 +14,8 @@ import {
     Line,
 } from 'recharts';
 
+// все плохо по архитектуре конечно, но 3 дня всего было...
+
 const goodColor = '#00F067';
 const badColor = '#CD5C5C'
 
@@ -61,14 +63,15 @@ function RenderCountriesCases(props) {
                           height={window.innerHeight / diagramHeight}
                           data={data}>
                     <XAxis dataKey="name"/>
-                    <YAxis tickFormatter={(value) => new Intl.NumberFormat('en').format(value)} width={80} domain={[0, data[0]['случаев заболевания'] + 45000000]}/>
+                    <YAxis tickFormatter={(value) => new Intl.NumberFormat('en').format(value)} width={80}
+                           domain={[0, data[0]['случаев заболевания'] + 45000000]}/>
                     <Tooltip formatter={(value) => new Intl.NumberFormat('en').format(value)}/>
                     <Bar dataKey='случаев заболевания' barSize={70}>
                         {
                             data.map((d, index) => {
-                                console.log(max_cases / d['случаев заболевания'])
+                                    console.log(max_cases / d['случаев заболевания'])
 
-                                if (d.name === 'Россия') {
+                                    if (d.name === 'Россия') {
                                         return <Cell key={`cell-${index}`} fill={badColor} style={{opacity: 0.5}}/>
                                     }
                                     return <Cell key={`cell-${index}`} fill={badColor}/>
@@ -88,8 +91,11 @@ function RenderCountriesCasesToday(props) {
         return null;
     }
 
+    let max_cases = 0;
     const data = Object.keys(props.Data).map(d => {
         if (countriesRu.includes(props.Data[d].info['name'])) {
+            max_cases = props.Data[d].info['cases_delta'] > max_cases ? props.Data[d].info['cases_delta'] : max_cases;
+
             return {name: props.Data[d].info['name'], 'случаев заболевания сегодня': props.Data[d].info['cases_delta']}
         }
         return null;
@@ -107,7 +113,8 @@ function RenderCountriesCasesToday(props) {
                           height={window.innerHeight / diagramHeight}
                           data={data}>
                     <XAxis dataKey="name"/>
-                    <YAxis tickFormatter={(value) => new Intl.NumberFormat('en').format(value)} width={80} domain={[0, sorted[sorted.length - 1]['случаев заболевания сегодня'] + 1000]}/>
+                    <YAxis tickFormatter={(value) => new Intl.NumberFormat('en').format(value)} width={80}
+                           domain={[0, max_cases + 1000]}/>
                     <Tooltip formatter={(value) => new Intl.NumberFormat('en').format(value)}/>
                     <Bar dataKey='случаев заболевания сегодня' barSize={70}>
                         {
@@ -131,9 +138,11 @@ function RenderCountriesDeaths(props) {
     if (props.activeTab !== id) {
         return null;
     }
-
+    let max_deaths = 0;
     const data = Object.keys(props.Data).map(d => {
         if (countriesRu.includes(props.Data[d].info['name'])) {
+            max_deaths = props.Data[d].info['deaths'] > max_deaths ? props.Data[d].info['deaths'] : max_deaths;
+
             return {name: props.Data[d].info['name'], 'случаев смертей': props.Data[d].info['deaths']}
         }
         return null;
@@ -149,7 +158,8 @@ function RenderCountriesDeaths(props) {
                           height={window.innerHeight / diagramHeight}
                           data={data}>
                     <XAxis dataKey="name"/>
-                    <YAxis tickFormatter={(value) => new Intl.NumberFormat('en').format(value)} width={80} domain={[0, data[0]['случаев смертей'] + 1000000]}/>
+                    <YAxis tickFormatter={(value) => new Intl.NumberFormat('en').format(value)} width={80}
+                           domain={[0, max_deaths + 10000]}/>
                     <Tooltip formatter={(value) => new Intl.NumberFormat('en').format(value)}/>
                     <Bar dataKey='случаев смертей' barSize={70}>
                         {
@@ -173,9 +183,11 @@ function RenderCountriesDeathsToday(props) {
     if (props.activeTab !== id) {
         return null;
     }
-
+    let max_deaths = 0;
     const data = Object.keys(props.Data).map(d => {
         if (countriesRu.includes(props.Data[d].info['name'])) {
+            max_deaths = props.Data[d].info['deaths_delta'] > max_deaths ? props.Data[d].info['deaths_delta'] : max_deaths;
+
             return {name: props.Data[d].info['name'], 'случаев смертей сегодня': props.Data[d].info['deaths_delta']}
         }
         return null;
@@ -193,7 +205,8 @@ function RenderCountriesDeathsToday(props) {
                           height={window.innerHeight / diagramHeight}
                           data={data}>
                     <XAxis dataKey="name"/>
-                    <YAxis tickFormatter={(value) => new Intl.NumberFormat('en').format(value)} width={80} domain={[0, sorted[sorted.length - 1]['случаев смертей сегодня'] + 1000]}/>
+                    <YAxis tickFormatter={(value) => new Intl.NumberFormat('en').format(value)} width={80}
+                           domain={[0, max_deaths + 100]}/>
                     <Tooltip formatter={(value) => new Intl.NumberFormat('en').format(value)}/>
                     <Bar dataKey='случаев смертей сегодня' barSize={70}>
                         {
@@ -217,8 +230,12 @@ function RenderCountriesVaccines(props) {
     if (props.activeTab !== id) {
         return null;
     }
+
+    let max_vaccines = 0;
     let data = Object.keys(props.Data).map(d => {
         if (countriesRu.includes(props.Data[d]['name_ru'])) {
+            max_vaccines = props.Data[d]['vac'] > max_vaccines ? props.Data[d]['vac'] : max_vaccines;
+
             return {name: props.Data[d]['name_ru'], 'вакцин сделано': props.Data[d]['vac']}
         }
         return null;
@@ -236,7 +253,8 @@ function RenderCountriesVaccines(props) {
                           height={window.innerHeight / diagramHeight}
                           data={data}>
                     <XAxis dataKey="name"/>
-                    <YAxis tickFormatter={(value) => new Intl.NumberFormat('en').format(value)} width={80} domain={[0, sorted[sorted.length - 1]['вакцин сделано'] + 10000000]}/>
+                    <YAxis tickFormatter={(value) => new Intl.NumberFormat('en').format(value)} width={80}
+                           domain={[0, max_vaccines + 10000000]}/>
                     <Tooltip formatter={(value) => new Intl.NumberFormat('en').format(value)}/>
                     <Bar dataKey='вакцин сделано' barSize={70}>
                         {
@@ -260,8 +278,11 @@ function RenderCountriesFullVaccines(props) {
     if (props.activeTab !== id) {
         return null;
     }
+    let max_vaccines = 0;
     let data = Object.keys(props.Data).map(d => {
         if (countriesRu.includes(props.Data[d]['name_ru'])) {
+            max_vaccines = props.Data[d]['peop_full_vac'] > max_vaccines ? props.Data[d]['peop_full_vac'] : max_vaccines;
+
             return {name: props.Data[d]['name_ru'], 'полных вакцин сделано': props.Data[d]['peop_full_vac']}
         }
         return null;
@@ -273,13 +294,14 @@ function RenderCountriesFullVaccines(props) {
     sorted.sort((a, b) => a['полных вакцин сделано'] - b['полных вакцин сделано'])
     return (
         <div className='DiagramContainer'>
-                <h2>Количество людей, поставивших полную вакцину</h2>
+            <h2>Количество людей, поставивших полную вакцину</h2>
             <div className='BarChartContainer'>
                 <BarChart className='BarChart' width={window.innerWidth / diagramWidth}
                           height={window.innerHeight / diagramHeight}
                           data={data}>
                     <XAxis dataKey="name"/>
-                    <YAxis tickFormatter={(value) => new Intl.NumberFormat('en').format(value)} width={80} domain={[0, sorted[sorted.length - 1]['полных вакцин сделано'] + 10000000]}/>
+                    <YAxis tickFormatter={(value) => new Intl.NumberFormat('en').format(value)} width={80}
+                           domain={[0, max_vaccines + 10000000]}/>
                     <Tooltip formatter={(value) => new Intl.NumberFormat('en').format(value)}/>
                     <Bar dataKey='полных вакцин сделано' barSize={70}>
                         {
@@ -356,22 +378,34 @@ function RenderCountry(props) {
     }
     if (dataState === dataStates.received) {
         let date = new Date(Date.now() - 30 * 3600 * 1000)
+
+        let max_cases = 0;
+        let min_cases = 10000000000000000;
         let cases = data['cases'].slice(data['cases'].length - 32).map(d => {
             date.setDate(date.getDate() + 1)
             let day = (date.getDate()).toString().padStart(2, '0')
             let month = (date.getMonth()).toString().padStart(2, '0')
             let year = date.getFullYear()
+            max_cases = d[0] > max_cases ? d[0] : max_cases;
+            min_cases = d[0] < min_cases ? d[0] : min_cases;
+
             return {
                 name: `${day}-${month}-${year}`, 'заболеваний на данный день': d[0]
             }
         })
 
         date = new Date(Date.now() - 30 * 3600 * 1000)
+
+        let max_deaths = 0;
+        let min_deaths = 1000000000000000000;
         let deaths = data['deaths'].slice(data['deaths'].length - 32).map(d => {
             date.setDate(date.getDate() + 1)
             let day = (date.getDate()).toString().padStart(2, '0')
             let month = (date.getMonth()).toString().padStart(2, '0')
             let year = date.getFullYear()
+            max_deaths = d[0] > max_deaths ? d[0] : max_deaths;
+            min_deaths = d[0] < min_deaths ? d[0] : min_deaths;
+
             return {
                 name: `${day}-${month}-${year}`, 'смертей на данный день': d[0]
             }
@@ -388,7 +422,7 @@ function RenderCountry(props) {
                         <CartesianGrid vertical={false} stroke="#ccc"/>
                         <XAxis dataKey="name"/>
                         <YAxis tickFormatter={(value) => new Intl.NumberFormat('en').format(value)} width={80}
-                               domain={[cases[0]['заболеваний на данный день'] - 1000, cases[cases.length - 1]['заболеваний на данный день'] + 1000]}/>
+                               domain={[min_cases - 100, max_cases + 100]}/>
                         <Tooltip formatter={(value) => new Intl.NumberFormat('en').format(value)}/>
                     </LineChart>
                 </div>
@@ -403,7 +437,7 @@ function RenderCountry(props) {
                         <CartesianGrid vertical={false} stroke="#ccc"/>
                         <XAxis dataKey="name"/>
                         <YAxis tickFormatter={(value) => new Intl.NumberFormat('en').format(value)} width={80}
-                               domain={[deaths[0]['смертей на данный день'] - 1000, deaths[cases.length - 1]['смертей на данный день'] + 1000]}/>
+                               domain={[min_deaths - 100, max_deaths + 100]}/>
                         <Tooltip formatter={(value) => new Intl.NumberFormat('en').format(value)}/>
                     </LineChart>
                 </div>
@@ -432,7 +466,8 @@ function RenderCountry(props) {
     }
     return <div style={{width: '100%'}}>
         <div className='InputForm'>
-            <input style={{textTransform: 'capitalize'}} type='text' className='RegionInput' list='suggestions' value={region} onChange={findRegionByStart}
+            <input style={{textTransform: 'capitalize'}} type='text' className='RegionInput' list='suggestions'
+                   value={region} onChange={findRegionByStart}
                    onFocus={() => updateIsSearch(1)}
                    placeholder='Введите регион'/>
             <button className='SearchButton' disabled={!complete} onClick={() => {
@@ -455,12 +490,18 @@ function RenderRussiaCasesHistory(props) {
     }
     let date = new Date()
     date.setDate(date.getDate() - 30)
+    let min_cases = 10000000000000000;
+    let max_cases = 0;
+
     const cases = Object.keys(props.Data['cases']).slice(Object.keys(props.Data['cases']).length - 30).map(d => {
         console.log(1)
         let day = (date.getDate()).toString().padStart(2, '0')
         let month = (date.getMonth() + 1).toString().padStart(2, '0')
         let year = date.getFullYear()
         date.setDate(date.getDate() + 1)
+        max_cases = props.Data['cases'][d][1] > max_cases ? props.Data['cases'][d][1] : max_cases;
+        min_cases = props.Data['cases'][d][1] < min_cases ? props.Data['cases'][d][1] : min_cases;
+
         return {name: `${day}-${month}-${year}`, 'заболеваний на данный день': props.Data['cases'][d][1]}
     })
     return (
@@ -474,7 +515,7 @@ function RenderRussiaCasesHistory(props) {
                     <CartesianGrid vertical={false} stroke="#ccc"/>
                     <XAxis dataKey="name"/>
                     <YAxis tickFormatter={(value) => new Intl.NumberFormat('en').format(value)} width={80}
-                           domain={[cases[0]['заболеваний на данный день'] - 100000, cases[cases.length - 1]['заболеваний на данный день'] + 100000]}/>
+                           domain={[min_cases - 1000, max_cases + 1000]}/>
                     <Tooltip formatter={(value) => new Intl.NumberFormat('en').format(value)}/>
                 </LineChart>
             </div>
@@ -489,12 +530,17 @@ function RenderRussiaDeathsHistory(props) {
     }
     let date = new Date()
     date.setDate(date.getDate() - 30)
+
+    let min_cases = 1000000000;
+    let max_cases = 0;
     const cases = Object.keys(props.Data['deaths']).slice(Object.keys(props.Data['deaths']).length - 30).map(d => {
         let day = (date.getDate()).toString().padStart(2, '0')
         let month = (date.getMonth() + 1).toString().padStart(2, '0')
         let year = date.getFullYear()
         date.setDate(date.getDate() + 1)
-        return {name: `${day}-${month}-${year}`, 'смертей на данный день': props.Data['deaths'][d][0]}
+        max_cases = props.Data['deaths'][d][1] > max_cases ? props.Data['deaths'][d][1] : max_cases;
+        min_cases = props.Data['deaths'][d][1] < min_cases ? props.Data['deaths'][d][1] : min_cases;
+        return {name: `${day}-${month}-${year}`, 'смертей на данный день': props.Data['deaths'][d][1]}
     })
     return (
         <div className='DiagramContainer'>
@@ -507,7 +553,7 @@ function RenderRussiaDeathsHistory(props) {
                     <CartesianGrid vertical={false} stroke="#ccc"/>
                     <XAxis dataKey="name"/>
                     <YAxis width={80} tickFormatter={(value) => new Intl.NumberFormat('en').format(value)}
-                           domain={[cases[0]['смертей на данный день'] - 100000, cases[cases.length - 1]['смертей на данный день'] + 100000]}/>
+                           domain={[min_cases - 100, max_cases + 100]}/>
                     <Tooltip formatter={(value) => new Intl.NumberFormat('en').format(value)}/>
                 </LineChart>
             </div>
@@ -554,6 +600,7 @@ function RenderRussiaRegion(props) {
     }
 
     let names = props.Data.map(d => d.name.toLowerCase())
+    names.sort((a, b) => a.localeCompare(b))
 
     let [complete, updateComplete] = useState(false);
     let [region, updateRegion] = useState('');
@@ -572,29 +619,39 @@ function RenderRussiaRegion(props) {
     }
     if (dataState === dataStates.received) {
         let date = new Date(Date.now() - 30 * 3600 * 1000)
+
+        let max_cases = 0;
+        let min_cases = 100000000000000000;
         let cases = data['cases'].slice(data['cases'].length - 32).map(d => {
             date.setDate(date.getDate() + 1)
             let day = (date.getDate()).toString().padStart(2, '0')
             let month = (date.getMonth()).toString().padStart(2, '0')
             let year = date.getFullYear()
+            max_cases = d[1] > max_cases ? d[1] : max_cases;
+            min_cases = d[1] < min_cases ? d[1] : min_cases;
             return {
-                name: `${day}-${month}-${year}`, 'заболеваний на данный день': d[0]
+                name: `${day}-${month}-${year}`, 'заболеваний на данный день': d[1]
             }
         })
 
         date = new Date(Date.now() - 30 * 3600 * 1000)
+
+        let max_deaths = 0;
+        let min_deaths = 100000000000000000;
         let deaths = data['deaths'].slice(data['deaths'].length - 32).map(d => {
             date.setDate(date.getDate() + 1)
             let day = (date.getDate()).toString().padStart(2, '0')
             let month = (date.getMonth()).toString().padStart(2, '0')
             let year = date.getFullYear()
+            max_deaths = d[1] > max_deaths ? d[1] : max_deaths;
+            min_deaths = d[1] < min_deaths ? d[1] : min_deaths;
             return {
-                name: `${day}-${month}-${year}`, 'смертей на данный день': d[0]
+                name: `${day}-${month}-${year}`, 'смертей на данный день': d[1]
             }
         })
         mainData = <div>
             <div className='DiagramContainer'>
-                <h2>Случаи заболевания по региону: {foundRegion}</h2>
+                <h2>Случаи заболевания по региону: <span style={{textTransform: 'capitalize'}}>{foundRegion}</span></h2>
                 <div className='BarChartContainer'>
                     <LineChart className='BarChart' width={window.innerWidth / diagramWidth}
                                height={window.innerHeight / diagramHeight}
@@ -604,13 +661,13 @@ function RenderRussiaRegion(props) {
                         <CartesianGrid vertical={false} stroke="#ccc"/>
                         <XAxis dataKey="name"/>
                         <YAxis width={80} tickFormatter={(value) => new Intl.NumberFormat('en').format(value)}
-                               domain={[cases[0]['заболеваний на данный день'] - 1000, cases[cases.length - 1]['заболеваний на данный день'] + 1000]}/>
+                               domain={[Math.max(-10, min_cases - 100), max_cases + 100]}/>
                         <Tooltip formatter={(value) => new Intl.NumberFormat('en').format(value)}/>
                     </LineChart>
                 </div>
             </div>
             <div className='DiagramContainer'>
-                <h2>Случаи смертей по региону: {foundRegion}</h2>
+                <h2>Случаи смертей по региону: <span style={{textTransform: 'capitalize'}}>{foundRegion}</span></h2>
                 <div className='BarChartContainer'>
                     <LineChart className='BarChart' width={window.innerWidth / diagramWidth}
                                height={window.innerHeight / diagramHeight}
@@ -619,7 +676,7 @@ function RenderRussiaRegion(props) {
                         <CartesianGrid vertical={false} stroke="#ccc"/>
                         <XAxis dataKey="name"/>
                         <YAxis width={80} tickFormatter={(value) => new Intl.NumberFormat('en').format(value)}
-                               domain={[deaths[0]['смертей на данный день'] - 1000, deaths[cases.length - 1]['смертей на данный день'] + 1000]}/>
+                               domain={[Math.max(-10, min_deaths - 100), max_deaths + 100]}/>
                         <Tooltip formatter={(value) => new Intl.NumberFormat('en').format(value)}/>
                     </LineChart>
                 </div>
@@ -641,14 +698,15 @@ function RenderRussiaRegion(props) {
                         updateRegion(d);
                         updateIsSearch(0);
                         searchRegion(d);
-                    }} key={index}>{d}</p>)}
+                    }} key={index}><span style={{textTransform: 'capitalize'}}>{d}</span></p>)}
                 </div>
             </div>
         )
     }
     return <div style={{width: '100%'}}>
         <div className='InputForm'>
-            <input type='text' className='RegionInput' list='suggestions' value={region} onChange={findRegionByStart}
+            <input type='text' style={{textTransform: 'capitalize'}} className='RegionInput' list='suggestions'
+                   value={region} onChange={findRegionByStart}
                    onFocus={() => updateIsSearch(1)}
                    placeholder='Введите регион'/>
             <button className='SearchButton' disabled={!complete} onClick={() => {
@@ -766,7 +824,8 @@ function RenderRussiaDeathsMap(props) {
 
     let tt = <div className='MapToolTip' style={{color: 'transparent'}}><h4>1</h4><p>1</p></div>;
     if (activeRegion) {
-        tt = <div className='MapToolTip'><h4>{activeRegion}</h4><p>случаев смертей: {new Intl.NumberFormat('en').format(getCasesByName(activeRegion))}</p>
+        tt = <div className='MapToolTip'><h4>{activeRegion}</h4><p>случаев
+            смертей: {new Intl.NumberFormat('en').format(getCasesByName(activeRegion))}</p>
         </div>
     }
 
