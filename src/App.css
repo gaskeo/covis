@@ -79,10 +79,12 @@
 
 .BadButton:hover {
     background-color: #CD5C5C;
+    color: #fff;
 }
 
 .BadButton:focus {
     background-color: #CD5C5C;
+    color: #fff;
 }
 
 .GoodButton:hover {
