@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+
 .App {
     text-align: center;
     height: 100%;
@@ -40,7 +42,7 @@
 
 
 .Header {
-    font-family: 'Open Sans', sans-serif;
+    font-family: 'Roboto', sans-serif;
     margin-left: 2rem;
     margin-right: 2rem;
     width: calc(100% - 4rem);
@@ -62,6 +64,7 @@
     z-index: 20;
     display: block;
     background-color: transparent;
+    font-family: 'Roboto', sans-serif;
     color: black;
     border: 0 solid;
     -webkit-appearance: button !important;
@@ -75,6 +78,10 @@
     border-radius: 0.3rem;
     box-shadow: none;
     margin-bottom: 0.3rem;
+}
+
+.MenuHeader {
+    font-family: 'Roboto', sans-serif;
 }
 
 .BadButton:hover {
@@ -94,6 +101,9 @@
 .GoodButton:focus {
     background-color: #00F067;
 }
+h2 {
+    font-family: 'Roboto', sans-serif;
+}
 
 .SearchButton {
     z-index: 20;
@@ -102,6 +112,8 @@
     color: black;
     border: 0 solid;
     -webkit-appearance: button !important;
+    font-family: 'Roboto', sans-serif;
+
     line-height: 3rem;
     border-image: none;
     font-size: 1.4em;
@@ -130,6 +142,7 @@
     background-color: #eee;
     padding-left: 0.4rem;
     outline: none;
+    font-family: 'Roboto', sans-serif;
 }
 
 .InputForm {
@@ -152,6 +165,7 @@
     justify-content: center;
     align-items: center;
     font-size: 1.4em;
+    font-family: 'Roboto', sans-serif;
 }
 .RegionSuggestions > p:hover {
     background-color: #00F067;
