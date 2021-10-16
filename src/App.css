@@ -140,7 +140,7 @@
 }
 
 .RegionSuggestions > p {
-    background-color: #fef;
+    background-color: #fff;
     width: calc(21% - 0.2rem);
     padding: 0.1rem;
     border-radius: 1rem;
@@ -152,6 +152,9 @@
     justify-content: center;
     align-items: center;
     font-size: 1.4em;
+}
+.RegionSuggestions > p:hover {
+    background-color: #00F067;
 }
 
 .CloseButton {
