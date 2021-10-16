@@ -136,7 +136,23 @@ function App() {
     } else {
         alccdb = null;
     }
+    const worldButtons = [
+        {n: 1, name: 'Всего заболеваний', classes: ['MenuButton', 'BadButton']},
+        {n: 2, name: 'Заболеваний сегодня', classes: ['MenuButton', 'BadButton']},
+        {n: 3, name: 'Всего смертей', classes: ['MenuButton', 'BadButton']},
+        {n: 4, name: 'Смертей сегодня', classes: ['MenuButton', 'BadButton']},
+        {n: 12, name: 'Вакцин сделано', classes: ['MenuButton', 'GoodButton']},
+        {n: 13, name: 'Количество полных вакцинаций', classes: ['MenuButton', 'GoodButton']},
+        {n: 14, name: 'Поиск по странам', classes: ['MenuButton', 'BadButton']},
+    ]
 
+    const russiaButtons = [
+        {n: 6, name: 'Заболеваний за месяц', classes: ['MenuButton', 'BadButton']},
+        {n: 8, name: 'Смертей за месяц', classes: ['MenuButton', 'BadButton']},
+        {n: 9, name: 'Поиск по регионам', classes: ['MenuButton', 'BadButton']},
+        {n: 10, name: 'Заболевания на карте', classes: ['MenuButton', 'BadButton']},
+        {n: 11, name: 'Смерти на карте', classes: ['MenuButton', 'BadButton']},
+    ]
     return (
         <div>
             <div className='Header'>
@@ -145,45 +161,11 @@ function App() {
             <div className='Menu'>
                 <div className='MenuSection'>
                     <h3 className='MenuHeader'>Мир</h3>
-                    <button className={['MenuButton', 'BadButton'].join(' ')}
-                            onClick={() => updateActiveTab(1)}>Всего заболеваний
-                    </button>
-                    <button className={['MenuButton', 'BadButton'].join(' ')}
-                            onClick={() => updateActiveTab(2)}>Заболеваний сегодня
-                    </button>
-                    <button className={['MenuButton', 'BadButton'].join(' ')}
-                            onClick={() => updateActiveTab(3)}>Всего смертей
-                    </button>
-                    <button className={['MenuButton', 'BadButton'].join(' ')}
-                            onClick={() => updateActiveTab(4)}>Смертей сегодня
-                    </button>
-                    <button className={['MenuButton', 'GoodButton'].join(' ')}
-                            onClick={() => updateActiveTab(12)}>Вакцин сделано
-                    </button>
-                    <button className={['MenuButton', 'GoodButton'].join(' ')}
-                            onClick={() => updateActiveTab(13)}>Количество полных вакцинаций
-                    </button>
-                    <button className={['MenuButton', 'BadButton'].join(' ')}
-                            onClick={() => updateActiveTab(14)}>Поиск по странам
-                    </button>
+                    {worldButtons.map(b => <button key={b.n} className={b.classes.join(' ')} onClick={() => updateActiveTab(b.n)}>{b.name}</button>)}
                 </div>
                 <div className='MenuSection'>
                     <h3 className='MenuHeader'>Россия</h3>
-                    <button className={['MenuButton', 'BadButton'].join(' ')}
-                            onClick={() => updateActiveTab(6)}>Заболеваний за месяц
-                    </button>
-                    <button className={['MenuButton', 'BadButton'].join(' ')}
-                            onClick={() => updateActiveTab(8)}>Смертей за месяц
-                    </button>
-                    <button className={['MenuButton', 'BadButton'].join(' ')}
-                            onClick={() => updateActiveTab(9)}>Поиск по регионам
-                    </button>
-                    <button className={['MenuButton', 'BadButton'].join(' ')}
-                            onClick={() => updateActiveTab(10)}>Заболевания на карте
-                    </button>
-                    <button className={['MenuButton', 'BadButton'].join(' ')}
-                            onClick={() => updateActiveTab(11)}>Смерти на карте
-                    </button>
+                    {russiaButtons.map(b => <button key={b.n} className={b.classes.join(' ')} onClick={() => updateActiveTab(b.n)}>{b.name}</button>)}
                 </div>
 
             </div>
