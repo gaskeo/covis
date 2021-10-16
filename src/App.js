@@ -143,7 +143,7 @@ function RenderCountriesDeaths(props) {
 
     return (
         <div className='DiagramContainer'>
-            <h2>Всего заболеваний</h2>
+            <h2>Всего смертей</h2>
             <div className='BarChartContainer'>
                 <BarChart className='BarChart' width={window.innerWidth / diagramWidth}
                           height={window.innerHeight / diagramHeight}
@@ -187,7 +187,7 @@ function RenderCountriesDeathsToday(props) {
     sorted.sort((a, b) => a['случаев смертей сегодня'] - b['случаев смертей сегодня'])
     return (
         <div className='DiagramContainer'>
-            <h2>Заболеваний сегодня</h2>
+            <h2>Смертей сегодня</h2>
             <div className='BarChartContainer'>
                 <BarChart className='BarChart' width={window.innerWidth / diagramWidth}
                           height={window.innerHeight / diagramHeight}
@@ -273,7 +273,7 @@ function RenderCountriesFullVaccines(props) {
     sorted.sort((a, b) => a['полных вакцин сделано'] - b['полных вакцин сделано'])
     return (
         <div className='DiagramContainer'>
-            <h2>Вакцин сделано</h2>
+                <h2>Количество людей, поставивших полную вакцину</h2>
             <div className='BarChartContainer'>
                 <BarChart className='BarChart' width={window.innerWidth / diagramWidth}
                           height={window.innerHeight / diagramHeight}
@@ -337,6 +337,7 @@ function RenderCountry(props) {
     }
 
     let names = props.Data.map(d => d.name.toLowerCase())
+    names.sort((a, b) => a.localeCompare(b))
 
     let [complete, updateComplete] = useState(false);
     let [region, updateRegion] = useState('');
@@ -377,7 +378,7 @@ function RenderCountry(props) {
         })
         mainData = <div>
             <div className='DiagramContainer'>
-                <h2>Случаи заболевания по стране: {foundRegion}</h2>
+                <h2>Случаи заболевания по стране: <span style={{textTransform: 'capitalize'}}>{foundRegion}</span></h2>
                 <div className='BarChartContainer'>
                     <LineChart className='BarChart' width={window.innerWidth / diagramWidth}
                                height={window.innerHeight / diagramHeight}
@@ -393,7 +394,7 @@ function RenderCountry(props) {
                 </div>
             </div>
             <div className='DiagramContainer'>
-                <h2>Случаи смертей по стране: {foundRegion}</h2>
+                <h2>Случаи смертей по стране: <span style={{textTransform: 'capitalize'}}>{foundRegion}</span></h2>
                 <div className='BarChartContainer'>
                     <LineChart className='BarChart' width={window.innerWidth / diagramWidth}
                                height={window.innerHeight / diagramHeight}
@@ -424,14 +425,14 @@ function RenderCountry(props) {
                         updateRegion(d);
                         updateIsSearch(0);
                         searchRegion(d);
-                    }} key={index}>{d}</p>)}
+                    }} key={index}><span style={{textTransform: 'capitalize'}}>{d}</span></p>)}
                 </div>
             </div>
         )
     }
     return <div style={{width: '100%'}}>
         <div className='InputForm'>
-            <input type='text' className='RegionInput' list='suggestions' value={region} onChange={findRegionByStart}
+            <input style={{textTransform: 'capitalize'}} type='text' className='RegionInput' list='suggestions' value={region} onChange={findRegionByStart}
                    onFocus={() => updateIsSearch(1)}
                    placeholder='Введите регион'/>
             <button className='SearchButton' disabled={!complete} onClick={() => {
