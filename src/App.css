@@ -1,5 +1,10 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
 
+html, body {
+    max-width: 100%;
+    overflow-x: hidden;
+}
+
 .App {
     text-align: center;
     height: 100%;
@@ -101,6 +106,7 @@
 .GoodButton:focus {
     background-color: #00F067;
 }
+
 h2 {
     font-family: 'Roboto', sans-serif;
 }
@@ -167,6 +173,7 @@ h2 {
     font-size: 1.4em;
     font-family: 'Roboto', sans-serif;
 }
+
 .RegionSuggestions > p:hover {
     background-color: #00F067;
 }
@@ -255,7 +262,7 @@ h2 {
 
     .MenuButton {
         display: block;
-        background-color: #fef;
+        background-color: #eee;
         line-height: 1.6rem;
         width: 90%;
         margin-left: 0.2rem;
@@ -309,6 +316,7 @@ h2 {
     .RegionSuggestions {
         flex-direction: column;
     }
+
     .RegionSuggestions > p {
         width: auto;
         padding: 0.6rem 0.2rem;
