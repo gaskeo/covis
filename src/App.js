@@ -1,5 +1,6 @@
 import {useState} from 'react';
 
+import RenderCountriesCases from './AllCountriesCases'
 import './App.css';
 import RussiaSVG from './Russia'
 import {
@@ -40,50 +41,6 @@ const countriesRu = [
 ]
 
 // countries
-function RenderCountriesCases(props) {
-    const id = 1;
-    if (props.activeTab !== id) {
-        return null;
-    }
-    let max_cases = 0;
-    const data = Object.keys(props.Data).map(d => {
-        if (countriesRu.includes(props.Data[d].info['name'])) {
-            max_cases = props.Data[d].info['cases'] > max_cases ? props.Data[d].info['cases'] : max_cases;
-            return {name: props.Data[d].info['name'], 'случаев заболевания': props.Data[d].info['cases']}
-        }
-        return null;
-    }).filter(a => a);
-
-    data.sort((a, b) => a.name.localeCompare(b.name))
-    return (
-        <div className='DiagramContainer'>
-            <h2>Всего заболеваний</h2>
-            <div className='BarChartContainer'>
-                <BarChart className='BarChart' width={window.innerWidth / diagramWidth}
-                          height={window.innerHeight / diagramHeight}
-                          data={data}>
-                    <XAxis dataKey="name"/>
-                    <YAxis tickFormatter={(value) => new Intl.NumberFormat('en').format(value)} width={80}
-                           domain={[0, data[0]['случаев заболевания'] + 45000000]}/>
-                    <Tooltip formatter={(value) => new Intl.NumberFormat('en').format(value)}/>
-                    <Bar dataKey='случаев заболевания' barSize={70}>
-                        {
-                            data.map((d, index) => {
-                                    console.log(max_cases / d['случаев заболевания'])
-
-                                    if (d.name === 'Россия') {
-                                        return <Cell key={`cell-${index}`} fill={badColor} style={{opacity: 0.5}}/>
-                                    }
-                                    return <Cell key={`cell-${index}`} fill={badColor}/>
-                                }
-                            )
-                        }
-                    </Bar>
-                </BarChart>
-            </div>
-        </div>
-    )
-}
 
 function RenderCountriesCasesToday(props) {
     const id = 2;
