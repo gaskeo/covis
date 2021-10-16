@@ -4,6 +4,7 @@ import RenderCountriesCases from './AllCountriesCases'
 import RenderCountriesCasesToday from './AllCountriesCasesToday'
 import RenderCountriesDeaths from './AllCountriesDeaths'
 import RenderCountriesDeathsToday from './AllCountriesDeathsToday'
+import RenderCountriesVaccines from './AllCountriesVaccines'
 
 import './App.css';
 import RussiaSVG from './Russia'
@@ -46,53 +47,6 @@ const countriesRu = [
 
 // countries
 
-function RenderCountriesVaccines(props) {
-    const id = 12;
-    if (props.activeTab !== id) {
-        return null;
-    }
-
-    let max_vaccines = 0;
-    let data = Object.keys(props.Data).map(d => {
-        if (countriesRu.includes(props.Data[d]['name_ru'])) {
-            max_vaccines = props.Data[d]['vac'] > max_vaccines ? props.Data[d]['vac'] : max_vaccines;
-
-            return {name: props.Data[d]['name_ru'], 'вакцин сделано': props.Data[d]['vac']}
-        }
-        return null;
-    }).filter(a => a);
-
-    data.sort((a, b) => a.name.localeCompare(b.name))
-
-    let sorted = data.slice();
-    sorted.sort((a, b) => a['вакцин сделано'] - b['вакцин сделано'])
-    return (
-        <div className='DiagramContainer'>
-            <h2>Вакцин сделано</h2>
-            <div className='BarChartContainer'>
-                <BarChart className='BarChart' width={window.innerWidth / diagramWidth}
-                          height={window.innerHeight / diagramHeight}
-                          data={data}>
-                    <XAxis dataKey="name"/>
-                    <YAxis tickFormatter={(value) => new Intl.NumberFormat('en').format(value)} width={80}
-                           domain={[0, max_vaccines + 10000000]}/>
-                    <Tooltip formatter={(value) => new Intl.NumberFormat('en').format(value)}/>
-                    <Bar dataKey='вакцин сделано' barSize={70}>
-                        {
-                            data.map((d, index) => {
-                                    if (d.name === 'Россия') {
-                                        return <Cell key={`cell-${index}`} fill={goodColor} style={{opacity: 0.5}}/>
-                                    }
-                                    return <Cell key={`cell-${index}`} fill={goodColor}/>
-                                }
-                            )
-                        }
-                    </Bar>
-                </BarChart>
-            </div>
-        </div>
-    )
-}
 
 function RenderCountriesFullVaccines(props) {
     const id = 13;
