@@ -34,7 +34,10 @@ function RenderCountriesCases(props) {
     const data = Object.keys(props.Data).map(d => {
         if (countriesRu.includes(props.Data[d].info['name'])) {
             max_cases = props.Data[d].info['cases'] > max_cases ? props.Data[d].info['cases'] : max_cases;
-            return {name: props.Data[d].info['name'], 'случаев заболевания': props.Data[d].info['cases']}
+            return {
+                name: props.Data[d].info['name'],
+                'случаев заболевания': props.Data[d].info['cases']} // ключи на русском печально конечно,
+            // но было мало времени...
         }
         return null;
     }).filter(a => a);
