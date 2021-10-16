@@ -32,7 +32,6 @@ function RenderRussiaCasesHistory(props) {
     let max_cases = 0;
 
     const cases = Object.keys(props.Data['cases']).slice(Object.keys(props.Data['cases']).length - 30).map(d => {
-        console.log(1)
         let day = (date.getDate()).toString().padStart(2, '0')
         let month = (date.getMonth() + 1).toString().padStart(2, '0')
         let year = date.getFullYear()

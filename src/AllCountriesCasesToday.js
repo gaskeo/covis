@@ -43,8 +43,6 @@ function RenderCountriesCasesToday(props) {
 
     data.sort((a, b) => a.name.localeCompare(b.name))
 
-    let sorted = data.slice();
-    sorted.sort((a, b) => a['случаев заболевания сегодня'] - b['случаев заболевания сегодня'])
     return (
         <div className='DiagramContainer'>
             <h2>Заболеваний сегодня</h2>

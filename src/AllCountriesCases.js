@@ -54,7 +54,6 @@ function RenderCountriesCases(props) {
                     <Bar dataKey='случаев заболевания' barSize={70}>
                         {
                             data.map((d, index) => {
-                                    console.log(max_cases / d['случаев заболевания'])
 
                                     if (d.name === 'Россия') {
                                         return <Cell key={`cell-${index}`} fill={badColor} style={{opacity: 0.5}}/>

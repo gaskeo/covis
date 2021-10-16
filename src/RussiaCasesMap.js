@@ -41,11 +41,6 @@ function RenderRussiaCasesMap(props) {
         return props.Data[d]['info']
     }).filter(a => a);
 
-    let sorted = prepareData.slice()
-    sorted.sort(function (a, b) {
-        return a['cases'] - b['cases']
-    })
-
     let cssBlock = prepareData.map((d, index) => {
         let name = d.name
         let opacity = Math.max(d.cases / d.population * 6, 0.05);
