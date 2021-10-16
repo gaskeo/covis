@@ -5,17 +5,15 @@ import RenderCountriesCasesToday from './AllCountriesCasesToday'
 import RenderCountriesDeaths from './AllCountriesDeaths'
 import RenderCountriesDeathsToday from './AllCountriesDeathsToday'
 import RenderCountriesVaccines from './AllCountriesVaccines'
+import RenderCountriesFullVaccines from './AllCountriesFullVaccines'
 
 import './App.css';
 import RussiaSVG from './Russia'
 import {
-    BarChart,
-    Bar,
     XAxis,
     YAxis,
     Tooltip,
     CartesianGrid,
-    Cell,
     LineChart,
     Line,
 } from 'recharts';
@@ -46,54 +44,6 @@ const countriesRu = [
 ]
 
 // countries
-
-
-function RenderCountriesFullVaccines(props) {
-    const id = 13;
-    if (props.activeTab !== id) {
-        return null;
-    }
-    let max_vaccines = 0;
-    let data = Object.keys(props.Data).map(d => {
-        if (countriesRu.includes(props.Data[d]['name_ru'])) {
-            max_vaccines = props.Data[d]['peop_full_vac'] > max_vaccines ? props.Data[d]['peop_full_vac'] : max_vaccines;
-
-            return {name: props.Data[d]['name_ru'], 'полных вакцин сделано': props.Data[d]['peop_full_vac']}
-        }
-        return null;
-    }).filter(a => a);
-
-    data.sort((a, b) => a.name.localeCompare(b.name))
-
-    let sorted = data.slice();
-    sorted.sort((a, b) => a['полных вакцин сделано'] - b['полных вакцин сделано'])
-    return (
-        <div className='DiagramContainer'>
-            <h2>Количество людей, поставивших полную вакцину</h2>
-            <div className='BarChartContainer'>
-                <BarChart className='BarChart' width={window.innerWidth / diagramWidth}
-                          height={window.innerHeight / diagramHeight}
-                          data={data}>
-                    <XAxis dataKey="name"/>
-                    <YAxis tickFormatter={(value) => new Intl.NumberFormat('en').format(value)} width={80}
-                           domain={[0, max_vaccines + 10000000]}/>
-                    <Tooltip formatter={(value) => new Intl.NumberFormat('en').format(value)}/>
-                    <Bar dataKey='полных вакцин сделано' barSize={70}>
-                        {
-                            data.map((d, index) => {
-                                    if (d.name === 'Россия') {
-                                        return <Cell key={`cell-${index}`} fill={goodColor} style={{opacity: 0.5}}/>
-                                    }
-                                    return <Cell key={`cell-${index}`} fill={goodColor}/>
-                                }
-                            )
-                        }
-                    </Bar>
-                </BarChart>
-            </div>
-        </div>
-    )
-}
 
 function RenderCountry(props) {
     function findRegionByStart(e) {
