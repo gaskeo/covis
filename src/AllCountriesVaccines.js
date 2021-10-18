@@ -32,11 +32,11 @@ function RenderCountriesVaccines(props) {
     }
 
     let max_vaccines = 0;
-    let data = Object.keys(props.Data).map(d => {
-        if (countriesRu.includes(props.Data[d]['name_ru'])) {
-            max_vaccines = props.Data[d]['vac'] > max_vaccines ? props.Data[d]['vac'] : max_vaccines;
+    let data = Object.keys(props.data).map(d => {
+        if (countriesRu.includes(props.data[d]['name_ru'])) {
+            max_vaccines = props.data[d]['vac'] > max_vaccines ? props.data[d]['vac'] : max_vaccines;
 
-            return {name: props.Data[d]['name_ru'], 'вакцин сделано': props.Data[d]['vac']}
+            return {name: props.data[d]['name_ru'], 'вакцин сделано': props.data[d]['vac']}
         }
         return null;
     }).filter(a => a);

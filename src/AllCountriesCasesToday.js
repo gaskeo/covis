@@ -7,23 +7,7 @@ import {
     Cell,
 } from 'recharts';
 
-const badColor = '#CD5C5C'
-
-let diagramWidth;
-let diagramHeight;
-
-if (window.innerWidth >= 800) {
-    diagramWidth = 1.4;
-    diagramHeight = 1.6;
-} else {
-    diagramWidth = 1.1;
-    diagramHeight = 2.4;
-}
-
-const countriesRu = [
-    'США', 'Индия', 'Бразилия', 'Великобритания', 'Россия', 'Турция', 'Франция', 'Иран', 'Аргентина',
-    'Испания', 'Колумбия', 'Италия', 'Германия', 'Индонезия', 'Мексика', 'Польша', 'ЮАР', 'Филиппины', 'Украина'
-]
+import constants from './Constants'
 
 function RenderCountriesCasesToday(props) {
     const id = 2;
@@ -32,11 +16,11 @@ function RenderCountriesCasesToday(props) {
     }
 
     let max_cases = 0;
-    const data = Object.keys(props.Data).map(d => {
-        if (countriesRu.includes(props.Data[d].info['name'])) {
-            max_cases = props.Data[d].info['cases_delta'] > max_cases ? props.Data[d].info['cases_delta'] : max_cases;
+    const data = Object.keys(props.data).map(d => {
+        if (constants.countriesRu.includes(props.data[d].info['name'])) {
+            max_cases = props.data[d].info['cases_delta'] > max_cases ? props.data[d].info['cases_delta'] : max_cases;
 
-            return {name: props.Data[d].info['name'], 'случаев заболевания сегодня': props.Data[d].info['cases_delta']}
+            return {name: props.data[d].info['name'], 'случаев заболевания сегодня': props.data[d].info['cases_delta']}
         }
         return null;
     }).filter(a => a);
@@ -47,8 +31,8 @@ function RenderCountriesCasesToday(props) {
         <div className='DiagramContainer'>
             <h2>Заболеваний сегодня</h2>
             <div className='BarChartContainer'>
-                <BarChart className='BarChart' width={window.innerWidth / diagramWidth}
-                          height={window.innerHeight / diagramHeight}
+                <BarChart className='BarChart' width={window.innerWidth / constants.diagramWidth}
+                          height={window.innerHeight / constants.diagramHeight}
                           data={data}>
                     <XAxis dataKey="name"/>
                     <YAxis tickFormatter={(value) => new Intl.NumberFormat('en').format(value)} width={80}
@@ -58,9 +42,9 @@ function RenderCountriesCasesToday(props) {
                         {
                             data.map((d, index) => {
                                     if (d.name === 'Россия') {
-                                        return <Cell key={`cell-${index}`} fill={badColor} style={{opacity: 0.5}}/>
+                                        return <Cell key={`cell-${index}`} fill={constants.badColor} style={{opacity: 0.5}}/>
                                     }
-                                    return <Cell key={`cell-${index}`} fill={badColor}/>
+                                    return <Cell key={`cell-${index}`} fill={constants.badColor}/>
                                 }
                             )
                         }

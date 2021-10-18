@@ -31,11 +31,11 @@ function RenderCountriesDeathsToday(props) {
         return null;
     }
     let max_deaths = 0;
-    const data = Object.keys(props.Data).map(d => {
-        if (countriesRu.includes(props.Data[d].info['name'])) {
-            max_deaths = props.Data[d].info['deaths_delta'] > max_deaths ? props.Data[d].info['deaths_delta'] : max_deaths;
+    const data = Object.keys(props.data).map(d => {
+        if (countriesRu.includes(props.data[d].info['name'])) {
+            max_deaths = props.data[d].info['deaths_delta'] > max_deaths ? props.data[d].info['deaths_delta'] : max_deaths;
 
-            return {name: props.Data[d].info['name'], 'случаев смертей сегодня': props.Data[d].info['deaths_delta']}
+            return {name: props.data[d].info['name'], 'случаев смертей сегодня': props.data[d].info['deaths_delta']}
         }
         return null;
     }).filter(a => a);

@@ -74,15 +74,15 @@ function App() {
     let alcrd = null;
     let alcrdt = null;
     if (allCountriesDataState === constants.DataStates.received) {
-        alccdb = <RenderCountriesCases activeTab={activeTab} Data={allCountriesData}/>
-        alccdbt = <RenderCountriesCasesToday activeTab={activeTab} Data={allCountriesData}/>
-        alcrd = <RenderCountriesDeaths activeTab={activeTab} Data={allCountriesData}/>
-        alcrdt = <RenderCountriesDeathsToday activeTab={activeTab} Data={allCountriesData}/>
+        alccdb = <RenderCountriesCases activeTab={activeTab} data={allCountriesData}/>
+        alccdbt = <RenderCountriesCasesToday activeTab={activeTab} data={allCountriesData}/>
+        alcrd = <RenderCountriesDeaths activeTab={activeTab} data={allCountriesData}/>
+        alcrdt = <RenderCountriesDeathsToday activeTab={activeTab} data={allCountriesData}/>
     }
 
     let crd = null;
     if (countriesIdsState === constants.DataStates.received) {
-        crd = <RenderCountrySearch activeTab={activeTab} Data={countriesIds}/>
+        crd = <RenderCountrySearch activeTab={activeTab} data={countriesIds}/>
     }
 
     const [allCountriesVaccineData, updateAllCountriesVaccineData] = useState(null);
@@ -91,8 +91,8 @@ function App() {
     let acvd = null;
     let acfvd = null;
     if (allCountriesVaccineDataState === constants.DataStates.received) {
-        acvd = <RenderCountriesVaccines activeTab={activeTab} Data={allCountriesVaccineData}/>
-        acfvd = <RenderCountriesFullVaccines activeTab={activeTab} Data={allCountriesVaccineData}/>
+        acvd = <RenderCountriesVaccines activeTab={activeTab} data={allCountriesVaccineData}/>
+        acfvd = <RenderCountriesFullVaccines activeTab={activeTab} data={allCountriesVaccineData}/>
     }
 
     // russia cases history
@@ -108,7 +108,7 @@ function App() {
     }
     let rrd = null;
     if (russiaRegionsDataState === constants.DataStates.received) {
-        rrd = <RenderRussiaRegionSearch activeTab={activeTab} Data={russiaRegionsIds}/>
+        rrd = <RenderRussiaRegionSearch activeTab={activeTab} data={russiaRegionsIds}/>
     }
 
     let rch = null;
@@ -116,10 +116,10 @@ function App() {
     let rmc = null;
     let rmd = null;
     if (russiaCasesHistoryDataState === constants.DataStates.received) {
-        rch = <RenderRussiaCasesHistory activeTab={activeTab} Data={russiaCasesHistory}/>
-        rdh = <RenderRussiaDeathsHistory activeTab={activeTab} Data={russiaCasesHistory}/>
-        rmc = <RenderRussiaCasesMap activeTab={activeTab} Data={russiaRegionsData}/>
-        rmd = <RenderRussiaDeathsMap activeTab={activeTab} Data={russiaRegionsData}/>
+        rch = <RenderRussiaCasesHistory activeTab={activeTab} data={russiaCasesHistory}/>
+        rdh = <RenderRussiaDeathsHistory activeTab={activeTab} data={russiaCasesHistory}/>
+        rmc = <RenderRussiaCasesMap activeTab={activeTab} data={russiaRegionsData}/>
+        rmd = <RenderRussiaDeathsMap activeTab={activeTab} data={russiaRegionsData}/>
     } else {
         alccdb = null;
     }

@@ -49,11 +49,11 @@ function RenderRussiaDeathsMap(props) {
     }
 
 
-    let prepareData = Object.keys(props.Data).map(d => {
-        if (props.Data[d]['info']['name'] === "Россия" || props.Data[d]['info']['name'] === "Москва") {
+    let prepareData = Object.keys(props.data).map(d => {
+        if (props.data[d]['info']['name'] === "Россия" || props.data[d]['info']['name'] === "Москва") {
             return null;
         }
-        return props.Data[d]['info']
+        return props.data[d]['info']
     }).filter(a => a);
 
     let cssBlock = prepareData.map((d, index) => {

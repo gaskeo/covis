@@ -49,9 +49,9 @@ function RenderRussiaRegionSearch(props) {
         }
         updateDataState(dataStates.requested)
         let index = 1;
-        for (let i in Object.entries(props.Data)) {
-            if (props.Data[i].name.toLowerCase() === reg.toLowerCase()) {
-                index = props.Data[i].code;
+        for (let i in Object.entries(props.data)) {
+            if (props.data[i].name.toLowerCase() === reg.toLowerCase()) {
+                index = props.data[i].code;
                 break;
             }
         }
@@ -64,7 +64,7 @@ function RenderRussiaRegionSearch(props) {
         })
     }
 
-    let names = props.Data.map(d => d.name.toLowerCase())
+    let names = props.data.map(d => d.name.toLowerCase())
     names.sort((a, b) => a.localeCompare(b))
 
     let [complete, updateComplete] = useState(false);
