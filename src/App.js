@@ -13,60 +13,47 @@ import RenderRussiaRegionSearch from './RussiaRegionSearch'
 import RenderRussiaCasesMap from './RussiaCasesMap'
 import RenderRussiaDeathsMap from './RussiaDeathsMap'
 
+import constants from './Constants'
+
 import './App.css';
-let diagramWidth;
-let diagramHeight;
 
-if (window.innerWidth >= 800) {
-    diagramWidth = 1.4;
-    diagramHeight = 1.6;
-} else {
-    diagramWidth = 1.1;
-    diagramHeight = 2.4;
-}
-
-const dataStates = {
-    notRequested: 0,
-    requested: 1,
-    received: 2
-}
 
 function App() {
     // сложная штука... непонятная...
     async function getRussiaCasesHistoryData() {
-        updateRussiaCasesHistoryDataState(dataStates.requested)
+        updateRussiaCasesHistoryDataState(constants.DataStates.requested)
         return fetch('https://milab.s3.yandex.net/2020/covid19-stat/data/v10/data-by-region/225.json', {method: 'get'}).then((r) => {
             r.json().then((j) => {
                 updateRussiaCasesHistory(j)
-                updateRussiaCasesHistoryDataState(dataStates.received)
+                updateRussiaCasesHistoryDataState(constants.DataStates.received)
             })
         })
     }
 
     async function getCountriesAndRussianRegionsData() {
-        updateRussiaRegionsDataState(dataStates.requested)
-        updateAllCountriesDataState(dataStates.requested)
-        updateAllCountriesVaccineDataState(dataStates.requested)
+        updateRussiaRegionsDataState(constants.DataStates.requested)
+        updateAllCountriesDataState(constants.DataStates.requested)
+        updateAllCountriesVaccineDataState(constants.DataStates.requested)
         return fetch('https://milab.s3.yandex.net/2020/covid19-stat/data/v10/default_data.json', {method: 'get'}).then((r) => {
             r.json().then(j => {
                 updateAllCountriesData(j['world_stat_struct']['data'])
                 updateRussiaRegionsData(j['russia_stat_struct']['data'])
                 updateAllCountriesVaccineData(j['vaccination_struct'])
 
-                updateAllCountriesDataState(dataStates.received)
-                updateAllCountriesVaccineDataState(dataStates.received)
+                updateAllCountriesDataState(constants.DataStates.received)
+                updateAllCountriesVaccineDataState(constants.DataStates.received)
 
                 let worldData = Object.keys(j['world_stat_struct']['data']).map(d => {
                     return {name: j['world_stat_struct']['data'][d]['info']['name'].toString(), code: d}
                 })
                 updateCountriesIds(worldData)
-                updateCountriesIdsState(dataStates.received)
+                updateCountriesIdsState(constants.DataStates.received)
 
                 let data = Object.keys(j['russia_stat_struct']['data']).map(d => {
                     return {name: j['russia_stat_struct']['data'][d]['info']['name'].toString(), code: d}
                 })
                 updateRussiaRegionsIds(data)
-                updateRussiaRegionsDataState(dataStates.received)
+                updateRussiaRegionsDataState(constants.DataStates.received)
             })
         })
     }
@@ -74,19 +61,19 @@ function App() {
     // all countries cases
     const [activeTab, updateActiveTab] = useState(1);
     const [allCountriesData, updateAllCountriesData] = useState(null);
-    const [allCountriesDataState, updateAllCountriesDataState] = useState(dataStates.notRequested);
+    const [allCountriesDataState, updateAllCountriesDataState] = useState(constants.DataStates.notRequested);
     const [countriesIds, updateCountriesIds] = useState(null);
-    const [countriesIdsState, updateCountriesIdsState] = useState(dataStates.notRequested);
+    const [countriesIdsState, updateCountriesIdsState] = useState(constants.DataStates.notRequested);
 
     const [russiaRegionsIds, updateRussiaRegionsIds] = useState(null);
     const [russiaRegionsData, updateRussiaRegionsData] = useState(null);
-    const [russiaRegionsDataState, updateRussiaRegionsDataState] = useState(dataStates.notRequested);
+    const [russiaRegionsDataState, updateRussiaRegionsDataState] = useState(constants.DataStates.notRequested);
 
     let alccdb = null;
     let alccdbt = null;
     let alcrd = null;
     let alcrdt = null;
-    if (allCountriesDataState === dataStates.received) {
+    if (allCountriesDataState === constants.DataStates.received) {
         alccdb = <RenderCountriesCases activeTab={activeTab} Data={allCountriesData}/>
         alccdbt = <RenderCountriesCasesToday activeTab={activeTab} Data={allCountriesData}/>
         alcrd = <RenderCountriesDeaths activeTab={activeTab} Data={allCountriesData}/>
@@ -94,33 +81,33 @@ function App() {
     }
 
     let crd = null;
-    if (countriesIdsState === dataStates.received) {
+    if (countriesIdsState === constants.DataStates.received) {
         crd = <RenderCountrySearch activeTab={activeTab} Data={countriesIds}/>
     }
 
     const [allCountriesVaccineData, updateAllCountriesVaccineData] = useState(null);
-    const [allCountriesVaccineDataState, updateAllCountriesVaccineDataState] = useState(dataStates.notRequested);
+    const [allCountriesVaccineDataState, updateAllCountriesVaccineDataState] = useState(constants.DataStates.notRequested);
 
     let acvd = null;
     let acfvd = null;
-    if (allCountriesVaccineDataState === dataStates.received) {
+    if (allCountriesVaccineDataState === constants.DataStates.received) {
         acvd = <RenderCountriesVaccines activeTab={activeTab} Data={allCountriesVaccineData}/>
         acfvd = <RenderCountriesFullVaccines activeTab={activeTab} Data={allCountriesVaccineData}/>
     }
 
     // russia cases history
 
-    if (russiaRegionsDataState === dataStates.notRequested) {
+    if (russiaRegionsDataState === constants.DataStates.notRequested) {
         let _ = getCountriesAndRussianRegionsData();
     }
 
     const [russiaCasesHistory, updateRussiaCasesHistory] = useState(null);
-    const [russiaCasesHistoryDataState, updateRussiaCasesHistoryDataState] = useState(dataStates.notRequested);
-    if (russiaCasesHistoryDataState === dataStates.notRequested) {
+    const [russiaCasesHistoryDataState, updateRussiaCasesHistoryDataState] = useState(constants.DataStates.notRequested);
+    if (russiaCasesHistoryDataState === constants.DataStates.notRequested) {
         let _ = getRussiaCasesHistoryData();
     }
     let rrd = null;
-    if (russiaRegionsDataState === dataStates.received) {
+    if (russiaRegionsDataState === constants.DataStates.received) {
         rrd = <RenderRussiaRegionSearch activeTab={activeTab} Data={russiaRegionsIds}/>
     }
 
@@ -128,7 +115,7 @@ function App() {
     let rdh = null;
     let rmc = null;
     let rmd = null;
-    if (russiaCasesHistoryDataState === dataStates.received) {
+    if (russiaCasesHistoryDataState === constants.DataStates.received) {
         rch = <RenderRussiaCasesHistory activeTab={activeTab} Data={russiaCasesHistory}/>
         rdh = <RenderRussiaDeathsHistory activeTab={activeTab} Data={russiaCasesHistory}/>
         rmc = <RenderRussiaCasesMap activeTab={activeTab} Data={russiaRegionsData}/>
