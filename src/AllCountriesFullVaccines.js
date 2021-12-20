@@ -7,23 +7,8 @@ import {
     Cell,
 } from 'recharts';
 
-const goodColor = '#00F067';
+import * as constants from './Constants'
 
-let diagramWidth;
-let diagramHeight;
-
-if (window.innerWidth >= 800) {
-    diagramWidth = 1.4;
-    diagramHeight = 1.6;
-} else {
-    diagramWidth = 1.1;
-    diagramHeight = 2.4;
-}
-
-const countriesRu = [
-    'США', 'Индия', 'Бразилия', 'Великобритания', 'Россия', 'Турция', 'Франция', 'Иран', 'Аргентина',
-    'Испания', 'Колумбия', 'Италия', 'Германия', 'Индонезия', 'Мексика', 'Польша', 'ЮАР', 'Филиппины', 'Украина'
-]
 function RenderCountriesFullVaccines(props) {
     const id = 13;
     if (props.activeTab !== id) {
@@ -31,7 +16,7 @@ function RenderCountriesFullVaccines(props) {
     }
     let max_vaccines = 0;
     let data = Object.keys(props.data).map(d => {
-        if (countriesRu.includes(props.data[d]['name_ru'])) {
+        if (constants.countriesRu.includes(props.data[d]['name_ru'])) {
             max_vaccines = props.data[d]['peop_full_vac'] > max_vaccines ? props.data[d]['peop_full_vac'] : max_vaccines;
 
             return {name: props.data[d]['name_ru'], 'полных вакцин сделано': props.data[d]['peop_full_vac']}
@@ -45,8 +30,8 @@ function RenderCountriesFullVaccines(props) {
         <div className='DiagramContainer'>
             <h2>Количество людей, поставивших полную вакцину</h2>
             <div className='BarChartContainer'>
-                <BarChart className='BarChart' width={window.innerWidth / diagramWidth}
-                          height={window.innerHeight / diagramHeight}
+                <BarChart className='BarChart' width={window.innerWidth / constants.diagramWidth}
+                          height={window.innerHeight / constants.diagramHeight}
                           data={data}>
                     <XAxis dataKey="name"/>
                     <YAxis tickFormatter={(value) => new Intl.NumberFormat('en').format(value)} width={80}
@@ -56,9 +41,9 @@ function RenderCountriesFullVaccines(props) {
                         {
                             data.map((d, index) => {
                                     if (d.name === 'Россия') {
-                                        return <Cell key={`cell-${index}`} fill={goodColor} style={{opacity: 0.5}}/>
+                                        return <Cell key={`cell-${index}`} fill={constants.goodColor} style={{opacity: 0.5}}/>
                                     }
-                                    return <Cell key={`cell-${index}`} fill={goodColor}/>
+                                    return <Cell key={`cell-${index}`} fill={constants.goodColor}/>
                                 }
                             )
                         }

@@ -1,15 +1,5 @@
 import {useState} from 'react';
 import RussiaSVG from './Russia'
-import {
-    XAxis,
-    YAxis,
-    Tooltip,
-    CartesianGrid,
-    LineChart,
-    Line,
-} from 'recharts';
-
-// все плохо по архитектуре конечно, но 3 дня всего было...
 
 let diagramWidth;
 let diagramHeight;

@@ -7,7 +7,7 @@ import {
     Cell,
 } from 'recharts';
 
-import constants from './Constants'
+import * as constants from './Constants'
 
 function RenderCountriesCasesToday(props) {
     const id = 2;

@@ -13,7 +13,7 @@ import RenderRussiaRegionSearch from './RussiaRegionSearch'
 import RenderRussiaCasesMap from './RussiaCasesMap'
 import RenderRussiaDeathsMap from './RussiaDeathsMap'
 
-import constants from './Constants'
+import * as constants from './Constants'
 
 import './App.css';
 

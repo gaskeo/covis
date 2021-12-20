@@ -7,23 +7,7 @@ import {
     Cell,
 } from 'recharts';
 
-const badColor = '#CD5C5C'
-
-let diagramWidth;
-let diagramHeight;
-
-if (window.innerWidth >= 800) {
-    diagramWidth = 1.4;
-    diagramHeight = 1.6;
-} else {
-    diagramWidth = 1.1;
-    diagramHeight = 2.4;
-}
-
-const countriesRu = [
-    'США', 'Индия', 'Бразилия', 'Великобритания', 'Россия', 'Турция', 'Франция', 'Иран', 'Аргентина',
-    'Испания', 'Колумбия', 'Италия', 'Германия', 'Индонезия', 'Мексика', 'Польша', 'ЮАР', 'Филиппины', 'Украина'
-]
+import * as constants from './Constants'
 
 function RenderCountriesDeathsToday(props) {
     const id = 4;
@@ -32,7 +16,7 @@ function RenderCountriesDeathsToday(props) {
     }
     let max_deaths = 0;
     const data = Object.keys(props.data).map(d => {
-        if (countriesRu.includes(props.data[d].info['name'])) {
+        if (constants.countriesRu.includes(props.data[d].info['name'])) {
             max_deaths = props.data[d].info['deaths_delta'] > max_deaths ? props.data[d].info['deaths_delta'] : max_deaths;
 
             return {name: props.data[d].info['name'], 'случаев смертей сегодня': props.data[d].info['deaths_delta']}
@@ -46,8 +30,8 @@ function RenderCountriesDeathsToday(props) {
         <div className='DiagramContainer'>
             <h2>Смертей сегодня</h2>
             <div className='BarChartContainer'>
-                <BarChart className='BarChart' width={window.innerWidth / diagramWidth}
-                          height={window.innerHeight / diagramHeight}
+                <BarChart className='BarChart' width={window.innerWidth / constants.diagramWidth}
+                          height={window.innerHeight / constants.diagramHeight}
                           data={data}>
                     <XAxis dataKey="name"/>
                     <YAxis tickFormatter={(value) => new Intl.NumberFormat('en').format(value)} width={80}
@@ -57,9 +41,9 @@ function RenderCountriesDeathsToday(props) {
                         {
                             data.map((d, index) => {
                                     if (d.name === 'Россия') {
-                                        return <Cell key={`cell-${index}`} fill={badColor} style={{opacity: 0.5}}/>
+                                        return <Cell key={`cell-${index}`} fill={constants.badColor} style={{opacity: 0.5}}/>
                                     }
-                                    return <Cell key={`cell-${index}`} fill={badColor}/>
+                                    return <Cell key={`cell-${index}`} fill={constants.badColor}/>
                                 }
                             )
                         }

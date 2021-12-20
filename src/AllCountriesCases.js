@@ -7,7 +7,7 @@ import {
     Cell,
 } from 'recharts';
 
-import constants from './Constants'
+import * as constants from './Constants'
 
 function RenderCountriesCases(props) {
     const id = 1;
@@ -31,8 +31,8 @@ function RenderCountriesCases(props) {
         <div className='DiagramContainer'>
             <h2>Всего заболеваний</h2>
             <div className='BarChartContainer'>
-                <BarChart className='BarChart' width={window.innerWidth / constants.diagramWidth}
-                          height={window.innerHeight / constants.diagramHeight}
+                <BarChart className='BarChart' width={window.innerWidth / constants.diagramWidth()}
+                          height={window.innerHeight / constants.diagramHeight()}
                           data={data}>
                     <XAxis dataKey="name"/>
                     <YAxis tickFormatter={(value) => new Intl.NumberFormat('en').format(value)} width={80}
