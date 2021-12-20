@@ -5,21 +5,8 @@ import {
     CartesianGrid,
     LineChart,
     Line,
-} from 'recharts';
-
-
-const badColor = '#CD5C5C'
-
-let diagramWidth;
-let diagramHeight;
-
-if (window.innerWidth >= 800) {
-    diagramWidth = 1.4;
-    diagramHeight = 1.6;
-} else {
-    diagramWidth = 1.1;
-    diagramHeight = 2.4;
-}
+} from 'recharts'
+import {badColor, diagramHeight, diagramWidth} from "./Constants";
 
 function RenderRussiaCasesHistory(props) {
     const id = 6;
@@ -45,8 +32,8 @@ function RenderRussiaCasesHistory(props) {
         <div className='DiagramContainer'>
             <h2>Заболеваний за месяц</h2>
             <div className='BarChartContainer'>
-                <LineChart className='BarChart' width={window.innerWidth / diagramWidth}
-                           height={window.innerHeight / diagramHeight}
+                <LineChart className='BarChart' width={window.innerWidth / diagramWidth()}
+                           height={window.innerHeight / diagramHeight()}
                            data={cases}>
                     <Line type="monotone" dataKey="заболеваний на данный день" stroke={badColor} activeDot={{r: 12}}/>
                     <CartesianGrid vertical={false} stroke="#ccc"/>

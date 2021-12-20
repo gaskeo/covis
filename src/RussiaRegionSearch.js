@@ -7,24 +7,7 @@ import {
     LineChart,
     Line,
 } from 'recharts';
-
-const badColor = '#CD5C5C'
-
-let diagramWidth;
-let diagramHeight;
-
-if (window.innerWidth >= 800) {
-    diagramWidth = 1.4;
-    diagramHeight = 1.6;
-} else {
-    diagramWidth = 1.1;
-    diagramHeight = 2.4;
-}
-const dataStates = {
-    notRequested: 0,
-    requested: 1,
-    received: 2
-}
+import {badColor, DataStates, diagramHeight, diagramWidth} from "./Constants";
 
 function RenderRussiaRegionSearch(props) {
     function findRegionByStart(e) {
@@ -44,10 +27,10 @@ function RenderRussiaRegionSearch(props) {
     }
 
     async function searchRegion(reg) {
-        if (dataState === dataStates.requested) {
+        if (dataState === DataStates.requested) {
             return
         }
-        updateDataState(dataStates.requested)
+        updateDataState(DataStates.requested)
         let index = 1;
         for (let i in Object.entries(props.data)) {
             if (props.data[i].name.toLowerCase() === reg.toLowerCase()) {
@@ -59,7 +42,7 @@ function RenderRussiaRegionSearch(props) {
             r.json().then(j => {
                 updateData(j)
                 updateFoundRegion(reg)
-                updateDataState(dataStates.received)
+                updateDataState(DataStates.received)
             })
         })
     }
@@ -70,7 +53,7 @@ function RenderRussiaRegionSearch(props) {
     let [complete, updateComplete] = useState(false);
     let [region, updateRegion] = useState('');
     let [data, updateData] = useState(null);
-    let [dataState, updateDataState] = useState(dataStates.notRequested)
+    let [dataState, updateDataState] = useState(DataStates.notRequested)
     let [isSearch, updateIsSearch] = useState(0);
     let [suggestions, updateSuggestions] = useState(names);
     let [foundRegion, updateFoundRegion] = useState('');
@@ -79,10 +62,10 @@ function RenderRussiaRegionSearch(props) {
         return null;
     }
     let mainData = null;
-    if (dataState === dataStates.requested) {
+    if (dataState === DataStates.requested) {
         mainData = <div>loading...</div>
     }
-    if (dataState === dataStates.received) {
+    if (dataState === DataStates.received) {
         let date = new Date(Date.now() - 30 * 3600 * 1000)
 
         let max_cases = 0;
@@ -134,8 +117,8 @@ function RenderRussiaRegionSearch(props) {
             <div className='DiagramContainer'>
                 <h2>Случаи смертей по региону: <span style={{textTransform: 'capitalize'}}>{foundRegion}</span></h2>
                 <div className='BarChartContainer'>
-                    <LineChart className='BarChart' width={window.innerWidth / diagramWidth}
-                               height={window.innerHeight / diagramHeight}
+                    <LineChart className='BarChart' width={window.innerWidth / diagramWidth()}
+                               height={window.innerHeight / diagramHeight()}
                                data={deaths}>
                         <Line type="monotone" dataKey="смертей на данный день" stroke={badColor} activeDot={{r: 12}}/>
                         <CartesianGrid vertical={false} stroke="#ccc"/>

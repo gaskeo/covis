@@ -6,19 +6,7 @@ import {
     LineChart,
     Line,
 } from 'recharts';
-
-const badColor = '#CD5C5C'
-
-let diagramWidth;
-let diagramHeight;
-
-if (window.innerWidth >= 800) {
-    diagramWidth = 1.4;
-    diagramHeight = 1.6;
-} else {
-    diagramWidth = 1.1;
-    diagramHeight = 2.4;
-}
+import {badColor, diagramHeight, diagramWidth} from "./Constants";
 
 function RenderRussiaDeathsHistory(props) {
     const id = 8;
@@ -43,8 +31,8 @@ function RenderRussiaDeathsHistory(props) {
         <div className='DiagramContainer'>
             <h2>Случаи смертей по России за месяц</h2>
             <div className='BarChartContainer'>
-                <LineChart className='BarChart' width={window.innerWidth / diagramWidth}
-                           height={window.innerHeight / diagramHeight}
+                <LineChart className='BarChart' width={window.innerWidth / diagramWidth()}
+                           height={window.innerHeight / diagramHeight()}
                            data={cases}>
                     <Line type="monotone" dataKey="смертей на данный день" stroke={badColor} activeDot={{r: 12}}/>
                     <CartesianGrid vertical={false} stroke="#ccc"/>

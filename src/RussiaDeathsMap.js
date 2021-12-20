@@ -1,22 +1,6 @@
 import {useState} from 'react';
 import RussiaSVG from './Russia'
 
-let diagramWidth;
-let diagramHeight;
-
-if (window.innerWidth >= 800) {
-    diagramWidth = 1.4;
-    diagramHeight = 1.6;
-} else {
-    diagramWidth = 1.1;
-    diagramHeight = 2.4;
-}
-const dataStates = {
-    notRequested: 0,
-    requested: 1,
-    received: 2
-}
-
 function RenderRussiaDeathsMap(props) {
     const [activeRegion, updateActiveRegion] = useState('');
 
@@ -37,7 +21,6 @@ function RenderRussiaDeathsMap(props) {
     if (props.activeTab !== id) {
         return null;
     }
-
 
     let prepareData = Object.keys(props.data).map(d => {
         if (props.data[d]['info']['name'] === "Россия" || props.data[d]['info']['name'] === "Москва") {

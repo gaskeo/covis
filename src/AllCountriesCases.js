@@ -11,6 +11,7 @@ import * as constants from './Constants'
 
 function RenderCountriesCases(props) {
     const id = 1;
+
     if (props.activeTab !== id) {
         return null;
     }
