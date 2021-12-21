@@ -1,4 +1,4 @@
-import {checkPage, countriesRu, diagramData, badColor} from "./Constants";
+import {checkPage, diagramData, badColor, getMainData} from "./Constants";
 import {MyBarChart} from "./BarChart";
 
 function RenderCountriesCasesToday(props) {
@@ -7,22 +7,13 @@ function RenderCountriesCasesToday(props) {
         return check;
     }
 
-    let maxCases = 0;
-    const data = Object.keys(props.data).map(d => {
-        if (countriesRu.includes(props.data[d].info['name'])) {
-            maxCases = Math.max(props.data[d].info['cases_delta'], maxCases);
-
-            return {name: props.data[d].info['name'], [diagramData.casesToday.label]: props.data[d].info['cases_delta']}
-        }
-        return null;
-    }).filter(a => a);
-    data.sort((a, b) => a.name.localeCompare(b.name))
+    const [data, maxCases] = getMainData(props.data, 'cases_delta', diagramData.casesToday.label)
 
     return (
         <div className='DiagramContainer'>
             <h2>Заболеваний сегодня</h2>
             <div className='BarChartContainer'>
-                <MyBarChart data={data} maxY={maxCases + diagramData.casesToday.plusMaxValue} color={badColor} label={diagramData.casesToday.label}/>
+                <MyBarChart data={data} maxY={Math.ceil(maxCases * 1.1)} color={badColor} label={diagramData.casesToday.label}/>
             </div>
         </div>
     )
