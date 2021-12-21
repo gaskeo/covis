@@ -7,7 +7,7 @@ import {
     LineChart,
     Line,
 } from 'recharts';
-import {badColor, checkPage, DataStates, diagramHeight, diagramWidth} from "./Constants";
+import {badColor, checkPage, dataStates, diagramHeight, diagramWidth} from "./Constants";
 
 function RenderRussiaRegionSearch(props) {
     function findRegionByStart(e) {
@@ -27,10 +27,10 @@ function RenderRussiaRegionSearch(props) {
     }
 
     async function searchRegion(reg) {
-        if (dataState === DataStates.requested) {
+        if (dataState === dataStates.requested) {
             return
         }
-        updateDataState(DataStates.requested)
+        updateDataState(dataStates.requested)
         let index = 1;
         for (let i in Object.entries(props.data)) {
             if (props.data[i].name.toLowerCase() === reg.toLowerCase()) {
@@ -42,7 +42,7 @@ function RenderRussiaRegionSearch(props) {
             r.json().then(j => {
                 updateData(j)
                 updateFoundRegion(reg)
-                updateDataState(DataStates.received)
+                updateDataState(dataStates.received)
             })
         })
     }
@@ -50,7 +50,7 @@ function RenderRussiaRegionSearch(props) {
     let [complete, updateComplete] = useState(false);
     let [region, updateRegion] = useState('');
     let [data, updateData] = useState(null);
-    let [dataState, updateDataState] = useState(DataStates.notRequested)
+    let [dataState, updateDataState] = useState(dataStates.notRequested)
     let [isSearch, updateIsSearch] = useState(0);
     let [suggestions, updateSuggestions] = useState(null);
     let [foundRegion, updateFoundRegion] = useState('');
@@ -67,10 +67,10 @@ function RenderRussiaRegionSearch(props) {
     }
 
     let mainData = null;
-    if (dataState === DataStates.requested) {
+    if (dataState === dataStates.requested) {
         mainData = <div>loading...</div>
     }
-    if (dataState === DataStates.received) {
+    if (dataState === dataStates.received) {
         let date = new Date(Date.now() - 30 * 3600 * 1000)
 
         let max_cases = 0;
