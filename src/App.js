@@ -21,6 +21,7 @@ import {russiaCasesLink, worldStatLink} from "./Constants";
 function worldReducer(states, actions) {
     actions.map(action => {
         states[action.type] = action.data;
+        return action;
     });
     return {...states};
 }
@@ -28,6 +29,7 @@ function worldReducer(states, actions) {
 function russianReducer(states, actions) {
     actions.map(action => {
         states[action.type] = action.data;
+        return action;
     });
     return {...states};
 }

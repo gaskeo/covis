@@ -51,7 +51,7 @@ export const diagramData = {
 
 export const russia = 'Россия'
 
-export function getMainData(data, field, label, name='name') {
+export function getMainData(data, field, label, name = 'name') {
     let maxValue = 0;
     const convData = Object.keys(data).map(d => {
         if (countriesRu.includes(data[d].info[name])) {
@@ -84,7 +84,7 @@ export function getVaccineData(data, field, label) {
     return [convData, maxValue];
 }
 
-export function getRussiaData(data,field, label) {
+export function getRussiaData(data, field, label) {
     const date = new Date()
     date.setDate(date.getDate() - 30)
     let [minValue, maxValue] = [10_000_000_000, 0]
@@ -99,7 +99,7 @@ export function getRussiaData(data,field, label) {
         maxValue = Math.max(data[field][d][1], maxValue);
         minValue = Math.min(data['cases'][d][1], minValue);
 
-        return {name: `${day}-${month}-${year}`, [label]: data['cases'][d][1]}
+        return {name: `${day}-${month}-${year}`, [label]: data[field][d][1]}
     })
     return [convData, minValue, maxValue]
 }

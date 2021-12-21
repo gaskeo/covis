@@ -1,12 +1,4 @@
-import {
-    XAxis,
-    YAxis,
-    Tooltip,
-    CartesianGrid,
-    LineChart,
-    Line,
-} from 'recharts';
-import {badColor, checkPage, diagramData, diagramHeight, diagramWidth, getRussiaData} from "./Constants";
+import {badColor, checkPage, diagramData, getRussiaData} from "./Constants";
 import {MyLineChart} from "./LineChart";
 
 function RenderRussiaDeathsHistory(props) {

@@ -1,4 +1,4 @@
-import {badColor, diagramHeight, diagramWidth} from "./Constants";
+import {diagramHeight, diagramWidth} from "./Constants";
 import {CartesianGrid, Line, LineChart, Tooltip, XAxis, YAxis} from "recharts";
 
 export const MyLineChart = (props) => {

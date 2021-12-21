@@ -7,30 +7,7 @@ import {
     LineChart,
     Line,
 } from 'recharts';
-import {checkPage} from "./Constants";
-
-
-const badColor = '#CD5C5C'
-
-let diagramWidth;
-let diagramHeight;
-
-if (window.innerWidth >= 800) {
-    diagramWidth = 1.4;
-    diagramHeight = 1.6;
-} else {
-    diagramWidth = 1.1;
-    diagramHeight = 2.4;
-}
-const dataStates = {
-    notRequested: 0,
-    requested: 1,
-    received: 2
-}
-const countriesRu = [
-    'США', 'Индия', 'Бразилия', 'Великобритания', 'Россия', 'Турция', 'Франция', 'Иран', 'Аргентина',
-    'Испания', 'Колумбия', 'Италия', 'Германия', 'Индонезия', 'Мексика', 'Польша', 'ЮАР', 'Филиппины', 'Украина'
-]
+import {badColor, checkPage, dataStates, diagramHeight, diagramWidth} from "./Constants";
 
 function RenderCountrySearch(props) {
     function findRegionByStart(e) {
@@ -132,8 +109,8 @@ function RenderCountrySearch(props) {
             <div className='DiagramContainer'>
                 <h2>Случаи заболевания по стране: <span style={{textTransform: 'capitalize'}}>{foundRegion}</span></h2>
                 <div className='BarChartContainer'>
-                    <LineChart className='BarChart' width={window.innerWidth / diagramWidth}
-                               height={window.innerHeight / diagramHeight}
+                    <LineChart className='BarChart' width={window.innerWidth / diagramWidth()}
+                               height={window.innerHeight / diagramHeight()}
                                data={cases}>
                         <Line type="monotone" dataKey="заболеваний на данный день" stroke={badColor}
                               activeDot={{r: 12}}/>
@@ -148,8 +125,8 @@ function RenderCountrySearch(props) {
             <div className='DiagramContainer'>
                 <h2>Случаи смертей по стране: <span style={{textTransform: 'capitalize'}}>{foundRegion}</span></h2>
                 <div className='BarChartContainer'>
-                    <LineChart className='BarChart' width={window.innerWidth / diagramWidth}
-                               height={window.innerHeight / diagramHeight}
+                    <LineChart className='BarChart' width={window.innerWidth / diagramWidth()}
+                               height={window.innerHeight / diagramHeight()}
                                data={deaths}>
                         <Line type="monotone" dataKey="смертей на данный день" stroke={badColor} activeDot={{r: 12}}/>
                         <CartesianGrid vertical={false} stroke="#ccc"/>
@@ -173,7 +150,7 @@ function RenderCountrySearch(props) {
                     </svg>
                 </button>
                 <div className='RegionSuggestions'>
-                    {suggestions.map((d, index) => <p onClick={(e) => {
+                    {suggestions.map((d, index) => <p onClick={() => {
                         updateRegion(d);
                         updateIsSearch(0);
                         searchRegion(d);
