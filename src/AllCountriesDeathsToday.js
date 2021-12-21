@@ -13,7 +13,10 @@ function RenderCountriesDeathsToday(props) {
         <div className='DiagramContainer'>
             <h2>Смертей сегодня</h2>
             <div className='BarChartContainer'>
-                <MyBarChart data={data} maxY={Math.ceil(maxDeaths * 1.1)} color={badColor} label={diagramData.deathsToday.label}/>
+                <MyBarChart data={data}
+                            maxY={Math.ceil(maxDeaths * 1.1)}
+                            color={badColor}
+                            label={diagramData.deathsToday.label}/>
             </div>
         </div>
     )

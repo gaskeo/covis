@@ -13,7 +13,10 @@ function RenderCountriesVaccines(props) {
         <div className='DiagramContainer'>
             <h2>Вакцин сделано</h2>
             <div className='BarChartContainer'>
-                <MyBarChart data={data} maxY={Math.ceil(maxVaccines * 1.1)} color={goodColor} label={diagramData.vaccines.label}/>
+                <MyBarChart data={data}
+                            maxY={Math.ceil(maxVaccines * 1.1)}
+                            color={goodColor}
+                            label={diagramData.vaccines.label}/>
             </div>
         </div>
     )

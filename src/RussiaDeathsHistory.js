@@ -8,11 +8,16 @@ function RenderRussiaDeathsHistory(props) {
     }
 
     const [deaths, minDeaths, maxDeaths] = getRussiaData(props.data, 'deaths', diagramData.deaths.label)
+
     return (
         <div className='DiagramContainer'>
             <h2>Случаи смертей по России за месяц</h2>
             <div className='BarChartContainer'>
-                <MyLineChart data={deaths} label={diagramData.deaths.label} minValue={minDeaths} maxValue={maxDeaths} color={badColor}/>
+                <MyLineChart data={deaths}
+                             label={diagramData.deaths.label}
+                             minValue={Math.ceil(minDeaths * 0.9)}
+                             maxValue={Math.ceil(maxDeaths * 1.1)}
+                             color={badColor}/>
             </div>
         </div>
     )

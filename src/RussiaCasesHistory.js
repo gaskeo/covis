@@ -12,7 +12,9 @@ function RenderRussiaCasesHistory(props) {
         <div className='DiagramContainer'>
             <h2>Заболеваний за месяц</h2>
             <div className='BarChartContainer'>
-                <MyLineChart data={cases} label={diagramData.cases.label} minValue={minCases} maxValue={maxCases} color={badColor}/>
+                <MyLineChart data={cases}
+                             label={diagramData.cases.label}
+                             minValue={Math.ceil(minCases * 0.9)} maxValue={Math.ceil(maxCases * 1.1)} color={badColor}/>
             </div>
         </div>
     )

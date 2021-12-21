@@ -97,7 +97,7 @@ export function getRussiaData(data, field, label) {
         date.setDate(date.getDate() + 1);
 
         maxValue = Math.max(data[field][d][1], maxValue);
-        minValue = Math.min(data['cases'][d][1], minValue);
+        minValue = Math.min(data[field][d][1], minValue);
 
         return {name: `${day}-${month}-${year}`, [label]: data[field][d][1]}
     })
