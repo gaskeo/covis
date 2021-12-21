@@ -6,13 +6,14 @@ import {
     LineChart,
     Line,
 } from 'recharts';
-import {badColor, diagramHeight, diagramWidth} from "./Constants";
+import {badColor, checkPage, diagramHeight, diagramWidth} from "./Constants";
 
 function RenderRussiaDeathsHistory(props) {
-    const id = 8;
-    if (props.activeTab !== id) {
-        return null;
+    const check = checkPage(props.id, props.activeTab, props.data);
+    if (check !== true) {
+        return check;
     }
+
     let date = new Date()
     date.setDate(date.getDate() - 30)
 

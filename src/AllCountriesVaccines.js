@@ -8,11 +8,12 @@ import {
 } from 'recharts';
 
 import * as constants from './Constants'
+import {checkPage} from "./Constants";
 
 function RenderCountriesVaccines(props) {
-    const id = 12;
-    if (props.activeTab !== id) {
-        return null;
+    const check = checkPage(props.id, props.activeTab, props.data);
+    if (check !== true) {
+        return check;
     }
 
     let max_vaccines = 0;
@@ -42,7 +43,8 @@ function RenderCountriesVaccines(props) {
                         {
                             data.map((d, index) => {
                                     if (d.name === 'Россия') {
-                                        return <Cell key={`cell-${index}`} fill={constants.goodColor} style={{opacity: 0.5}}/>
+                                        return <Cell key={`cell-${index}`} fill={constants.goodColor}
+                                                     style={{opacity: 0.5}}/>
                                     }
                                     return <Cell key={`cell-${index}`} fill={constants.goodColor}/>
                                 }

@@ -8,11 +8,12 @@ import {
 } from 'recharts';
 
 import * as constants from './Constants'
+import {checkPage} from "./Constants";
 
 function RenderCountriesCasesToday(props) {
-    const id = 2;
-    if (props.activeTab !== id) {
-        return null;
+    const check = checkPage(props.id, props.activeTab, props.data);
+    if (check !== true) {
+        return check;
     }
 
     let max_cases = 0;

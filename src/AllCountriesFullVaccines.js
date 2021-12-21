@@ -8,12 +8,14 @@ import {
 } from 'recharts';
 
 import * as constants from './Constants'
+import {checkPage} from "./Constants";
 
 function RenderCountriesFullVaccines(props) {
-    const id = 13;
-    if (props.activeTab !== id) {
-        return null;
+    const check = checkPage(props.id, props.activeTab, props.data);
+    if (check !== true) {
+        return check;
     }
+
     let max_vaccines = 0;
     let data = Object.keys(props.data).map(d => {
         if (constants.countriesRu.includes(props.data[d]['name_ru'])) {

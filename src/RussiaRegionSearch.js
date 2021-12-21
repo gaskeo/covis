@@ -7,7 +7,7 @@ import {
     LineChart,
     Line,
 } from 'recharts';
-import {badColor, DataStates, diagramHeight, diagramWidth} from "./Constants";
+import {badColor, checkPage, DataStates, diagramHeight, diagramWidth} from "./Constants";
 
 function RenderRussiaRegionSearch(props) {
     function findRegionByStart(e) {
@@ -47,20 +47,25 @@ function RenderRussiaRegionSearch(props) {
         })
     }
 
-    let names = props.data.map(d => d.name.toLowerCase())
-    names.sort((a, b) => a.localeCompare(b))
-
     let [complete, updateComplete] = useState(false);
     let [region, updateRegion] = useState('');
     let [data, updateData] = useState(null);
     let [dataState, updateDataState] = useState(DataStates.notRequested)
     let [isSearch, updateIsSearch] = useState(0);
-    let [suggestions, updateSuggestions] = useState(names);
+    let [suggestions, updateSuggestions] = useState(null);
     let [foundRegion, updateFoundRegion] = useState('');
-    const id = 9
-    if (props.activeTab !== id) {
-        return null;
+
+    const check = checkPage(props.id, props.activeTab, props.data);
+    if (check !== true) {
+        return check;
     }
+
+    let names = props.data.map(d => d.name.toLowerCase());
+    names.sort((a, b) => a.localeCompare(b));
+    if (suggestions === null) {
+        updateSuggestions(names);
+    }
+
     let mainData = null;
     if (dataState === DataStates.requested) {
         mainData = <div>loading...</div>

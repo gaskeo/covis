@@ -1,5 +1,6 @@
 import {useState} from 'react';
 import RussiaSVG from './Russia'
+import {checkPage} from "./Constants";
 
 function RenderRussiaCasesMap(props) {
     const [activeRegion, updateActiveRegion] = useState('');
@@ -17,9 +18,9 @@ function RenderRussiaCasesMap(props) {
         return 0;
     }
 
-    const id = 10
-    if (props.activeTab !== id) {
-        return null;
+    const check = checkPage(props.id, props.activeTab, props.data);
+    if (check !== true) {
+        return check;
     }
 
     let prepareData = Object.keys(props.data).map(d => {

@@ -26,3 +26,16 @@ export const countriesRu = [
     'США', 'Индия', 'Бразилия', 'Великобритания', 'Россия', 'Турция', 'Франция', 'Иран', 'Аргентина',
     'Испания', 'Колумбия', 'Италия', 'Германия', 'Индонезия', 'Мексика', 'Польша', 'ЮАР', 'Филиппины', 'Украина'
 ]
+
+export const worldStatLink = 'https://milab.s3.yandex.net/2020/covid19-stat/data/v10/default_data.json'
+export const russiaCasesLink = 'https://milab.s3.yandex.net/2020/covid19-stat/data/v10/data-by-region/225.json'
+
+export const checkPage = (id, activeId, data) => {
+    if (activeId !== id) {
+        return null;
+    }
+    if (data === null || data.length < 1) {
+        return <div>загрузка...</div>;
+    }
+    return true;
+}

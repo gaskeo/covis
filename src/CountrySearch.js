@@ -7,6 +7,7 @@ import {
     LineChart,
     Line,
 } from 'recharts';
+import {checkPage} from "./Constants";
 
 
 const badColor = '#CD5C5C'
@@ -69,20 +70,26 @@ function RenderCountrySearch(props) {
         })
     }
 
-    let names = props.data.map(d => d.name.toLowerCase())
+    const [complete, updateComplete] = useState(false);
+    const [region, updateRegion] = useState('');
+    const [data, updateData] = useState(null);
+    const [dataState, updateDataState] = useState(dataStates.notRequested)
+    const [isSearch, updateIsSearch] = useState(0);
+    const [suggestions, updateSuggestions] = useState(null);
+    const [foundRegion, updateFoundRegion] = useState('');
+
+    const check = checkPage(props.id, props.activeTab, props.data);
+    if (check !== true) {
+        return check;
+    }
+
+    let names = props.data.map(d => d.name.toLowerCase());
     names.sort((a, b) => a.localeCompare(b))
 
-    let [complete, updateComplete] = useState(false);
-    let [region, updateRegion] = useState('');
-    let [data, updateData] = useState(null);
-    let [dataState, updateDataState] = useState(dataStates.notRequested)
-    let [isSearch, updateIsSearch] = useState(0);
-    let [suggestions, updateSuggestions] = useState(names);
-    let [foundRegion, updateFoundRegion] = useState('');
-    const id = 14
-    if (props.activeTab !== id) {
-        return null;
+    if (suggestions === null) {
+        updateSuggestions(names)
     }
+
     let mainData = null;
     if (dataState === dataStates.requested) {
         mainData = <div>loading...</div>
