@@ -39,3 +39,9 @@ export const checkPage = (id, activeId, data) => {
     }
     return true;
 }
+
+export const diagramData = {
+    cases: {label: 'случаев заболевания', plusMaxValue: 4_500_000},
+}
+
+export const russia = 'Россия'
