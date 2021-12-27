@@ -1,5 +1,9 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
 
+body::-webkit-scrollbar {
+    width: 0;
+}
+
 .App {
     text-align: center;
     height: 100%;

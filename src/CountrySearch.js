@@ -1,4 +1,4 @@
-import {useEffect, useReducer, useState} from 'react';
+import {useReducer} from 'react';
 import {
     badColor,
     checkPage,
@@ -49,7 +49,7 @@ async function searchRegion(regIndex) {
 }
 
 function RenderCountrySearch(props) {
-    function GetRegion(region) {
+    function getRegion(region) {
         const regionIndex = getRegionByName(props.data, region);
         if (regionIndex !== -1) {
             searchRegion(regionIndex).then(d => updateRegionStates([
@@ -110,44 +110,44 @@ function RenderCountrySearch(props) {
     }
 
     return <div style={{width: '100%'}}>
-        <div className='InputForm'>
-            <input style={{textTransform: 'capitalize'}} type='text' className='RegionInput' list='suggestions'
-                   value={formStates.formData} onChange={e => {
-                const [region, newSuggestions, complete] = getElemsByStart(e, formStates.allRegions);
-                updateFormStates([
-                    {type: 'formData', data: region},
-                    {type: 'suggestions', data: newSuggestions},
-                    {type: 'complete', data: complete}
-                ])
-            }}
-                   onFocus={() => updateFormStates([{type: 'isSearch', data: true}])}
-                // onBlur={() => updateFormStates([{type: 'isSearch', data: false}])}
-                   placeholder='Введите регион'/>
-            <button className='SearchButton' disabled={!formStates.complete} onClick={() => {
-                updateRegionStates([
-                    {type: 'regionData', data: null},
-                    {type: 'regionDataRequired', data: true},
-                    {type: 'foundRegion', data: formStates.formData}]);
-                GetRegion(formStates.formData)
-            }}>Найти
-            </button>
-        </div>
-        {formStates.isSearch && <SearchElem onClose={() => updateFormStates([{type: 'isSearch', data: false}])}
-                                            elems={formStates.suggestions.map((d, index) =>
-                                                <p onClick={() => {
-                                                    updateRegionStates([
-                                                        {type: 'regionData', data: null},
-                                                        {type: 'regionDataRequired', data: true},
-                                                        {type: 'foundRegion', data: d}]);
-                                                    GetRegion(d)
+        <div onBlur={() => updateFormStates([{type: 'isSearch', data: false}])}>
+            <div className='InputForm'>
+                <input style={{textTransform: 'capitalize'}} type='text' className='RegionInput' list='suggestions'
+                       value={formStates.formData} onChange={e => {
+                    const [region, newSuggestions, complete] = getElemsByStart(e, formStates.allRegions);
+                    updateFormStates([
+                        {type: 'formData', data: region},
+                        {type: 'suggestions', data: newSuggestions},
+                        {type: 'complete', data: complete}
+                    ])
+                }}
+                       onFocus={() => updateFormStates([{type: 'isSearch', data: true}])}
+                       placeholder='Введите регион'/>
+                <button className='SearchButton' disabled={!formStates.complete} onClick={() => {
+                    updateRegionStates([
+                        {type: 'regionData', data: null},
+                        {type: 'regionDataRequired', data: true},
+                        {type: 'foundRegion', data: formStates.formData}]);
+                    getRegion(formStates.formData);
+                }}>Найти
+                </button>
+            </div>
+            {formStates.isSearch && <SearchElem onClose={() => updateFormStates([{type: 'isSearch', data: false}])}
+                                                elems={formStates.suggestions.map((d, index) =>
+                                                    <p onClick={() => {
+                                                        updateRegionStates([
+                                                            {type: 'regionData', data: null},
+                                                            {type: 'regionDataRequired', data: true},
+                                                            {type: 'foundRegion', data: d}]);
+                                                        getRegion(d);
 
-                                                }} key={index}>
+                                                    }} key={index}>
                                          <span style={{textTransform: 'capitalize'}}>
                                              {d}
                                          </span>
-                                                </p>)}/>
-        }
-
+                                                    </p>)}/>
+            }
+        </div>
         {mainData}
     </div>
 }
