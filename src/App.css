@@ -1,9 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
 
-body::-webkit-scrollbar {
-    width: 0;
-}
-
 .App {
     text-align: center;
     height: 100%;
@@ -135,7 +131,12 @@ h2 {
 }
 
 .MapToolTip {
-    padding-top: 2rem;
+    border: 1px solid #cccccc;
+    position: absolute;
+    transition: 500ms ease-out;
+    background-color: white;
+    padding: 1rem 0.5rem;
+    pointer-events: none;
 }
 
 .RegionInput {
@@ -295,6 +296,7 @@ h2 {
     }
 
     .MapToolTip {
+        position: absolute;
         padding-top: 0;
         padding-left: 1rem;
     }
