@@ -68,9 +68,7 @@ async function getCountriesAndRussianRegionsData() {
 }
 
 async function getRussiaCasesHistoryData() {
-    return await axios.get(russiaCasesLink).then((r) => {
-        return r.data;
-    })
+    return await axios.get(russiaCasesLink).then((r) => r.data)
 }
 
 function App() {

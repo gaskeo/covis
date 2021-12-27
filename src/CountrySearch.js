@@ -1,177 +1,152 @@
-import {useState} from 'react';
+import {useEffect, useReducer, useState} from 'react';
 import {
-    XAxis,
-    YAxis,
-    Tooltip,
-    CartesianGrid,
-    LineChart,
-    Line,
-} from 'recharts';
-import {badColor, checkPage, dataStates, diagramHeight, diagramWidth} from "./Constants";
+    badColor,
+    checkPage,
+    diagramData, generateLinkByRegId,
+    getElemsByStart,
+    getRegionByName,
+    getRussiaData
+} from "./Constants";
+import {MyLineChart} from "./LineChart";
+import {SearchElem} from "./searchElem";
+import axios from "axios";
+
+function formReducer(states, actions) {
+    actions.map(action => {
+        states[action.type] = action.data;
+        return action;
+    });
+    return {...states};
+}
+
+function regionReducer(states, actions) {
+    actions.map(action => {
+        states[action.type] = action.data;
+        return action;
+    });
+    return {...states};
+}
+
+const formInit = {
+    complete: false,
+    isSearch: false,
+    suggestions: null,
+    allRegions: null,
+    formData: ''
+};
+
+const regionInit = {
+    regionData: null,
+    regionDataRequired: false,
+    foundRegion: ''
+}
+
+
+async function searchRegion(regIndex) {
+    return axios.get(generateLinkByRegId(regIndex))
+        .then((r) => r.data
+        )
+}
 
 function RenderCountrySearch(props) {
-    function findRegionByStart(e) {
-        updateRegion(e.target.value)
-
-        updateSuggestions(names.map(r => {
-            if (r.toLowerCase().startsWith(e.target.value.toLowerCase())) {
-                return r
-            }
-            return null
-        }).filter(a => a))
-
-        if (names.includes(e.target.value.toLowerCase())) {
-            return updateComplete(true)
+    function GetRegion(region) {
+        const regionIndex = getRegionByName(props.data, region);
+        if (regionIndex !== -1) {
+            searchRegion(regionIndex).then(d => updateRegionStates([
+                {type: 'regionData', data: d},
+                {type: 'regionDataRequired', data: false},
+                {type: 'foundRegion', data: formStates.formData},
+            ]));
         }
-        return updateComplete(false)
+        updateFormStates([{type: 'isSearch', data: false}]);
     }
 
-    async function searchRegion(reg) {
-        if (dataState === dataStates.requested) {
-            return
-        }
-        updateDataState(dataStates.requested)
-        let index = 1;
-        for (let i in Object.entries(props.data)) {
-            if (props.data[i].name.toLowerCase() === reg.toLowerCase()) {
-                index = props.data[i].code;
-                break;
-            }
-        }
-        return fetch(`https://milab.s3.yandex.net/2020/covid19-stat/data/v10/data-by-region/${index}.json?`, {method: 'get'}).then((r) => {
-            r.json().then(j => {
-                updateData(j)
-                updateFoundRegion(reg)
-                updateDataState(dataStates.received)
-            })
-        })
-    }
 
-    const [complete, updateComplete] = useState(false);
-    const [region, updateRegion] = useState('');
-    const [data, updateData] = useState(null);
-    const [dataState, updateDataState] = useState(dataStates.notRequested)
-    const [isSearch, updateIsSearch] = useState(0);
-    const [suggestions, updateSuggestions] = useState(null);
-    const [foundRegion, updateFoundRegion] = useState('');
+    const [formStates, updateFormStates] = useReducer(formReducer, formInit, i => i);
+    const [regionStates, updateRegionStates] = useReducer(regionReducer, regionInit, i => i)
 
     const check = checkPage(props.id, props.activeTab, props.data);
     if (check !== true) {
         return check;
     }
 
-    let names = props.data.map(d => d.name.toLowerCase());
-    names.sort((a, b) => a.localeCompare(b))
-
-    if (suggestions === null) {
-        updateSuggestions(names)
+    if (formStates.allRegions === null) {
+        let names = props.data.map(d => d.name.toLowerCase());
+        names.sort((a, b) => a.localeCompare(b))
+        updateFormStates([{type: 'allRegions', data: names}, {type: 'suggestions', data: names}]);
     }
 
-    let mainData = null;
-    if (dataState === dataStates.requested) {
-        mainData = <div>loading...</div>
-    }
-    if (dataState === dataStates.received) {
-        let date = new Date(Date.now() - 30 * 3600 * 1000)
+    let mainData;
+    if (regionStates.regionDataRequired === true) {
+        mainData = <div>loading...</div>;
+    } else if (regionStates.regionData !== null) {
+        const [cases, minCases, maxCases] = getRussiaData(regionStates.regionData, 'cases', diagramData.cases.label)
+        const [deaths, minDeaths, maxDeaths] = getRussiaData(regionStates.regionData, 'deaths', diagramData.deaths.label)
 
-        let max_cases = 0;
-        let min_cases = 10000000000000000;
-        let cases = data['cases'].slice(data['cases'].length - 32).map(d => {
-            date.setDate(date.getDate() + 1)
-            let day = (date.getDate()).toString().padStart(2, '0')
-            let month = (date.getMonth()).toString().padStart(2, '0')
-            let year = date.getFullYear()
-            max_cases = d[1] > max_cases ? d[1] : max_cases;
-            min_cases = d[1] < min_cases ? d[1] : min_cases;
-
-            return {
-                name: `${day}-${month}-${year}`, 'заболеваний на данный день': d[1]
-            }
-        })
-
-        date = new Date(Date.now() - 30 * 3600 * 1000)
-
-        let max_deaths = 0;
-        let min_deaths = 1000000000000000000;
-        let deaths = data['deaths'].slice(data['deaths'].length - 32).map(d => {
-            date.setDate(date.getDate() + 1)
-            let day = (date.getDate()).toString().padStart(2, '0')
-            let month = (date.getMonth()).toString().padStart(2, '0')
-            let year = date.getFullYear()
-            max_deaths = d[1] > max_deaths ? d[1] : max_deaths;
-            min_deaths = d[1] < min_deaths ? d[1] : min_deaths;
-
-            return {
-                name: `${day}-${month}-${year}`, 'смертей на данный день': d[1]
-            }
-        })
         mainData = <div>
             <div className='DiagramContainer'>
-                <h2>Случаи заболевания по стране: <span style={{textTransform: 'capitalize'}}>{foundRegion}</span></h2>
+                <h2>Случаи заболевания по стране: <span
+                    style={{textTransform: 'capitalize'}}>{regionStates.foundRegion}</span></h2>
                 <div className='BarChartContainer'>
-                    <LineChart className='BarChart' width={window.innerWidth / diagramWidth()}
-                               height={window.innerHeight / diagramHeight()}
-                               data={cases}>
-                        <Line type="monotone" dataKey="заболеваний на данный день" stroke={badColor}
-                              activeDot={{r: 12}}/>
-                        <CartesianGrid vertical={false} stroke="#ccc"/>
-                        <XAxis dataKey="name"/>
-                        <YAxis tickFormatter={(value) => new Intl.NumberFormat('en').format(value)} width={80}
-                               domain={[min_cases - 100, max_cases + 100]}/>
-                        <Tooltip formatter={(value) => new Intl.NumberFormat('en').format(value)}/>
-                    </LineChart>
+                    <MyLineChart data={cases}
+                                 label={diagramData.cases.label}
+                                 minValue={Math.ceil(minCases * 0.9)}
+                                 maxValue={Math.ceil(maxCases * 1.1)}
+                                 color={badColor}/>
                 </div>
             </div>
             <div className='DiagramContainer'>
-                <h2>Случаи смертей по стране: <span style={{textTransform: 'capitalize'}}>{foundRegion}</span></h2>
+                <h2>Случаи смертей по стране: <span
+                    style={{textTransform: 'capitalize'}}>{regionStates.foundRegion}</span></h2>
                 <div className='BarChartContainer'>
-                    <LineChart className='BarChart' width={window.innerWidth / diagramWidth()}
-                               height={window.innerHeight / diagramHeight()}
-                               data={deaths}>
-                        <Line type="monotone" dataKey="смертей на данный день" stroke={badColor} activeDot={{r: 12}}/>
-                        <CartesianGrid vertical={false} stroke="#ccc"/>
-                        <XAxis dataKey="name"/>
-                        <YAxis tickFormatter={(value) => new Intl.NumberFormat('en').format(value)} width={80}
-                               domain={[min_deaths - 100, max_deaths + 100]}/>
-                        <Tooltip formatter={(value) => new Intl.NumberFormat('en').format(value)}/>
-                    </LineChart>
+                    <MyLineChart data={deaths}
+                                 label={diagramData.deaths.label}
+                                 minValue={Math.ceil(minDeaths * 0.9)}
+                                 maxValue={Math.ceil(maxDeaths * 1.1)}
+                                 color={badColor}/>
                 </div>
             </div>
         </div>
     }
 
-    let searchData = null;
-    if (isSearch) {
-        searchData = (
-            <div className='RegionSuggestionBlock'>
-                <button className='CloseButton' onClick={() => updateIsSearch(0)}>
-                    <svg viewBox="0 0 40 40">
-                        <path className="close-x" d="M 10,10 L 30,30 M 30,10 L 10,30"/>
-                    </svg>
-                </button>
-                <div className='RegionSuggestions'>
-                    {suggestions.map((d, index) => <p onClick={() => {
-                        updateRegion(d);
-                        updateIsSearch(0);
-                        searchRegion(d);
-                    }} key={index}><span style={{textTransform: 'capitalize'}}>{d}</span></p>)}
-                </div>
-            </div>
-        )
-    }
     return <div style={{width: '100%'}}>
         <div className='InputForm'>
             <input style={{textTransform: 'capitalize'}} type='text' className='RegionInput' list='suggestions'
-                   value={region} onChange={findRegionByStart}
-                   onFocus={() => updateIsSearch(1)}
+                   value={formStates.formData} onChange={e => {
+                const [region, newSuggestions, complete] = getElemsByStart(e, formStates.allRegions);
+                updateFormStates([
+                    {type: 'formData', data: region},
+                    {type: 'suggestions', data: newSuggestions},
+                    {type: 'complete', data: complete}
+                ])
+            }}
+                   onFocus={() => updateFormStates([{type: 'isSearch', data: true}])}
+                // onBlur={() => updateFormStates([{type: 'isSearch', data: false}])}
                    placeholder='Введите регион'/>
-            <button className='SearchButton' disabled={!complete} onClick={() => {
-                searchRegion(region);
-                updateIsSearch(0);
+            <button className='SearchButton' disabled={!formStates.complete} onClick={() => {
+                updateRegionStates([
+                    {type: 'regionData', data: null},
+                    {type: 'regionDataRequired', data: true},
+                    {type: 'foundRegion', data: formStates.formData}]);
+                GetRegion(formStates.formData)
             }}>Найти
             </button>
         </div>
-        {searchData}
+        {formStates.isSearch && <SearchElem onClose={() => updateFormStates([{type: 'isSearch', data: false}])}
+                                            elems={formStates.suggestions.map((d, index) =>
+                                                <p onClick={() => {
+                                                    updateRegionStates([
+                                                        {type: 'regionData', data: null},
+                                                        {type: 'regionDataRequired', data: true},
+                                                        {type: 'foundRegion', data: d}]);
+                                                    GetRegion(d)
+
+                                                }} key={index}>
+                                         <span style={{textTransform: 'capitalize'}}>
+                                             {d}
+                                         </span>
+                                                </p>)}/>
+        }
 
         {mainData}
     </div>

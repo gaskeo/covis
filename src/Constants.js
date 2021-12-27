@@ -30,6 +30,10 @@ export const countriesRu = [
 export const worldStatLink = 'https://milab.s3.yandex.net/2020/covid19-stat/data/v10/default_data.json'
 export const russiaCasesLink = 'https://milab.s3.yandex.net/2020/covid19-stat/data/v10/data-by-region/225.json'
 
+export function generateLinkByRegId(regIndex) {
+    return `https://milab.s3.yandex.net/2020/covid19-stat/data/v10/data-by-region/${regIndex}.json?`;
+}
+
 export function checkPage(id, activeId, data) {
     if (activeId !== id) {
         return null;
@@ -102,4 +106,26 @@ export function getRussiaData(data, field, label) {
         return {name: `${day}-${month}-${year}`, [label]: data[field][d][1]}
     })
     return [convData, minValue, maxValue]
+}
+
+export function getElemsByStart(e, names) {
+    const value = e.target.value
+    const suggestions = names.map(r => {
+        if (r.toLowerCase().startsWith(e.target.value.toLowerCase())) {
+            return r
+        }
+        return null
+    }).filter(a => a)
+
+    return [value, suggestions, !!(names.includes(e.target.value.toLowerCase()))]
+}
+
+export function getRegionByName(data, regionName) {
+    const reg = regionName.toLowerCase()
+    for (let i in Object.entries(data)) {
+        if (data[i].name.toLowerCase() === reg) {
+            return data[i].code;
+        }
+    }
+    return -1;
 }
