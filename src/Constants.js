@@ -152,3 +152,12 @@ export function cssMapGenerator(data, color) {
         return <style key={index} type='text/css'>{cssText}</style>
     })
 }
+
+export function getFieldByName(data, name, field) {
+    for (let d of data) {
+        if (d.name === name) {
+            return d[field];
+        }
+    }
+    return 0;
+}

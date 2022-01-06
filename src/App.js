@@ -10,8 +10,7 @@ import RenderCountrySearch from './CountrySearch';
 import RenderRussiaCasesHistory from './RussiaCasesHistory';
 import RenderRussiaDeathsHistory from './RussiaDeathsHistory';
 import RenderRussiaRegionSearch from './RussiaRegionSearch';
-import RenderRussiaCasesMap from './RussiaCasesMap';
-import RenderRussiaDeathsMap from './RussiaDeathsMap';
+import RenderRussiaMap from './RussiaMap';
 
 import './App.css';
 import axios from "axios";
@@ -114,7 +113,8 @@ function App() {
             n: 2,
             name: 'Заболеваний сегодня',
             classes: ['MenuButton', 'BadButton'],
-            object: <RenderCountriesCasesToday id={2} key={2} activeTab={activeTab} data={worldStates.allCountriesData}/>
+            object: <RenderCountriesCasesToday id={2} key={2} activeTab={activeTab}
+                                               data={worldStates.allCountriesData}/>
         },
         {
             n: 3,
@@ -126,19 +126,22 @@ function App() {
             n: 4,
             name: 'Смертей сегодня',
             classes: ['MenuButton', 'BadButton'],
-            object: <RenderCountriesDeathsToday id={4} key={4} activeTab={activeTab} data={worldStates.allCountriesData}/>
+            object: <RenderCountriesDeathsToday id={4} key={4} activeTab={activeTab}
+                                                data={worldStates.allCountriesData}/>
         },
         {
             n: 12,
             name: 'Вакцин сделано',
             classes: ['MenuButton', 'GoodButton'],
-            object: <RenderCountriesVaccines id={12} key={12} activeTab={activeTab} data={worldStates.allCountriesVaccineData}/>
+            object: <RenderCountriesVaccines id={12} key={12} activeTab={activeTab}
+                                             data={worldStates.allCountriesVaccineData}/>
         },
         {
             n: 13,
             name: 'Количество полных вакцинаций',
             classes: ['MenuButton', 'GoodButton'],
-            object: <RenderCountriesFullVaccines id={13} key={13} activeTab={activeTab} data={worldStates.allCountriesVaccineData}/>
+            object: <RenderCountriesFullVaccines id={13} key={13} activeTab={activeTab}
+                                                 data={worldStates.allCountriesVaccineData}/>
         },
         {
             n: 14,
@@ -153,31 +156,46 @@ function App() {
             n: 6,
             name: 'Заболеваний за месяц',
             classes: ['MenuButton', 'BadButton'],
-            object: <RenderRussiaCasesHistory id={6} key={6} activeTab={activeTab} data={russianStates.russiaCasesHistory}/>
+            object: <RenderRussiaCasesHistory id={6} key={6} activeTab={activeTab}
+                                              data={russianStates.russiaCasesHistory}/>
         },
         {
             n: 8,
             name: 'Смертей за месяц',
             classes: ['MenuButton', 'BadButton'],
-            object: <RenderRussiaDeathsHistory id={8} key={8} activeTab={activeTab} data={russianStates.russiaCasesHistory}/>
+            object: <RenderRussiaDeathsHistory id={8} key={8} activeTab={activeTab}
+                                               data={russianStates.russiaCasesHistory}/>
         },
         {
             n: 9,
             name: 'Поиск по регионам',
             classes: ['MenuButton', 'BadButton'],
-            object: <RenderRussiaRegionSearch id={9} key={9} activeTab={activeTab} data={russianStates.russiaRegionsIds}/>
+            object: <RenderRussiaRegionSearch id={9} key={9} activeTab={activeTab}
+                                              data={russianStates.russiaRegionsIds}/>
         },
         {
             n: 10,
             name: 'Заболевания на карте',
             classes: ['MenuButton', 'BadButton'],
-            object: <RenderRussiaCasesMap id={10} key={10} activeTab={activeTab} data={russianStates.russiaRegionsData}/>
+            object: <RenderRussiaMap
+                id={10}
+                key={10}
+                activeTab={activeTab}
+                color={{r: 220, g: 20, b: 60}}
+                fieldName='cases'
+                data={russianStates.russiaRegionsData}/>
         },
         {
             n: 11,
             name: 'Смерти на карте',
             classes: ['MenuButton', 'BadButton'],
-            object: <RenderRussiaDeathsMap id={11} key={11} activeTab={activeTab} data={russianStates.russiaRegionsData}/>
+            object: <RenderRussiaMap
+                id={11}
+                key={11}
+                activeTab={activeTab}
+                color={{r: 120, g: 20, b: 60}}
+                fieldName='deaths'
+                data={russianStates.russiaRegionsData}/>
         },
     ];
 

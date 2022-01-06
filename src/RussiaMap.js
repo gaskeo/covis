@@ -1,6 +1,6 @@
 import {useReducer, useRef} from 'react';
 import RussiaSVG from './Russia'
-import {checkPage, cssMapGenerator, getRussianInfo, ticketMargin} from "./Constants";
+import {checkPage, cssMapGenerator, diagramData, getFieldByName, getRussianInfo, ticketMargin} from "./Constants";
 
 function mapReducer(states, actions) {
     actions.map(action => {
@@ -16,9 +16,8 @@ const mapInit = {
     ticketPos: null,
 }
 
-function RenderRussiaCasesMap(props) {
+function RenderRussiaMap(props) {
     const [dataStates, updateDataStates] = useReducer(mapReducer, mapInit, i => i)
-
     const ticketRef = useRef(null);
     const mapRef = useRef(null);
 
@@ -49,15 +48,6 @@ function RenderRussiaCasesMap(props) {
         }])
     }
 
-    function getCasesByName(r) {
-        for (let d of dataStates.preparedData) {
-            if (d.name === r) {
-                return d.cases;
-            }
-        }
-        return 0;
-    }
-
     const check = checkPage(props.id, props.activeTab, props.data);
     if (check !== true) {
         return check;
@@ -71,7 +61,7 @@ function RenderRussiaCasesMap(props) {
     if (dataStates.preparedData === null) {
         cssBlock = <div>loading...</div>;
     } else {
-        cssBlock = cssMapGenerator(dataStates.preparedData, {r: 220, g: 20, b: 60})
+        cssBlock = cssMapGenerator(dataStates.preparedData, props.color)
     }
 
     let tt =
@@ -79,8 +69,7 @@ function RenderRussiaCasesMap(props) {
              style={{...dataStates.ticketPos, opacity: dataStates.activeRegion ? 1 : 0}}>
             <div className='MapToolTipText'>
                 <p style={{margin: 0}}>{dataStates.activeRegion}</p>
-                <ul style={{margin: 0, padding: 0}}>случаев
-                    заболевания: {dataStates.activeRegion ? new Intl.NumberFormat('en').format(getCasesByName(dataStates.activeRegion)) : 0}</ul>
+                <ul style={{margin: 0, padding: 0}}>{diagramData[props['fieldName']].label}: {dataStates.activeRegion ? new Intl.NumberFormat('en').format(getFieldByName(dataStates.preparedData, dataStates.activeRegion, props.fieldName)) : 0}</ul>
             </div>
         </div>
 
@@ -95,4 +84,4 @@ function RenderRussiaCasesMap(props) {
     </div>
 }
 
-export default RenderRussiaCasesMap;
+export default RenderRussiaMap;
