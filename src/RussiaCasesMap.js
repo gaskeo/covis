@@ -1,7 +1,6 @@
-import {useReducer, useRef, useState} from 'react';
+import {useReducer, useRef} from 'react';
 import RussiaSVG from './Russia'
-import {checkPage} from "./Constants";
-import {Tooltip} from "recharts";
+import {checkPage, getRussianInfo, ticketMargin} from "./Constants";
 
 function mapReducer(states, actions) {
     actions.map(action => {
@@ -29,12 +28,24 @@ function RenderRussiaCasesMap(props) {
     }
 
     function updateTicket(e) {
-        let margin = 3
+        if (mapRef === null || ticketRef === null) {
+            return;
+        }
+
+        let left, top;
+        if (e.nativeEvent.offsetX < mapRef.current.clientWidth / 2) {
+            left = e.nativeEvent.offsetX + ticketMargin + 'px';
+        } else {
+            left = e.nativeEvent.offsetX - ticketRef.current.clientWidth - ticketMargin + 'px';
+        }
+
+        if (e.nativeEvent.offsetY < mapRef.current.clientHeight / 2) {
+            top = e.nativeEvent.offsetY + ticketMargin + 'px';
+        } else {
+            top = e.nativeEvent.offsetY - ticketRef.current.clientHeight - ticketMargin + 'px';
+        }
         updateDataStates([{
-            type: 'ticketPos', data: {
-                left: e.nativeEvent.layerX < mapRef.current.clientWidth / 2 ? e.nativeEvent.layerX  + margin + 'px' : e.nativeEvent.layerX - ticketRef.current.clientWidth - margin + 'px',
-                top: e.nativeEvent.layerY < mapRef.current.clientHeight / 2 ? e.nativeEvent.layerY + margin + 'px' : e.nativeEvent.layerY - ticketRef.current.clientHeight - margin + 'px'
-            }
+            type: 'ticketPos', data: {left: left, top: top}
         }])
     }
 
@@ -53,13 +64,7 @@ function RenderRussiaCasesMap(props) {
     }
 
     if (dataStates.preparedData === null && props.data !== null) {
-        const data = Object.keys(props.data).map(d => {
-            if (props.data[d]['info']['name'] === "Россия" || props.data[d]['info']['name'] === "Москва") {
-                return null;
-            }
-            return props.data[d]['info']
-        }).filter(a => a);
-        updateDataStates([{type: 'preparedData', data: data}]);
+        updateDataStates([{type: 'preparedData', data: getRussianInfo(props.data)}]);
     }
 
     let cssBlock;
@@ -82,9 +87,11 @@ function RenderRussiaCasesMap(props) {
         tt =
             <div ref={ticketRef} className='MapToolTip'
                  style={dataStates.ticketPos ? {padding: 'auto', ...dataStates.ticketPos} : {}}>
-                <h4>{dataStates.activeRegion}</h4>
-                <p>случаев
-                    заболевания: {new Intl.NumberFormat('en').format(getCasesByName(dataStates.activeRegion))}</p>
+                <div className='MapToolTipText'>
+                    <p style={{margin: 0}}>{dataStates.activeRegion}</p>
+                    <ul style={{margin: 0, padding: 0}}>случаев
+                        заболевания: {new Intl.NumberFormat('en').format(getCasesByName(dataStates.activeRegion))}</ul>
+                </div>
             </div>
     }
     const mapElem = <div ref={mapRef}>
@@ -92,7 +99,6 @@ function RenderRussiaCasesMap(props) {
     </div>
 
     return <div style={{position: "relative"}}>
-        <Tooltip formatter={() => '123'}/>
         {tt}
         {cssBlock}
         {mapElem}

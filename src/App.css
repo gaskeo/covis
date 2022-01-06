@@ -131,12 +131,16 @@ h2 {
 }
 
 .MapToolTip {
-    border: 1px solid #cccccc;
+    border: 1px solid rgb(204, 204, 204);
     position: absolute;
     transition: 500ms ease-out;
     background-color: white;
-    padding: 1rem 0.5rem;
     pointer-events: none;
+    padding: 10px;
+
+}
+
+.MapToolTipText {
 }
 
 .RegionInput {

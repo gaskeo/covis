@@ -129,3 +129,14 @@ export function getRegionByName(data, regionName) {
     }
     return -1;
 }
+
+export function getRussianInfo(data) {
+    return Object.keys(data).map(d => {
+        if (data[d]['info']['name'] === "Россия" || data[d]['info']['name'] === "Москва") {
+            return null;
+        }
+        return data[d]['info']
+    }).filter(a => a);
+}
+
+export const ticketMargin = 10;
