@@ -1,6 +1,6 @@
 import {useReducer, useRef} from 'react';
 import RussiaSVG from './Russia'
-import {checkPage, getRussianInfo, ticketMargin} from "./Constants";
+import {checkPage, cssMapGenerator, getRussianInfo, ticketMargin} from "./Constants";
 
 function mapReducer(states, actions) {
     actions.map(action => {
@@ -28,7 +28,7 @@ function RenderRussiaCasesMap(props) {
     }
 
     function updateTicket(e) {
-        if (mapRef === null || ticketRef === null) {
+        if (mapRef.current === null || ticketRef.current === null) {
             return;
         }
 
@@ -71,29 +71,19 @@ function RenderRussiaCasesMap(props) {
     if (dataStates.preparedData === null) {
         cssBlock = <div>loading...</div>;
     } else {
-        cssBlock = dataStates.preparedData.map((d, index) => {
-            let name = d.name
-            let opacity = Math.max(d.cases / d.population * 6, 0.05);
-            let cssText = `polyline[data-name="${name}"] {fill: rgba(220, 20, 60, ${opacity}) !important}
-        polygon[data-name="${name}"] {fill: rgba(220, 20, 60, ${opacity}) !important}
-        g[data-name="${name}"] {fill: rgba(220, 20, 60, ${opacity}) !important}
-        path[data-name="${name}"] {fill: rgba(220, 20, 60, ${opacity}) !important}`
-            return <style key={index} type='text/css'>{cssText}</style>
-        })
+        cssBlock = cssMapGenerator(dataStates.preparedData, {r: 220, g: 20, b: 60})
     }
 
-    let tt = <div className='MapToolTip' style={{color: 'transparent'}}><h4>1</h4><p>1</p></div>;
-    if (dataStates.activeRegion) {
-        tt =
-            <div ref={ticketRef} className='MapToolTip'
-                 style={dataStates.ticketPos ? {padding: 'auto', ...dataStates.ticketPos} : {}}>
-                <div className='MapToolTipText'>
-                    <p style={{margin: 0}}>{dataStates.activeRegion}</p>
-                    <ul style={{margin: 0, padding: 0}}>случаев
-                        заболевания: {new Intl.NumberFormat('en').format(getCasesByName(dataStates.activeRegion))}</ul>
-                </div>
+    let tt =
+        <div ref={ticketRef} className='MapToolTip'
+             style={{...dataStates.ticketPos, opacity: dataStates.activeRegion ? 1 : 0}}>
+            <div className='MapToolTipText'>
+                <p style={{margin: 0}}>{dataStates.activeRegion}</p>
+                <ul style={{margin: 0, padding: 0}}>случаев
+                    заболевания: {dataStates.activeRegion ? new Intl.NumberFormat('en').format(getCasesByName(dataStates.activeRegion)) : 0}</ul>
             </div>
-    }
+        </div>
+
     const mapElem = <div ref={mapRef}>
         <RussiaSVG sendClick={onMapClick} sendPos={(e) => updateTicket(e)}/>
     </div>
