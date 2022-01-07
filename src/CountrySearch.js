@@ -5,7 +5,7 @@ import {
     diagramData, generateLinkByRegId,
     getElemsByStart,
     getRegionByName,
-    getRussiaData
+    getRegionData
 } from "./Constants";
 import {MyLineChart} from "./LineChart";
 import {SearchElem} from "./searchElem";
@@ -49,30 +49,27 @@ async function searchRegion(regIndex) {
 }
 
 function RenderCountrySearch(props) {
+    const [formStates, updateFormStates] = useReducer(formReducer, formInit, i => i);
+    const [regionStates, updateRegionStates] = useReducer(regionReducer, regionInit, i => i);
+
     function getRegion(region) {
         const regionIndex = getRegionByName(props.data, region);
         if (regionIndex !== -1) {
             searchRegion(regionIndex).then(d => updateRegionStates([
                 {type: 'regionData', data: d},
                 {type: 'regionDataRequired', data: false},
-                {type: 'foundRegion', data: formStates.formData},
             ]));
         }
         updateFormStates([{type: 'isSearch', data: false}]);
     }
 
-
-    const [formStates, updateFormStates] = useReducer(formReducer, formInit, i => i);
-    const [regionStates, updateRegionStates] = useReducer(regionReducer, regionInit, i => i)
-
     const check = checkPage(props.id, props.activeTab, props.data);
+
     if (check !== true) {
         return check;
     }
-
     if (formStates.allRegions === null) {
-        let names = props.data.map(d => d.name.toLowerCase());
-        names.sort((a, b) => a.localeCompare(b))
+        const names = props.data.map(d => d.name.toLowerCase()).sort((a, b) => a.localeCompare(b));
         updateFormStates([{type: 'allRegions', data: names}, {type: 'suggestions', data: names}]);
     }
 
@@ -80,8 +77,8 @@ function RenderCountrySearch(props) {
     if (regionStates.regionDataRequired === true) {
         mainData = <div>loading...</div>;
     } else if (regionStates.regionData !== null) {
-        const [cases, minCases, maxCases] = getRussiaData(regionStates.regionData, 'cases', diagramData.cases.label)
-        const [deaths, minDeaths, maxDeaths] = getRussiaData(regionStates.regionData, 'deaths', diagramData.deaths.label)
+        const [cases, minCases, maxCases] = getRegionData(regionStates.regionData, 'cases', diagramData.cases.label)
+        const [deaths, minDeaths, maxDeaths] = getRegionData(regionStates.regionData, 'deaths', diagramData.deaths.label)
 
         mainData = <div>
             <div className='DiagramContainer'>
@@ -110,7 +107,7 @@ function RenderCountrySearch(props) {
     }
 
     return <div style={{width: '100%'}}>
-        <div onBlur={() => updateFormStates([{type: 'isSearch', data: false}])}>
+        <div>
             <div className='InputForm'>
                 <input style={{textTransform: 'capitalize'}} type='text' className='RegionInput' list='suggestions'
                        value={formStates.formData} onChange={e => {
@@ -140,12 +137,12 @@ function RenderCountrySearch(props) {
                                                             {type: 'regionDataRequired', data: true},
                                                             {type: 'foundRegion', data: d}]);
                                                         getRegion(d);
-
                                                     }} key={index}>
-                                         <span style={{textTransform: 'capitalize'}}>
-                                             {d}
-                                         </span>
-                                                    </p>)}/>
+                                                             <span style={{textTransform: 'capitalize'}}>
+                                                                 {d}
+                                                             </span>
+                                                    </p>
+                                                )}/>
             }
         </div>
         {mainData}

@@ -1,4 +1,4 @@
-import {badColor, checkPage, diagramData, getRussiaData} from "./Constants";
+import {badColor, checkPage, diagramData, getRegionData} from "./Constants";
 import {MyLineChart} from "./LineChart";
 
 function RenderRussiaDeathsHistory(props) {
@@ -7,7 +7,7 @@ function RenderRussiaDeathsHistory(props) {
         return check;
     }
 
-    const [deaths, minDeaths, maxDeaths] = getRussiaData(props.data, 'deaths', diagramData.deaths.label)
+    const [deaths, minDeaths, maxDeaths] = getRegionData(props.data, 'deaths', diagramData.deaths.label)
 
     return (
         <div className='DiagramContainer'>

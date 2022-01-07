@@ -88,7 +88,7 @@ export function getVaccineData(data, field, label) {
     return [convData, maxValue];
 }
 
-export function getRussiaData(data, field, label) {
+export function getRegionData(data, field, label) {
     const date = new Date()
     date.setDate(date.getDate() - 30)
     let [minValue, maxValue] = [10_000_000_000, 0]
