@@ -1,20 +1,29 @@
 import {useEffect, useReducer, useState} from 'react';
+import {
+    BrowserRouter as Router,
+    Route,
+    Link,
+    Routes, Navigate
+} from "react-router-dom";
 
-import RenderCountriesCases from './AllCountriesCases';
-import RenderCountriesCasesToday from './AllCountriesCasesToday';
-import RenderCountriesDeaths from './AllCountriesDeaths';
-import RenderCountriesDeathsToday from './AllCountriesDeathsToday';
-import RenderCountriesVaccines from './AllCountriesVaccines';
-import RenderCountriesFullVaccines from './AllCountriesFullVaccines';
 import RenderCountrySearch from './CountrySearch';
-import RenderRussiaCasesHistory from './RussiaCasesHistory';
-import RenderRussiaDeathsHistory from './RussiaDeathsHistory';
 import RenderRussiaRegionSearch from './RussiaRegionSearch';
 import RenderRussiaMap from './RussiaMap';
+import BarDiagramContainer from "./BarDiagramContainer";
+import LineDiagramContainer from "./LineDiagramContainer";
 
 import './App.css';
 import axios from "axios";
-import {russiaCasesLink, worldStatLink} from "./Constants";
+import {
+    badColor,
+    diagramData,
+    getMainData, getRegionData,
+    getVaccineData,
+    goodColor,
+    russiaCasesLink,
+    worldStatLink
+} from "./Constants";
+
 
 
 function worldReducer(states, actions) {
@@ -107,47 +116,101 @@ function App() {
             n: 1,
             name: 'Всего заболеваний',
             classes: ['MenuButton', 'BadButton'],
-            object: <RenderCountriesCases id={1} key={1} activeTab={activeTab} data={worldStates.allCountriesData}/>
+            to: 'cases',
+            object: <BarDiagramContainer
+                id={1}
+                field='cases'
+                label={diagramData.cases.label}
+                key={1}
+                getFunction={getMainData}
+                color={badColor}
+                name='Всего заболеваний'
+                data={worldStates.allCountriesData}/>
         },
         {
             n: 2,
             name: 'Заболеваний сегодня',
             classes: ['MenuButton', 'BadButton'],
-            object: <RenderCountriesCasesToday id={2} key={2} activeTab={activeTab}
-                                               data={worldStates.allCountriesData}/>
+            to: 'casesToday',
+            object: <BarDiagramContainer
+                id={2}
+                field='cases_delta'
+                label={diagramData.casesToday.label}
+                key={2}
+                getFunction={getMainData}
+                color={badColor}
+                name='Заболеваний сегодня'
+                data={worldStates.allCountriesData}/>
         },
         {
             n: 3,
             name: 'Всего смертей',
             classes: ['MenuButton', 'BadButton'],
-            object: <RenderCountriesDeaths id={3} key={3} activeTab={activeTab} data={worldStates.allCountriesData}/>
+            to: 'deaths',
+            object: <BarDiagramContainer
+                id={3}
+                field='deaths'
+                label={diagramData.deaths.label}
+                key={3}
+                getFunction={getMainData}
+                color={badColor}
+                name='Всего смертей'
+                data={worldStates.allCountriesData}/>
         },
         {
             n: 4,
             name: 'Смертей сегодня',
             classes: ['MenuButton', 'BadButton'],
-            object: <RenderCountriesDeathsToday id={4} key={4} activeTab={activeTab}
-                                                data={worldStates.allCountriesData}/>
+            to: 'deathsToday',
+            object: <BarDiagramContainer
+                id={4}
+                field='deaths'
+                label={diagramData.deathsToday.label}
+                key={4}
+                getFunction={getMainData}
+                color={badColor}
+                name='Смертей сегодня'
+                data={worldStates.allCountriesData}/>
         },
         {
             n: 12,
             name: 'Вакцин сделано',
             classes: ['MenuButton', 'GoodButton'],
-            object: <RenderCountriesVaccines id={12} key={12} activeTab={activeTab}
-                                             data={worldStates.allCountriesVaccineData}/>
+            to: 'vac',
+            object: <BarDiagramContainer
+                id={12}
+                field='vac'
+                label={diagramData.vaccines.label}
+                key={12}
+                getFunction={getVaccineData}
+                color={goodColor}
+                name='Вакцин сделано'
+                data={worldStates.allCountriesVaccineData}/>
         },
         {
             n: 13,
             name: 'Количество полных вакцинаций',
             classes: ['MenuButton', 'GoodButton'],
-            object: <RenderCountriesFullVaccines id={13} key={13} activeTab={activeTab}
-                                                 data={worldStates.allCountriesVaccineData}/>
+            to: 'vacFull',
+            object: <BarDiagramContainer
+                id={13}
+                field='peop_full_vac'
+                label={diagramData.vaccinesFull.label}
+                key={13}
+                getFunction={getVaccineData}
+                color={goodColor}
+                name='Количество полных вакцинаций'
+                data={worldStates.allCountriesVaccineData}/>
         },
         {
             n: 14,
             name: 'Поиск по странам',
             classes: ['MenuButton', 'BadButton'],
-            object: <RenderCountrySearch id={14} key={14} activeTab={activeTab} data={worldStates.countriesIds}/>
+            to: 'search',
+            object: <RenderCountrySearch
+                id={14}
+                key={14}
+                data={worldStates.countriesIds}/>
         },
     ];
 
@@ -156,31 +219,48 @@ function App() {
             n: 6,
             name: 'Заболеваний за месяц',
             classes: ['MenuButton', 'BadButton'],
-            object: <RenderRussiaCasesHistory id={6} key={6} activeTab={activeTab}
-                                              data={russianStates.russiaCasesHistory}/>
+            to: 'casesRuss',
+            object: <LineDiagramContainer
+                id={6}
+                field='cases'
+                label={diagramData.cases.label}
+                key={6}
+                getFunction={getRegionData}
+                color={badColor}
+                name='Заболеваний за месяц'
+                data={russianStates.russiaCasesHistory}/>
         },
         {
             n: 8,
             name: 'Смертей за месяц',
             classes: ['MenuButton', 'BadButton'],
-            object: <RenderRussiaDeathsHistory id={8} key={8} activeTab={activeTab}
-                                               data={russianStates.russiaCasesHistory}/>
+            to: 'deathsRuss',
+            object: <LineDiagramContainer
+                id={8}
+                field='cases'
+                label={diagramData.deaths.label}
+                key={8}
+                getFunction={getRegionData}
+                color={badColor}
+                name='Смертей за месяц'
+                data={russianStates.russiaCasesHistory}/>
         },
         {
             n: 9,
             name: 'Поиск по регионам',
             classes: ['MenuButton', 'BadButton'],
-            object: <RenderRussiaRegionSearch id={9} key={9} activeTab={activeTab}
+            to: 'searchRuss',
+            object: <RenderRussiaRegionSearch id={9} key={9}
                                               data={russianStates.russiaRegionsIds}/>
         },
         {
             n: 10,
             name: 'Заболевания на карте',
             classes: ['MenuButton', 'BadButton'],
+            to: 'casesMap',
             object: <RenderRussiaMap
                 id={10}
                 key={10}
-                activeTab={activeTab}
                 color={{r: 220, g: 20, b: 60}}
                 fieldName='cases'
                 data={russianStates.russiaRegionsData}/>
@@ -189,10 +269,10 @@ function App() {
             n: 11,
             name: 'Смерти на карте',
             classes: ['MenuButton', 'BadButton'],
+            to: 'deathsMap',
             object: <RenderRussiaMap
                 id={11}
                 key={11}
-                activeTab={activeTab}
                 color={{r: 120, g: 20, b: 60}}
                 fieldName='deaths'
                 data={russianStates.russiaRegionsData}/>
@@ -200,28 +280,31 @@ function App() {
     ];
 
     return (
-        <div>
+        <Router>
             <div className='Header'>
                 <h1>co<span className='RedBack'>vis</span></h1>
             </div>
             <div className='Menu'>
                 <div className='MenuSection'>
                     <h3 className='MenuHeader'>Мир</h3>
-                    {worldButtons.map(b => <button key={b.n} className={b.classes.join(' ')}
-                                                   onClick={() => updateActiveTab(b.n)}>{b.name}</button>)}
+                    {worldButtons.map(b => <Link key={b.n} to={'/' + b.to} className={b.classes.join(' ')}>{b.name}</Link>)}
                 </div>
                 <div className='MenuSection'>
                     <h3 className='MenuHeader'>Россия</h3>
-                    {russiaButtons.map(b => <button key={b.n} className={b.classes.join(' ')}
-                                                    onClick={() => updateActiveTab(b.n)}>{b.name}</button>)}
+                    {russiaButtons.map(b => <Link key={b.n} to={'/' + b.to} className={b.classes.join(' ')}>{b.name}</Link>)}
                 </div>
 
             </div>
             <div className='Diagrams'>
-                {worldButtons.map(b => b.object)}
-                {russiaButtons.map(b => b.object)}
+                <Routes>
+                    <Route path='/' element={<Navigate to='/cases'/>}/>
+                    {worldButtons.map(b => <Route path={'/' + b.to} element={b.object}/>)}
+                    {russiaButtons.map(b => <Route path={'/' + b.to} element={b.object}/>)}
+                </Routes>
+
             </div>
-        </div>
+
+        </Router>
     )
 }
 

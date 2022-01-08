@@ -21,6 +21,10 @@ function RenderRussiaMap(props) {
     const ticketRef = useRef(null);
     const mapRef = useRef(null);
 
+    if (!props.data) {
+        return null;
+    }
+
     function onMapClick(e, region) {
         updateDataStates([{type: 'activeRegion', data: region},]);
         updateTicket(e);
@@ -46,11 +50,6 @@ function RenderRussiaMap(props) {
         updateDataStates([{
             type: 'ticketPos', data: {left: left, top: top}
         }])
-    }
-
-    const check = checkPage(props.id, props.activeTab, props.data);
-    if (check !== true) {
-        return check;
     }
 
     if (dataStates.preparedData === null && props.data !== null) {

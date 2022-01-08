@@ -52,6 +52,10 @@ function RenderCountrySearch(props) {
     const [formStates, updateFormStates] = useReducer(formReducer, formInit, i => i);
     const [regionStates, updateRegionStates] = useReducer(regionReducer, regionInit, i => i);
 
+    if (!props.data) {
+        return null;
+    }
+
     function getRegion(region) {
         const regionIndex = getRegionByName(props.data, region);
         if (regionIndex !== -1) {
@@ -63,11 +67,6 @@ function RenderCountrySearch(props) {
         updateFormStates([{type: 'isSearch', data: false}]);
     }
 
-    const check = checkPage(props.id, props.activeTab, props.data);
-
-    if (check !== true) {
-        return check;
-    }
     if (formStates.allRegions === null) {
         const names = props.data.map(d => d.name.toLowerCase()).sort((a, b) => a.localeCompare(b));
         updateFormStates([{type: 'allRegions', data: names}, {type: 'suggestions', data: names}]);
