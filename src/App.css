@@ -126,14 +126,11 @@ h2 {
     background-color: #eee;
     color: black;
     border: 0 solid;
-    -webkit-appearance: button !important;
     font-family: 'Roboto', sans-serif;
 
     line-height: 3rem;
     border-image: none;
     font-size: 1.4em;
-    outline-offset: 0;
-    outline: black;
     text-align: center;
     margin-bottom: 0.3rem;
     border-radius: 10px;
