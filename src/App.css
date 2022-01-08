@@ -75,31 +75,45 @@
     outline: black;
     width: 12rem;
     text-align: left;
-    border-radius: 0.3rem;
+    border-radius: 10px;
     box-shadow: none;
     margin-bottom: 0.3rem;
+    text-decoration: none;
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
+.MenuButton > span {
 }
 
 .MenuHeader {
     font-family: 'Roboto', sans-serif;
 }
 
-.BadButton:hover {
+.BadButton {
     background-color: #CD5C5C;
     color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 0 10px 3px #bababa;
 }
 
-.BadButton:focus {
-    background-color: #CD5C5C;
-    color: #fff;
-}
-
-.GoodButton:hover {
+.GoodButton {
+    border-radius: 10px;
+    box-shadow: 0 0 10px 3px #bababa;
     background-color: #00F067;
 }
 
-.GoodButton:focus {
-    background-color: #00F067;
+.NotSelectedBadButton {
+    background: none;
+    color: #000;
+    border: none;
+    box-shadow: none;
+}
+
+.NotSelectedGoodButton {
+    background: none;
+    border: none;
+    box-shadow: none;
 }
 
 h2 {
@@ -121,9 +135,9 @@ h2 {
     outline-offset: 0;
     outline: black;
     text-align: center;
-    border-radius: 0.3rem;
-    box-shadow: none;
     margin-bottom: 0.3rem;
+    border-radius: 10px;
+    box-shadow: 0 0 10px 3px #dadada;
 }
 
 .SearchButton:disabled {
@@ -140,9 +154,10 @@ h2 {
 }
 
 .RegionInput {
+    border-radius: 10px;
+    box-shadow: 0 0 10px 3px #dadada;
     height: 3rem;
     margin-right: 0.5rem;
-    border-radius: 0.3rem;
     border: none;
     font-size: 1.4em;
     background-color: #eee;
@@ -162,7 +177,6 @@ h2 {
     background-color: #fff;
     width: calc(21% - 0.2rem);
     padding: 0.1rem;
-    border-radius: 1rem;
     text-align: center;
     height: 6rem;
     margin-left: 2%;
@@ -176,6 +190,8 @@ h2 {
 
 .RegionSuggestions > p:hover {
     background-color: #00F067;
+    border-radius: 10px;
+    box-shadow: 0 0 10px 3px #dadada;
 }
 
 .CloseButton {
@@ -207,15 +223,17 @@ h2 {
 
 
 .RegionSuggestionBlock {
+    border-radius: 10px;
+    box-shadow: 0 0 10px 3px #dadada;
+    margin-top: 2rem;
+
     position: relative;
     width: 100%;
-    background-color: #eee;
+    background-color: #fafafa;
     padding-top: 3rem;
-    border-radius: 2rem;
 }
 
 .RegionSuggestions {
-    width: 100%;
     display: flex;
     justify-content: left;
     flex-wrap: wrap;
@@ -229,8 +247,6 @@ h2 {
     box-shadow: 0 0 10px 3px #dadada;
     padding: 1rem;
     background-color: #fafafa;
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
     margin-bottom: 2rem;
     margin-top: 2rem;
 }
@@ -263,6 +279,33 @@ h2 {
 }
 
 @media screen and (max-width: 799px) {
+    body {
+        overflow-x: hidden;
+    }
+
+    .Diagrams {
+        left: 0;
+        margin-left: 0.3rem;
+        margin-right: 0.3rem;
+    }
+
+    .Map {
+        margin-left: 0.3rem;
+        margin-right: 0.3rem;
+    }
+
+    .DiagramContainer {
+        border: none;
+        box-shadow: none;
+        margin: 0;
+        padding: 0;
+        background-color: #fff;
+    }
+
+    .BarChartContainer {
+     margin: 0;
+    }
+
     .Header {
         text-align: center;
         margin-bottom: 0;
@@ -274,16 +317,15 @@ h2 {
 
     .MenuButton {
         display: block;
-        background-color: #eee;
         line-height: 1.6rem;
-        width: 90%;
+        width: auto;
         margin-left: 0.2rem;
         margin-right: 0.2rem;
     }
 
     .Menu {
-        margin-left: 1rem;
-        margin-right: 1rem;
+        margin-left: 0.3rem;
+        margin-right: 0.3rem;
         display: flex;
         justify-content: space-around;
     }
@@ -294,40 +336,30 @@ h2 {
         text-align: center;
     }
 
-    .Diagrams {
-        margin-left: 1rem;
-        margin-right: 1rem;
-    }
-
     .InputForm {
         justify-content: center;
+        margin-left: 0;
+        left: 0;
     }
 
     .RegionInput {
-        width: 77%;
+        width: 60vw;
     }
 
-    .MapToolTip {
-        position: absolute;
-        padding-top: 0;
-        padding-left: 1rem;
-    }
-
-    .MapToolTip > h4 {
-        margin-bottom: 0.3rem;
-    }
-
-    .MapToolTip > p {
-        margin-top: 0;
-        margin-bottom: 0;
-    }
-
-    .RegionSuggestionBlock {
-        border-radius: 0.3rem;
+    .SearchButton {
+        width: 30vw;
     }
 
     .RegionSuggestions {
         flex-direction: column;
+    }
+
+    .RegionSuggestionBlock {
+        width: 95vw;
+        margin-right: auto;
+        margin-left: auto;
+        left: 0;
+        right: 0;
     }
 
     .RegionSuggestions > p {

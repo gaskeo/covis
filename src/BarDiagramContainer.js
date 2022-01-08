@@ -1,7 +1,7 @@
 import {MyBarChart} from "./BarChart";
 
 function BarDiagramContainer(props) {
-    if (!props.data) {
+    if (!props.data || props.data.length  === 0) {
         return null;
     }
     const [data, maxData] = props.getFunction(props.data, props.field, props.label)

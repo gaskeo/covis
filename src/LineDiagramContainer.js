@@ -2,9 +2,10 @@ import {badColor, checkPage, diagramData, getRegionData} from "./Constants";
 import {MyLineChart} from "./LineChart";
 
 function LineDiagramContainer(props) {
-    if (!props.data) {
+    if (!props.data || props.data.length  === 0) {
         return null;
     }
+    console.log(props.data)
     const [data, minData, maxData] = props.getFunction(props.data, props.field, props.label)
 
     return (

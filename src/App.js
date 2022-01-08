@@ -3,7 +3,7 @@ import {
     BrowserRouter as Router,
     Route,
     Link,
-    Routes, Navigate
+    Routes, Navigate, useLocation, useParams
 } from "react-router-dom";
 
 import RenderCountrySearch from './CountrySearch';
@@ -80,7 +80,9 @@ async function getRussiaCasesHistoryData() {
 }
 
 function App() {
-    const [activeTab, updateActiveTab] = useState(1);
+    const href = window.location.href.split('/')[window.location.href.split('/').length - 1];
+
+    const [activeTab, updateActiveTab] = useState(href ? href : 'cases');
     const [worldStates, worldStatesDispatch] = useReducer(worldReducer, worldInit, i => i);
     const [russianStates, russianStatesDispatch] = useReducer(russianReducer, russianInit, i => i);
 
@@ -164,7 +166,7 @@ function App() {
             to: 'deathsToday',
             object: <BarDiagramContainer
                 id={4}
-                field='deaths'
+                field='deaths_delta'
                 label={diagramData.deathsToday.label}
                 key={4}
                 getFunction={getMainData}
@@ -287,11 +289,20 @@ function App() {
             <div className='Menu'>
                 <div className='MenuSection'>
                     <h3 className='MenuHeader'>Мир</h3>
-                    {worldButtons.map(b => <Link key={b.n} to={'/' + b.to} className={b.classes.join(' ')}>{b.name}</Link>)}
+                    {worldButtons.map(b => <Link
+                        key={b.n}
+                        to={'/' + b.to}
+                        onClick={() => updateActiveTab(b.to)}
+                        className={[...b.classes, activeTab === b.to ? '' : (b.classes.includes('BadButton') ? 'NotSelectedBadButton' : 'NotSelectedGoodButton')].join(' ')}><span>{b.name}</span></Link>)}
+
                 </div>
                 <div className='MenuSection'>
                     <h3 className='MenuHeader'>Россия</h3>
-                    {russiaButtons.map(b => <Link key={b.n} to={'/' + b.to} className={b.classes.join(' ')}>{b.name}</Link>)}
+                    {russiaButtons.map(b => <Link
+                        key={b.n}
+                        to={'/' + b.to}
+                        onClick={() => updateActiveTab(b.to)}
+                        className={[...b.classes, activeTab === b.to ? '' : (b.classes.includes('BadButton') ? 'NotSelectedBadButton' : 'NotSelectedGoodButton')].join(' ')}><span>{b.name}</span></Link>)}
                 </div>
 
             </div>
