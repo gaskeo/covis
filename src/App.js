@@ -1,6 +1,6 @@
 import {useEffect, useReducer, useState} from 'react';
 import {
-    BrowserRouter as Router,
+    HashRouter as Router,
     Route,
     Link,
     Routes, Navigate, useLocation, useParams
@@ -291,7 +291,7 @@ function App() {
                     <h3 className='MenuHeader'>Мир</h3>
                     {worldButtons.map(b => <Link
                         key={b.n}
-                        to={'/covis/' + b.to}
+                        to={b.to}
                         onClick={() => updateActiveTab(b.to)}
                         className={[...b.classes, activeTab === b.to ? '' : (b.classes.includes('BadButton') ? 'NotSelectedBadButton' : 'NotSelectedGoodButton')].join(' ')}><span>{b.name}</span></Link>)}
 
@@ -300,7 +300,7 @@ function App() {
                     <h3 className='MenuHeader'>Россия</h3>
                     {russiaButtons.map(b => <Link
                         key={b.n}
-                        to={'/covis/' + b.to}
+                        to={b.to}
                         onClick={() => updateActiveTab(b.to)}
                         className={[...b.classes, activeTab === b.to ? '' : (b.classes.includes('BadButton') ? 'NotSelectedBadButton' : 'NotSelectedGoodButton')].join(' ')}><span>{b.name}</span></Link>)}
                 </div>
@@ -308,9 +308,9 @@ function App() {
             </div>
             <div className='Diagrams'>
                 <Routes>
-                    <Route path='/covis' element={<Navigate to='/covis/cases'/>}/>
-                    {worldButtons.map(b => <Route path={'/covis/' + b.to} element={b.object}/>)}
-                    {russiaButtons.map(b => <Route path={'/covis/' + b.to} element={b.object}/>)}
+                    <Route path='/' element={<Navigate to='cases'/>}/>
+                    {worldButtons.map(b => <Route path={b.to} element={b.object}/>)}
+                    {russiaButtons.map(b => <Route path={b.to} element={b.object}/>)}
                 </Routes>
 
             </div>
