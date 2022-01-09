@@ -308,7 +308,7 @@ function App() {
             </div>
             <div className='Diagrams'>
                 <Routes>
-                    <Route path='/' element={<Navigate to='/covis/cases'/>}/>
+                    <Route path='/covis' element={<Navigate to='/covis/cases'/>}/>
                     {worldButtons.map(b => <Route path={'/covis/' + b.to} element={b.object}/>)}
                     {russiaButtons.map(b => <Route path={'/covis/' + b.to} element={b.object}/>)}
                 </Routes>
