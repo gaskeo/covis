@@ -21,7 +21,7 @@ npm run build
 After that all files will be in folder `build`
 
 ### From [docker hub](https://hub.docker.com)
-1. install [docker](https://hub.docker.com)
+1. install [docker](https://docker.com)
 2. run following commands:
 ```
 docker pull tikovka72/covis:latest
