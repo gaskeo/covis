@@ -27,7 +27,7 @@ After that all files will be in folder `build`
 docker pull tikovka72/covis:latest
 docker container run -p 80:80 --rm -d --name covis tikovka72/covis
 ```
-For stop container you can use:
+To stop container you can use:
 ```
 docker container stop covis
 ```
