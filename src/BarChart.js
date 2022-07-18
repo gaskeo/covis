@@ -1,8 +1,9 @@
 import {diagramHeight, diagramWidth, russia} from "./Constants";
-import {Bar, Cell, Tooltip, XAxis, YAxis, BarChart} from "recharts";
+import {Bar, Cell, Tooltip, XAxis, YAxis, BarChart, ResponsiveContainer} from "recharts";
 
 export const MyBarChart = (props) => {
     return (
+        <ResponsiveContainer width="100%" height={400}>
         <BarChart className='BarChart' width={window.innerWidth / diagramWidth()}
                   height={window.innerHeight / diagramHeight()}
                   data={props.data}>
@@ -16,5 +17,7 @@ export const MyBarChart = (props) => {
                 )}
             </Bar>
         </BarChart>
+        </ResponsiveContainer>
+
     )
 }

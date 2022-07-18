@@ -1,7 +1,6 @@
 import {useReducer} from 'react';
 import {
     badColor,
-    checkPage,
     diagramData, generateLinkByRegId,
     getElemsByStart,
     getRegionByName,
@@ -12,6 +11,8 @@ import {SearchElem} from "./searchElem";
 import axios from "axios";
 
 function formReducer(states, actions) {
+    console.log(states, actions)
+
     actions.map(action => {
         states[action.type] = action.data;
         return action;

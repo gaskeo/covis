@@ -1,9 +1,6 @@
 import {useEffect, useReducer, useState} from 'react';
 import {
-    HashRouter as Router,
-    Route,
-    Link,
-    Routes, Navigate, useLocation, useParams
+    HashRouter as Router, Route, Link, Routes, Navigate
 } from "react-router-dom";
 
 import RenderCountrySearch from './CountrySearch';
@@ -309,8 +306,8 @@ function App() {
             <div className='Diagrams'>
                 <Routes>
                     <Route path='/' element={<Navigate to='cases'/>}/>
-                    {worldButtons.map(b => <Route path={b.to} element={b.object}/>)}
-                    {russiaButtons.map(b => <Route path={b.to} element={b.object}/>)}
+                    {worldButtons.map(b => <Route key={b.n} path={b.to} element={b.object}/>)}
+                    {russiaButtons.map(b => <Route key={b.n} path={b.to} element={b.object}/>)}
                 </Routes>
 
             </div>
