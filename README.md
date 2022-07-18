@@ -1,6 +1,6 @@
 # [covis](https://tikovka72.github.io/covis)
 
-![screenshot](public/screenshot1.jpg)
+![screenshot](assets/main-page.jpg)
 
 Site with information about COVID-19. It gets data from [yandex API](https://yandex.ru/covid19/stat).
 
