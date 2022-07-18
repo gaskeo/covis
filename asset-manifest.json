@@ -1,20 +1,13 @@
 {
   "files": {
-    "main.css": "/covis/static/css/main.87242718.chunk.css",
-    "main.js": "/covis/static/js/main.844ae717.chunk.js",
-    "main.js.map": "/covis/static/js/main.844ae717.chunk.js.map",
-    "runtime-main.js": "/covis/static/js/runtime-main.3ff2180d.js",
-    "runtime-main.js.map": "/covis/static/js/runtime-main.3ff2180d.js.map",
-    "static/js/2.644f67d4.chunk.js": "/covis/static/js/2.644f67d4.chunk.js",
-    "static/js/2.644f67d4.chunk.js.map": "/covis/static/js/2.644f67d4.chunk.js.map",
+    "main.css": "/covis/static/css/main.250ea116.css",
+    "main.js": "/covis/static/js/main.784318b0.js",
     "index.html": "/covis/index.html",
-    "static/css/main.87242718.chunk.css.map": "/covis/static/css/main.87242718.chunk.css.map",
-    "static/js/2.644f67d4.chunk.js.LICENSE.txt": "/covis/static/js/2.644f67d4.chunk.js.LICENSE.txt"
+    "main.250ea116.css.map": "/covis/static/css/main.250ea116.css.map",
+    "main.784318b0.js.map": "/covis/static/js/main.784318b0.js.map"
   },
   "entrypoints": [
-    "static/js/runtime-main.3ff2180d.js",
-    "static/js/2.644f67d4.chunk.js",
-    "static/css/main.87242718.chunk.css",
-    "static/js/main.844ae717.chunk.js"
+    "static/css/main.250ea116.css",
+    "static/js/main.784318b0.js"
   ]
 }
