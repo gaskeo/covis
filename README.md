@@ -1,4 +1,4 @@
-# [covis](https://tikovka72.github.io/covis)
+# [covis](https://gaskeo.github.io/covis)
 
 ![screenshot](assets/main-page.jpg)
 
