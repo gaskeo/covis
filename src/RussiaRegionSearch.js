@@ -87,8 +87,8 @@ function RenderRussiaRegionSearch(props) {
                 <div className='BarChartContainer'>
                     <LineChart
                         data={cases}
-                        ykey={diagramData.cases.label}
-                        xkey="name"
+                        yKey={diagramData.cases.label}
+                        xKey="name"
                         min={Math.ceil(minCases * 0.9)}
                         max={Math.ceil(maxCases * 1.1)}
                         color={badColor}
@@ -101,8 +101,8 @@ function RenderRussiaRegionSearch(props) {
                 <div className='BarChartContainer'>
                     <LineChart
                         data={deaths}
-                        ykey={diagramData.deaths.label}
-                        xkey="name"
+                        yKey={diagramData.deaths.label}
+                        xKey="name"
                         min={Math.ceil(minDeaths * 0.9)}
                         max={Math.ceil(maxDeaths * 1.1)}
                         color={badColor}

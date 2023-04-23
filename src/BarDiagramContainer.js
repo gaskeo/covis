@@ -1,4 +1,4 @@
-import {MyBarChart} from "./BarChart";
+import {BarChart} from "./components/charts/barChart/barChart.tsx";
 
 function BarDiagramContainer(props) {
     if (!props.data || props.data.length  === 0) {
@@ -10,11 +10,12 @@ function BarDiagramContainer(props) {
         <div className='DiagramContainer'>
             <h2>{props.name}</h2>
             <div className='BarChartContainer'>
-                <MyBarChart
+                <BarChart
                     data={data}
-                    maxY={Math.ceil(maxData * 1.1)}
+                    max={Math.ceil(maxData * 1.1)}
                     color={props.color}
-                    label={props.label}/>
+                    xKey={props.label}
+                />
             </div>
         </div>
     );

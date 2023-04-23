@@ -13,8 +13,8 @@ function LineDiagramContainer(props) {
             <div className='BarChartContainer'>
                 <LineChart
                     data={data}
-                    ykey={props.label}
-                    xkey="name"
+                    yKey={props.label}
+                    xKey="name"
                     min={Math.ceil(minData * 0.9)}
                     max={Math.ceil(maxData * 1.1)}
                     color={props.color}/>
