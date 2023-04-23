@@ -39,7 +39,6 @@ function RenderCountrySearch(props) {
     }
 
     function getRegion(region) {
-        console.log(region)
         const regionIndex = getRegionByName(props.data, region);
         if (regionIndex !== -1) {
             console.log(132);
@@ -52,7 +51,6 @@ function RenderCountrySearch(props) {
     }
     const names = props.data.map(d => d.name.toLowerCase()).sort((a, b) => a.localeCompare(b));
     let mainData;
-    console.log(regionStates.regionDataRequired)
     if (regionStates.regionDataRequired === true) {
         mainData = <div>loading...</div>;
     } else if (regionStates.regionData !== null) {

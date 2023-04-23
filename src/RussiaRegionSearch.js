@@ -1,24 +1,13 @@
-import {useReducer} from 'react';
+import {useReducer, useState} from 'react';
 import {
     badColor,
     diagramData, generateLinkByRegId,
-    getElemsByStart,
     getRegionByName,
     getRegionData
 } from "./Constants";
-import {Suggestions} from "./components/search/suggestions/suggestions.tsx";
 import axios from "axios";
 import {LineChartContainer} from "./components/charts/lineChart/lineChartContainer";
-
-function formReducer(states, actions) {
-    console.log(states, actions)
-
-    actions.map(action => {
-        states[action.type] = action.data;
-        return action;
-    });
-    return {...states};
-}
+import {Search} from "./components/search/search";
 
 function regionReducer(states, actions) {
     actions.map(action => {
@@ -27,14 +16,6 @@ function regionReducer(states, actions) {
     });
     return {...states};
 }
-
-const formInit = {
-    complete: false,
-    isSearch: false,
-    suggestions: null,
-    allRegions: null,
-    formData: ''
-};
 
 const regionInit = {
     regionData: null,
@@ -50,8 +31,8 @@ async function searchRegion(regIndex) {
 }
 
 function RenderRussiaRegionSearch(props) {
-    const [formStates, updateFormStates] = useReducer(formReducer, formInit, i => i);
     const [regionStates, updateRegionStates] = useReducer(regionReducer, regionInit, i => i);
+    const [selectedRegion, updateSelectedRegion] = useState("");
 
     if (!props.data) {
         return null;
@@ -62,17 +43,13 @@ function RenderRussiaRegionSearch(props) {
         if (regionIndex !== -1) {
             searchRegion(regionIndex).then(d => updateRegionStates([
                 {type: 'regionData', data: d},
+                {type: 'foundRegion', data: region},
                 {type: 'regionDataRequired', data: false},
             ]));
         }
-        updateFormStates([{type: 'isSearch', data: false}]);
     }
 
-    if (formStates.allRegions === null) {
-        const names = props.data.map(d => d.name.toLowerCase()).sort((a, b) => a.localeCompare(b));
-        updateFormStates([{type: 'allRegions', data: names}, {type: 'suggestions', data: names}]);
-    }
-
+    const names = props.data.map(d => d.name.toLowerCase()).sort((a, b) => a.localeCompare(b));
     let mainData;
     if (regionStates.regionDataRequired === true) {
         mainData = <div>loading...</div>;
@@ -113,42 +90,10 @@ function RenderRussiaRegionSearch(props) {
     }
 
     return <div style={{width: '100%'}}>
-        <div>
-            <div className='InputForm'>
-                <input style={{textTransform: 'capitalize'}} type='text' className='RegionInput' list='suggestions'
-                       value={formStates.formData} onChange={e => {
-                    const [region, newSuggestions, complete] = getElemsByStart(e, formStates.allRegions);
-                    updateFormStates([
-                        {type: 'formData', data: region},
-                        {type: 'suggestions', data: newSuggestions},
-                        {type: 'complete', data: complete}
-                    ])
-                }}
-                       onFocus={() => updateFormStates([{type: 'isSearch', data: true}])}
-                       placeholder='Введите регион'/>
-                <button className='SearchButton' disabled={!formStates.complete} onClick={() => {
-                    updateRegionStates([
-                        {type: 'regionData', data: null},
-                        {type: 'regionDataRequired', data: true},
-                        {type: 'foundRegion', data: formStates.formData}]);
-                    getRegion(formStates.formData);
-                }}>Найти
-                </button>
-            </div>
-            {formStates.isSearch &&
-                <Suggestions
-                    onClose={() => updateFormStates([{type: 'isSearch', data: false}])}
-                    elems={formStates.suggestions}
-                    onClick={(region) => {
-                        updateRegionStates([
-                            {type: 'regionData', data: null},
-                            {type: 'regionDataRequired', data: true},
-                            {type: 'foundRegion', data: region}]);
-                        getRegion(region);
-                    }}
-                />
-            }
-        </div>
+        <Search suggestions={names} onSubmit={(region) => {
+            updateSelectedRegion(region);
+            getRegion(region);
+        }}/>
         {mainData}
     </div>
 }
