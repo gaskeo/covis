@@ -10,90 +10,38 @@ import {BarChartContainer} from "./components/charts/barChart/barChartContainer"
 import {LineChartContainer} from "./components/charts/lineChart/lineChartContainer.tsx";
 
 import './App.css';
-import axios from "axios";
 import {
     badColor,
     diagramData,
     getMainData, getRegionData,
     getVaccineData,
     goodColor,
-    russiaCasesLink,
-    worldStatLink
 } from "./Constants";
+import {getCountriesAndRussianRegionsData, getRussiaHistoryData} from "./shared/api";
+import {RussiaActionType, russianInit, russianReducer, WorldActionTypes, worldInit, worldReducer} from "./shared/store";
 
-
-function worldReducer(states, actions) {
-    actions.map(action => {
-        states[action.type] = action.data;
-        return action;
-    });
-    return {...states};
-}
-
-function russianReducer(states, actions) {
-    actions.map(action => {
-        states[action.type] = action.data;
-        return action;
-    });
-    return {...states};
-}
-
-const worldInit = {
-    allCountriesData: null,
-    countriesIds: null,
-    allCountriesVaccineData: null,
-};
-
-const russianInit = {
-    russiaRegionsData: null,
-    russiaRegionsIds: null,
-    russiaCasesHistory: null,
-};
-
-async function getCountriesAndRussianRegionsData() {
-    return await axios.get(worldStatLink).then((r) => {
-        const j = r.data;
-        const worldData = Object.keys(j['world_stat_struct']['data']).map(d => {
-            return {name: j['world_stat_struct']['data'][d]['info']['name'].toString(), code: d};
-        });
-
-        const data = Object.keys(j['russia_stat_struct']['data']).map(d => {
-            return {name: j['russia_stat_struct']['data'][d]['info']['name'].toString(), code: d};
-        });
-        return {
-            'worldStat': j['world_stat_struct']['data'],
-            'vaccineStat': j['vaccination_struct'],
-            'countriesIds': worldData,
-
-            'russiaStat': j['russia_stat_struct']['data'],
-            'russiaRegionsIds': data
-        };
-    });
-}
-
-async function getRussiaCasesHistoryData() {
-    return await axios.get(russiaCasesLink).then((r) => r.data)
-}
 
 function App() {
     const href = window.location.href.split('/')[window.location.href.split('/').length - 1];
 
     const [activeTab, updateActiveTab] = useState(href ? href : 'cases');
+
     const [worldStates, worldStatesDispatch] = useReducer(worldReducer, worldInit, i => i);
     const [russianStates, russianStatesDispatch] = useReducer(russianReducer, russianInit, i => i);
+
     useEffect(() => {
         if (worldStates.allCountriesData === null) {
-            worldStatesDispatch([{type: 'allCountriesData', data: []}]);
+            worldStatesDispatch([{type: WorldActionTypes.allCountriesData, data: []}]);
             getCountriesAndRussianRegionsData().then(d => {
                 worldStatesDispatch([
-                    {type: 'allCountriesData', data: d['worldStat']},
-                    {type: 'allCountriesVaccineData', data: d['vaccineStat']},
-                    {type: 'countriesIds', data: d['countriesIds']}
+                    {type: WorldActionTypes.allCountriesData, data: d.worldData},
+                    {type: WorldActionTypes.allCountriesVaccineData, data: d.worldVaccineData},
+                    {type: WorldActionTypes.countriesIds, data: d.worldRegions}
                 ]);
 
                 russianStatesDispatch([
-                    {type: 'russiaRegionsData', data: d['russiaStat']},
-                    {type: 'russiaRegionsIds', data: d['russiaRegionsIds']}
+                    {type: RussiaActionType.russiaRegionsData, data: d.russiaData},
+                    {type: RussiaActionType.russiaRegionsIds, data: d.russiaRegions}
                 ]);
             });
         }
@@ -101,9 +49,8 @@ function App() {
 
     useEffect(() => {
         if (russianStates.russiaCasesHistory === null) {
-            russianStatesDispatch([{type: 'russiaCasesHistory', data: []}]);
-            getRussiaCasesHistoryData().then(d => {
-                russianStatesDispatch([{type: 'russiaCasesHistory', data: d}]);
+            getRussiaHistoryData().then(d => {
+                russianStatesDispatch([{type: RussiaActionType.russiaCasesHistory, data: d}]);
             });
         }
     }, []);
