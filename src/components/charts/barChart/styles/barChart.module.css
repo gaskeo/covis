@@ -1,0 +1,13 @@
+.tooltip {
+    padding: 10px;
+    outline: none !important;
+    border: none !important;
+    background-color: #EEE;
+    tab-index: -1;
+    border-radius: 5px;
+}
+
+.tooltip > p {
+    font-weight: 600;
+    margin: 0;
+}

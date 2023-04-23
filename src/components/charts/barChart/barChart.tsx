@@ -1,5 +1,6 @@
 import {diagramHeight, diagramWidth, russia} from "../../../Constants";
 import {Bar, Cell, Tooltip, XAxis, YAxis, BarChart as ReBarChart, ResponsiveContainer} from "recharts";
+import styles from "./styles/barChart.module.css";
 
 export interface BarChartProps<D extends { [key: string | number]: string | number }> {
     data: D[];
@@ -24,12 +25,25 @@ export function BarChart<D extends { [a: string | number]: string }>(
                     domain={[0, max]}
                 />
                 <Tooltip
+                    wrapperStyle={{outline: "none"}}
+                    content={({label, payload, active}) =>
+                        (payload && active && payload.length) &&
+                        <div className={styles.tooltip}>
+                            <p>{label}</p>
+                            <span>{payload[0].value}</span>
+                        </div>
+                    }
                     formatter={(value) => new Intl.NumberFormat('en').format(Number(value))}
                 />
                 <Bar dataKey={(d) => d[yKey]} barSize={70}>
                     {data.map((d, index) =>
                         <Cell key={`cell-${index}`} fill={color}
-                              style={{opacity: (d.name === russia) ? 0.5 : 1}}/>
+                              radius={[10, 10, 0, 0] as unknown as string}
+                              className={styles.cell}
+                              style={{
+                                  opacity: (d.name === russia) ? 0.5 : 1,
+                                  borderTopRightRadius: "5px !important",
+                              }}/>
                     )}
                 </Bar>
             </ReBarChart>

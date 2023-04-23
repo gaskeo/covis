@@ -6,7 +6,7 @@ import {
     getRegionByName,
     getRegionData
 } from "./Constants";
-import {Suggestions} from "./components/suggestions/suggestions.tsx";
+import {Suggestions} from "./components/search/suggestions/suggestions.tsx";
 import axios from "axios";
 import {LineChartContainer} from "./components/charts/lineChart/lineChartContainer";
 

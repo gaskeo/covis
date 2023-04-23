@@ -120,26 +120,6 @@ h2 {
     font-family: 'Roboto', sans-serif;
 }
 
-.SearchButton {
-    z-index: 20;
-    display: inline;
-    background-color: #eee;
-    color: black;
-    border: 0 solid;
-    font-family: 'Roboto', sans-serif;
-
-    line-height: 3rem;
-    border-image: none;
-    font-size: 1.4em;
-    text-align: center;
-    margin-bottom: 0.3rem;
-    border-radius: 10px;
-    box-shadow: 0 0 10px 3px #dadada;
-}
-
-.SearchButton:disabled {
-    color: #aaa;
-}
 
 .MapToolTip {
     border: 1px solid rgb(204, 204, 204);
@@ -150,42 +130,12 @@ h2 {
     padding: 10px;
 }
 
-.RegionInput {
-    border-radius: 10px;
-    box-shadow: 0 0 10px 3px #dadada;
-    height: 3rem;
-    margin-right: 0.5rem;
-    border: none;
-    font-size: 1.4em;
-    background-color: #eee;
-    padding-left: 0.4rem;
-    outline: none;
-    font-family: 'Roboto', sans-serif;
-}
-
-.InputForm {
-    margin-top: 1rem;
-    text-align: center;
-    display: flex;
-    justify-content: center;
-}
-
-
-
-
-
-
-
 .close-x {
     stroke: black;
     fill: transparent;
     stroke-linecap: round;
     stroke-width: 5;
 }
-
-
-
-
 
 .DiagramContainer {
     width: 100%;
@@ -197,6 +147,7 @@ h2 {
     margin-bottom: 2rem;
     margin-top: 2rem;
     height: 100%;
+    box-sizing: border-box;
 }
 
 
@@ -294,9 +245,7 @@ h2 {
         left: 0;
     }
 
-    .RegionInput {
-        width: 60vw;
-    }
+
 
     .SearchButton {
         width: 30vw;
