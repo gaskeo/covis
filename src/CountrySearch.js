@@ -8,7 +8,7 @@ import {
     getRegionData
 } from "./Constants";
 import {MyLineChart} from "./LineChart";
-import {SearchElem} from "./searchElem";
+import {SearchElem} from "./searchElem.tsx";
 import axios from "axios";
 
 function formReducer(states, actions) {
