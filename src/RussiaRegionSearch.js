@@ -7,7 +7,7 @@ import {
     getRegionData
 } from "./Constants";
 import {MyLineChart} from "./LineChart";
-import {SearchElem} from "./searchElem.tsx";
+import {Suggestions} from "./components/suggestions/suggestions.tsx";
 import axios from "axios";
 
 function formReducer(states, actions) {
@@ -129,20 +129,18 @@ function RenderRussiaRegionSearch(props) {
                 }}>Найти
                 </button>
             </div>
-            {formStates.isSearch && <SearchElem onClose={() => updateFormStates([{type: 'isSearch', data: false}])}
-                                                elems={formStates.suggestions.map((d, index) =>
-                                                    <p onClick={() => {
-                                                        updateRegionStates([
-                                                            {type: 'regionData', data: null},
-                                                            {type: 'regionDataRequired', data: true},
-                                                            {type: 'foundRegion', data: d}]);
-                                                        getRegion(d);
-                                                    }} key={index}>
-                                                             <span style={{textTransform: 'capitalize'}}>
-                                                                 {d}
-                                                             </span>
-                                                    </p>
-                                                )}/>
+            {formStates.isSearch &&
+                <Suggestions
+                    onClose={() => updateFormStates([{type: 'isSearch', data: false}])}
+                    elems={formStates.suggestions}
+                    onClick={(region) => {
+                        updateRegionStates([
+                            {type: 'regionData', data: null},
+                            {type: 'regionDataRequired', data: true},
+                            {type: 'foundRegion', data: region}]);
+                        getRegion(region);
+                    }}
+                />
             }
         </div>
         {mainData}
