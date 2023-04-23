@@ -1,13 +1,12 @@
 import {useReducer} from 'react';
 import {
     badColor,
-    checkPage,
     diagramData, generateLinkByRegId,
     getElemsByStart,
     getRegionByName,
     getRegionData
 } from "./Constants";
-import {MyLineChart} from "./LineChart";
+import {LineChart} from "./components/charts/lineChart/lineChart.tsx";
 import {Suggestions} from "./components/suggestions/suggestions.tsx";
 import axios from "axios";
 
@@ -84,22 +83,28 @@ function RenderCountrySearch(props) {
                 <h2>Случаи заболевания по стране: <span
                     style={{textTransform: 'capitalize'}}>{regionStates.foundRegion}</span></h2>
                 <div className='BarChartContainer'>
-                    <MyLineChart data={cases}
-                                 label={diagramData.cases.label}
-                                 minValue={Math.ceil(minCases * 0.9)}
-                                 maxValue={Math.ceil(maxCases * 1.1)}
-                                 color={badColor}/>
+                    <LineChart
+                        data={cases}
+                        ykey={diagramData.cases.label}
+                        xkey="name"
+                        min={Math.ceil(minCases * 0.9)}
+                        max={Math.ceil(maxCases * 1.1)}
+                        color={badColor}
+                        />
                 </div>
             </div>
             <div className='DiagramContainer'>
                 <h2>Случаи смертей по стране: <span
                     style={{textTransform: 'capitalize'}}>{regionStates.foundRegion}</span></h2>
                 <div className='BarChartContainer'>
-                    <MyLineChart data={deaths}
-                                 label={diagramData.deaths.label}
-                                 minValue={Math.ceil(minDeaths * 0.9)}
-                                 maxValue={Math.ceil(maxDeaths * 1.1)}
-                                 color={badColor}/>
+                    <LineChart
+                        data={deaths}
+                        ykey={diagramData.deaths.label}
+                        xkey="name"
+                        min={Math.ceil(minDeaths * 0.9)}
+                        max={Math.ceil(maxDeaths * 1.1)}
+                        color={badColor}
+                    />
                 </div>
             </div>
         </div>

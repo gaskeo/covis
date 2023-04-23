@@ -4,7 +4,7 @@ import {Bar, Cell, Tooltip, XAxis, YAxis, BarChart, ResponsiveContainer} from "r
 export const MyBarChart = (props) => {
     return (
         <ResponsiveContainer width="100%" height={400}>
-        <BarChart className='BarChart' width={window.innerWidth / diagramWidth()}
+        <BarChart className='LineChart' width={window.innerWidth / diagramWidth()}
                   height={window.innerHeight / diagramHeight()}
                   data={props.data}>
             <XAxis dataKey="name"/>

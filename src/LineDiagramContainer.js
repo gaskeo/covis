@@ -1,4 +1,4 @@
-import {MyLineChart} from "./LineChart";
+import {LineChart} from "./components/charts/lineChart/lineChart.tsx";
 
 function LineDiagramContainer(props) {
     if (!props.data || props.data.length  === 0) {
@@ -11,10 +11,13 @@ function LineDiagramContainer(props) {
         <div className='DiagramContainer'>
             <h2>{props.name}</h2>
             <div className='BarChartContainer'>
-                <MyLineChart
+                <LineChart
                     data={data}
-                    label={props.label}
-                    minValue={Math.ceil(minData * 0.9)} maxValue={Math.ceil(maxData * 1.1)} color={props.color}/>
+                    ykey={props.label}
+                    xkey="name"
+                    min={Math.ceil(minData * 0.9)}
+                    max={Math.ceil(maxData * 1.1)}
+                    color={props.color}/>
             </div>
         </div>
     )

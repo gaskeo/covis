@@ -17,9 +17,9 @@ export const Suggestions = ({elems, onClose, onClick}: SuggestionsProps) => {
                 </svg>
             </button>
             <div className={styles.RegionSuggestions}>
-                {elems.map(e => (
-                    <p onClick={() => onClick(e)} key={e}>
-                        <span style={{textTransform: 'capitalize'}}>{e}</span>
+                {elems.map(elem => (
+                    <p onClick={() => onClick(elem)} key={elem}>
+                        <span style={{textTransform: 'capitalize'}}>{elem}</span>
                     </p>
                 ))}
             </div>
