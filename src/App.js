@@ -7,7 +7,7 @@ import RenderCountrySearch from './CountrySearch';
 import RenderRussiaRegionSearch from './RussiaRegionSearch';
 import RenderRussiaMap from './RussiaMap';
 import BarDiagramContainer from "./BarDiagramContainer";
-import LineDiagramContainer from "./LineDiagramContainer";
+import {LineChartContainer} from "./components/charts/lineChart/lineChartContainer.tsx";
 
 import './App.css';
 import axios from "axios";
@@ -20,7 +20,6 @@ import {
     russiaCasesLink,
     worldStatLink
 } from "./Constants";
-
 
 
 function worldReducer(states, actions) {
@@ -82,7 +81,7 @@ function App() {
     const [activeTab, updateActiveTab] = useState(href ? href : 'cases');
     const [worldStates, worldStatesDispatch] = useReducer(worldReducer, worldInit, i => i);
     const [russianStates, russianStatesDispatch] = useReducer(russianReducer, russianInit, i => i);
-
+    console.log(russianStates)
     useEffect(() => {
         if (worldStates.allCountriesData === null) {
             worldStatesDispatch([{type: 'allCountriesData', data: []}]);
@@ -213,36 +212,51 @@ function App() {
         },
     ];
 
+    let casesDataRu, minCasesRu, maxCasesRu, deathsDataRu, minDeathsRu, maxDeathsRu;
+
+    if (russianStates.russiaCasesHistory?.cases) {
+        [casesDataRu, minCasesRu, maxCasesRu] =
+            getRegionData(russianStates.russiaCasesHistory, "cases", diagramData.cases.label);
+
+        [deathsDataRu, minDeathsRu, maxDeathsRu] =
+            getRegionData(russianStates.russiaCasesHistory, "deaths", diagramData.deaths.label);
+    }
+    else return <></>;
+
+    console.log(deathsDataRu)
+
     const russiaButtons = [
         {
             n: 6,
             name: 'Заболеваний за месяц',
             classes: ['MenuButton', 'BadButton'],
             to: 'casesRuss',
-            object: <LineDiagramContainer
+            object: <LineChartContainer
                 id={6}
-                field='cases'
-                label={diagramData.cases.label}
                 key={6}
-                getFunction={getRegionData}
+                min={minCasesRu}
+                max={maxCasesRu}
                 color={badColor}
-                name='Заболеваний за месяц'
-                data={russianStates.russiaCasesHistory}/>
+                xKey="name"
+                yKey={diagramData.cases.label}
+                title='Заболеваний за месяц'
+                data={casesDataRu}/>
         },
         {
             n: 8,
             name: 'Смертей за месяц',
             classes: ['MenuButton', 'BadButton'],
             to: 'deathsRuss',
-            object: <LineDiagramContainer
+            object: <LineChartContainer
                 id={8}
-                field='cases'
-                label={diagramData.deaths.label}
                 key={8}
-                getFunction={getRegionData}
+                min={minDeathsRu}
+                max={maxDeathsRu}
+                xKey="name"
+                yKey={diagramData.deaths.label}
                 color={badColor}
-                name='Смертей за месяц'
-                data={russianStates.russiaCasesHistory}/>
+                title='Смертей за месяц'
+                data={deathsDataRu}/>
         },
         {
             n: 9,

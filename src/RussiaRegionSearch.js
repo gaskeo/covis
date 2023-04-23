@@ -6,9 +6,9 @@ import {
     getRegionByName,
     getRegionData
 } from "./Constants";
-import {LineChart} from "./components/charts/lineChart/lineChart.tsx";
 import {Suggestions} from "./components/suggestions/suggestions.tsx";
 import axios from "axios";
+import {LineChartContainer} from "./components/charts/lineChart/lineChartContainer";
 
 function formReducer(states, actions) {
     console.log(states, actions)
@@ -81,34 +81,34 @@ function RenderRussiaRegionSearch(props) {
         const [deaths, minDeaths, maxDeaths] = getRegionData(regionStates.regionData, 'deaths', diagramData.deaths.label)
 
         mainData = <div>
-            <div className='DiagramContainer'>
-                <h2>Случаи заболевания по региону: <span
-                    style={{textTransform: 'capitalize'}}>{regionStates.foundRegion}</span></h2>
-                <div className='BarChartContainer'>
-                    <LineChart
-                        data={cases}
-                        yKey={diagramData.cases.label}
-                        xKey="name"
-                        min={Math.ceil(minCases * 0.9)}
-                        max={Math.ceil(maxCases * 1.1)}
-                        color={badColor}
-                    />
-                </div>
-            </div>
-            <div className='DiagramContainer'>
-                <h2>Случаи смертей по региону: <span
-                    style={{textTransform: 'capitalize'}}>{regionStates.foundRegion}</span></h2>
-                <div className='BarChartContainer'>
-                    <LineChart
-                        data={deaths}
-                        yKey={diagramData.deaths.label}
-                        xKey="name"
-                        min={Math.ceil(minDeaths * 0.9)}
-                        max={Math.ceil(maxDeaths * 1.1)}
-                        color={badColor}
-                    />
-                </div>
-            </div>
+            <LineChartContainer
+                title={
+                    <>
+                        Случаи заболевания по региону: <span style={{textTransform: 'capitalize'}}>
+                                {regionStates.foundRegion}</span>
+                    </>
+                }
+                data={cases}
+                yKey={diagramData.cases.label}
+                xKey="name"
+                min={Math.ceil(minCases * 0.9)}
+                max={Math.ceil(maxCases * 1.1)}
+                color={badColor}
+            />
+            <LineChartContainer
+                title={
+                    <>
+                        Случаи смертей по региону: <span style={{textTransform: 'capitalize'}}>
+                                {regionStates.foundRegion}</span>
+                    </>
+                }
+                data={deaths}
+                yKey={diagramData.deaths.label}
+                xKey="name"
+                min={Math.ceil(minDeaths * 0.9)}
+                max={Math.ceil(maxDeaths * 1.1)}
+                color={badColor}
+            />
         </div>
     }
 

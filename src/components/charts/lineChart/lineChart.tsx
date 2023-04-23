@@ -2,7 +2,7 @@ import {diagramHeight, diagramWidth} from "../../../Constants";
 import {CartesianGrid, Line, LineChart as ReLineChart, ResponsiveContainer, Tooltip, XAxis, YAxis} from "recharts";
 import styles from "./styles/lineChart.module.css";
 
-interface LineChartProps<D extends { [key: string | number]: string | number }> {
+export interface LineChartProps<D extends { [key: string | number]: string | number }> {
     data: D[];
     yKey: keyof D | string;
     xKey: keyof D | string;
