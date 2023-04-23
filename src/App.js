@@ -6,7 +6,7 @@ import {
 import RenderCountrySearch from './CountrySearch';
 import RenderRussiaRegionSearch from './RussiaRegionSearch';
 import RenderRussiaMap from './RussiaMap';
-import BarDiagramContainer from "./BarDiagramContainer";
+import {BarChartContainer} from "./components/charts/barChart/barChartContainer";
 import {LineChartContainer} from "./components/charts/lineChart/lineChartContainer.tsx";
 
 import './App.css';
@@ -81,7 +81,6 @@ function App() {
     const [activeTab, updateActiveTab] = useState(href ? href : 'cases');
     const [worldStates, worldStatesDispatch] = useReducer(worldReducer, worldInit, i => i);
     const [russianStates, russianStatesDispatch] = useReducer(russianReducer, russianInit, i => i);
-    console.log(russianStates)
     useEffect(() => {
         if (worldStates.allCountriesData === null) {
             worldStatesDispatch([{type: 'allCountriesData', data: []}]);
@@ -109,96 +108,124 @@ function App() {
         }
     }, []);
 
+    let casesData, minCases, maxCases,
+        casesTodayData, minCasesToday, maxCasesToday,
+        deathsData, minDeaths, maxDeaths,
+        deathsTodayData, minDeathsToday, maxDeathsToday,
+        vaccinesData, minVaccines, maxVaccines,
+        vaccinesFullData, minVaccinesFull, maxVaccinesFull
+    ;
+
+    if (russianStates.russiaCasesHistory?.cases) {
+        [casesData, minCases, maxCases] =
+            getMainData(worldStates.allCountriesData, "cases", diagramData.cases.label);
+
+        [casesTodayData, minCasesToday, maxCasesToday] =
+            getMainData(worldStates.allCountriesData, "cases_delta", diagramData.casesToday.label);
+
+        [deathsData, minDeaths, maxDeaths] =
+            getMainData(worldStates.allCountriesData, "deaths", diagramData.deaths.label);
+
+        [deathsTodayData, minDeathsToday, maxDeathsToday] =
+            getMainData(worldStates.allCountriesData, "deaths_delta", diagramData.deathsToday.label);
+
+        [vaccinesData, minVaccines, maxVaccines] =
+            getVaccineData(worldStates.allCountriesVaccineData, "vac", diagramData.vaccines.label);
+
+        [vaccinesFullData, minVaccinesFull, maxVaccinesFull] =
+            getVaccineData(worldStates.allCountriesVaccineData, "peop_full_vac", diagramData.vaccinesFull.label);
+    } else return <></>;
+
     const worldButtons = [
         {
             n: 1,
             name: 'Всего заболеваний',
             classes: ['MenuButton', 'BadButton'],
             to: 'cases',
-            object: <BarDiagramContainer
+            object: <BarChartContainer
                 id={1}
-                field='cases'
-                label={diagramData.cases.label}
                 key={1}
-                getFunction={getMainData}
                 color={badColor}
-                name='Всего заболеваний'
-                data={worldStates.allCountriesData}/>
+                title='Всего заболеваний'
+                xKey="name"
+                yKey={diagramData.cases.label}
+                max={maxCases}
+                data={casesData}/>
         },
         {
             n: 2,
             name: 'Заболеваний сегодня',
             classes: ['MenuButton', 'BadButton'],
             to: 'casesToday',
-            object: <BarDiagramContainer
+            object: <BarChartContainer
                 id={2}
-                field='cases_delta'
-                label={diagramData.casesToday.label}
                 key={2}
-                getFunction={getMainData}
                 color={badColor}
-                name='Заболеваний сегодня'
-                data={worldStates.allCountriesData}/>
+                title='Заболеваний сегодня'
+                xKey="name"
+                yKey={diagramData.casesToday.label}
+                max={maxCasesToday}
+                data={casesTodayData}/>
         },
         {
             n: 3,
             name: 'Всего смертей',
             classes: ['MenuButton', 'BadButton'],
             to: 'deaths',
-            object: <BarDiagramContainer
-                id={3}
-                field='deaths'
-                label={diagramData.deaths.label}
-                key={3}
-                getFunction={getMainData}
+            object: <BarChartContainer
+                id={2}
+                key={2}
                 color={badColor}
-                name='Всего смертей'
-                data={worldStates.allCountriesData}/>
+                title='Заболеваний сегодня'
+                xKey="name"
+                yKey={diagramData.deaths.label}
+                max={maxDeaths}
+                data={deathsData}/>
         },
         {
             n: 4,
             name: 'Смертей сегодня',
             classes: ['MenuButton', 'BadButton'],
             to: 'deathsToday',
-            object: <BarDiagramContainer
+            object: <BarChartContainer
                 id={4}
-                field='deaths_delta'
-                label={diagramData.deathsToday.label}
                 key={4}
-                getFunction={getMainData}
                 color={badColor}
-                name='Смертей сегодня'
-                data={worldStates.allCountriesData}/>
+                title='Смертей сегодня'
+                xKey="name"
+                yKey={diagramData.deathsToday.label}
+                max={maxDeathsToday}
+                data={deathsTodayData}/>
         },
         {
             n: 12,
             name: 'Вакцин сделано',
             classes: ['MenuButton', 'GoodButton'],
             to: 'vac',
-            object: <BarDiagramContainer
+            object: <BarChartContainer
                 id={12}
-                field='vac'
-                label={diagramData.vaccines.label}
                 key={12}
-                getFunction={getVaccineData}
                 color={goodColor}
-                name='Вакцин сделано'
-                data={worldStates.allCountriesVaccineData}/>
+                title='Вакцин сделано'
+                xKey="name"
+                yKey={diagramData.vaccines.label}
+                max={maxVaccines}
+                data={vaccinesData}/>
         },
         {
             n: 13,
             name: 'Количество полных вакцинаций',
             classes: ['MenuButton', 'GoodButton'],
             to: 'vacFull',
-            object: <BarDiagramContainer
+            object: <BarChartContainer
                 id={13}
-                field='peop_full_vac'
-                label={diagramData.vaccinesFull.label}
                 key={13}
-                getFunction={getVaccineData}
                 color={goodColor}
-                name='Количество полных вакцинаций'
-                data={worldStates.allCountriesVaccineData}/>
+                title='Количество полных вакцинаций'
+                xKey="name"
+                yKey={diagramData.vaccinesFull.label}
+                max={maxVaccinesFull}
+                data={vaccinesFullData}/>
         },
         {
             n: 14,
@@ -220,10 +247,8 @@ function App() {
 
         [deathsDataRu, minDeathsRu, maxDeathsRu] =
             getRegionData(russianStates.russiaCasesHistory, "deaths", diagramData.deaths.label);
-    }
-    else return <></>;
+    } else return <></>;
 
-    console.log(deathsDataRu)
 
     const russiaButtons = [
         {
