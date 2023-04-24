@@ -121,6 +121,22 @@ h2 {
 }
 
 
+.contentContainer {
+    width: 100vw;
+    display: flex;
+    justify-content: center;
+}
+
+.contentWrapper {
+    width: 90vw;
+    max-width: 1400px;
+    min-height: 500px;
+    display: grid;
+    gap: 20px;
+    grid-template-columns: 1fr 6fr;
+}
+
+
 .MapToolTip {
     border: 1px solid rgb(204, 204, 204);
     position: absolute;
@@ -168,14 +184,10 @@ h2 {
     }
 
     .Diagrams {
-        position: absolute;
-        top: 4rem;
-        left: 15rem;
-        width: calc(100% - 30rem);
+        width: 100%;
     }
 
     .Menu {
-        position: absolute;
         left: 1.5rem;
         top: 4rem
     }

@@ -25,7 +25,7 @@ import {WithContext} from "./app/hocs/context";
 import {WithRouter} from "./app/hocs/router";
 import {compose} from "./app/hocs";
 
-function Content() {
+function Content(props) {
     const href = window.location.href.split('/')[window.location.href.split('/').length - 1];
 
     const [activeTab, updateActiveTab] = useState(href ? href : 'cases');
@@ -33,41 +33,42 @@ function Content() {
     const worldButtons = [
         {
             n: 0,
-            name: "123",
+            name: "Всего заболеваний",
             to: "cases",
-            object: <CasesPage/>,
             classes: ['MenuButton', 'BadButton']
         }
     ]
+
     return (
         <>
             <div className='Header'>
                 <h1>co<span className='RedBack'>vis</span></h1>
             </div>
-            <div className='Menu'>
-                <div className='MenuSection'>
-                    <h3 className='MenuHeader'>Мир</h3>
-                    {worldButtons.map(b => <Link
-                        key={b.n}
-                        to={b.to}
-                        onClick={() => updateActiveTab(b.to)}
-                        className={[...b.classes, activeTab === b.to ? '' : (b.classes.includes('BadButton') ? 'NotSelectedBadButton' : 'NotSelectedGoodButton')].join(' ')}><span>{b.name}</span></Link>)}
+            <div className="contentContainer">
+                <div className="contentWrapper">
+                    <div className='Menu'>
+                        <div className='MenuSection'>
+                            <h3 className='MenuHeader'>Мир</h3>
+                            {worldButtons.map(b => <Link
+                                key={b.n}
+                                to={b.to}
+                                onClick={() => updateActiveTab(b.to)}
+                                className={[...b.classes, activeTab === b.to ? '' : (b.classes.includes('BadButton') ? 'NotSelectedBadButton' : 'NotSelectedGoodButton')].join(' ')}><span>{b.name}</span></Link>)}
 
+                        </div>
+                        <div className='MenuSection'>
+                            <h3 className='MenuHeader'>Россия</h3>
+                        </div>
+                    </div>
+                    <div className="Diagrams">
+                        {props.children}
+                    </div>
                 </div>
-                <div className='MenuSection'>
-                    <h3 className='MenuHeader'>Россия</h3>
-                </div>
-
-            </div>
-            <div className='Diagrams'>
-
-
             </div>
         </>
 
     )
 }
-
 
 
 const ContentWithRouterAndContext = compose(WithContext, WithRouter)(Content);
@@ -305,7 +306,11 @@ function App() {
     // ];
 
     console.log(worldStates)
-    return <ContentWithRouterAndContext worldStates={worldStates} russiaStates={russianStates}/>
+    return <ContentWithRouterAndContext
+        worldStates={worldStates}
+        russiaStates={russianStates}
+        ContentWrapper={({children}) => <div className="Diagrams">{children}</div>}
+    />
 }
 
 export default App;

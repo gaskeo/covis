@@ -27,7 +27,7 @@ export function BarChart<D extends { [a: string | number]: string | number }>(
         return value.toString();
     }
     return (
-        <ResponsiveContainer width="100%" height={400}>
+        <ResponsiveContainer debounce={1}  height={400}>
             <ReBarChart className='LineChart' width={window.innerWidth / diagramWidth()}
                         height={window.innerHeight / diagramHeight()}
                         data={data}>
