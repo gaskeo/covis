@@ -34,16 +34,12 @@ export function Search({suggestions, onSubmit}: SearchProps) {
     const filteredSuggestions = suggestions.filter(s => s.toLowerCase().includes(searchValue.toLowerCase()))
     const [isSearch, updateIsSearch] = useState(false);
 
-    const inputInSuggestions = isStringInArray(searchValue, suggestions);
-
-
     const _onSubmit = (value: string) => {
         updateIsSearch(false);
         updateSearchValue(value);
         onSubmit(value);
     }
 
-    console.log(filteredSuggestions[0])
     return (
         <>
             <div className={`${styles.blur} ${!isSearch && styles.noBlur}`}/>

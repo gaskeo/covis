@@ -1,6 +1,6 @@
 const numberShortener = (value: number) => {
     if (value < 1000) {
-        return value.toString();
+        return Math.ceil(value).toString();
     }
     if (value < 1_000_000) {
         return Math.ceil(value / 1000).toString() + 'K'
