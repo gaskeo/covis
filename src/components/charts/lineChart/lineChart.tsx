@@ -1,6 +1,7 @@
 import {diagramHeight, diagramWidth} from "../../../Constants";
 import {CartesianGrid, Line, LineChart as ReLineChart, ResponsiveContainer, Tooltip, XAxis, YAxis} from "recharts";
 import styles from "./styles/lineChart.module.css";
+import {Tooltip as TooltipComponent} from "../../tooltip";
 import {numberShortener} from "../../../shared/utils/numberShortener";
 
 export interface LineChartProps<D extends { [key: string | number]: string | number }> {
@@ -38,10 +39,10 @@ export function LineChart<D extends { [a: string | number]: string | number }>(
                     wrapperStyle={{outline: "none"}}
                     content={({label, payload, active}) =>
                         (payload && active && payload.length) &&
-                        <div className={styles.tooltip}>
-                            <p>{label}</p>
-                            <span>{new Intl.NumberFormat('en').format(Number(payload[0].value))}</span>
-                        </div>
+                        <TooltipComponent
+                            title={label}
+                            text={new Intl.NumberFormat('en').format(Number(payload[0].value))}
+                        />
                     }
                     formatter={(value) => new Intl.NumberFormat('en').format(Number(value))}/>
             </ReLineChart>

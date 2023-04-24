@@ -6,6 +6,35 @@ interface RussiaSVGProps {
     sendPos: (e: React.MouseEvent) => void;
 }
 
+interface RussiaCSSProps extends RussiaSVGProps {
+    data: any[]
+    color: { r: number, g: number, b: number };
+    mapRef: React.RefObject<HTMLDivElement>;
+}
+
+export function RussiaCSS({data, color, sendClick, sendPos, mapRef}: RussiaCSSProps) {
+    let cssNames = ['polygon', 'g', 'path', 'polyline']
+    return (
+        <>
+            {
+                data.map((d, index) => {
+                    let name = d.name
+                    let opacity = Math.max(d.cases / d['population'] * 6, 0.05);
+                    let preparedColor = `rgba(${color.r}, ${color.g}, ${color.b}, ${opacity})`
+                    let cssText = cssNames.map(n => `${n}[data-name="${name}"] {fill: ${preparedColor}}`).join(' ')
+
+                    return <style key={index} type='text/css'>
+                        {cssText}
+                    </style>
+                })
+            }
+            <div ref={mapRef}>
+                <RussiaSVG sendClick={sendClick} sendPos={sendPos}/>
+            </div>
+        </>
+    )
+}
+
 function RussiaSVG(props: RussiaSVGProps) {
     return (
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 786.6 414.18" className='Map'>

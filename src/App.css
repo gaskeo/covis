@@ -80,16 +80,6 @@ h2 {
     grid-template-columns: 1fr 6fr;
 }
 
-
-.MapToolTip {
-    border: 1px solid rgb(204, 204, 204);
-    position: absolute;
-    transition: 500ms ease-out;
-    background-color: white;
-    pointer-events: none;
-    padding: 10px;
-}
-
 .close-x {
     stroke: black;
     fill: transparent;

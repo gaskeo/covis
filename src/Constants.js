@@ -125,19 +125,10 @@ export function getRussianInfo(data) {
 
 export const ticketMargin = 10;
 
-export function cssMapGenerator(data, color) {
-    let cssNames = ['polygon', 'g', 'path', 'polyline']
-    return data.map((d, index) => {
-        let name = d.name
-        let opacity = Math.max(d.cases / d['population'] * 6, 0.05);
-        let preparedColor = `rgba(${color.r}, ${color.g}, ${color.b}, ${opacity})`
-        let cssText = cssNames.map(n => `${n}[data-name="${name}"] {fill: ${preparedColor}}`).join(' ')
 
-        return <style key={index} type='text/css'>{cssText}</style>
-    })
-}
 
 export function getFieldByName(data, name, field) {
+    if (!data) return 0;
     for (let d of data) {
         if (d.name === name) {
             return d[field];
