@@ -79,6 +79,12 @@ const MenuItems: (MenuLink | MenuHeader)[] = [
         to: "deathsRu",
         linkType: "bad"
     },
+    {
+        type: "link",
+        label: "Поиск по регионам",
+        to: "searchRu",
+        linkType: "bad"
+    },
 
 ]
 

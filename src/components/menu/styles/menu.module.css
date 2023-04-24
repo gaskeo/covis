@@ -5,6 +5,12 @@
     height: max-content;
 }
 
+.menu > h3 {
+    line-height: 1;
+    margin-top: 8px;
+    margin-bottom: 4px;
+}
+
 .MenuButton {
     z-index: 20;
     display: block;
