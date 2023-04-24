@@ -3,7 +3,7 @@ import {useGlobalContext} from "../../shared/context";
 import {RussiaActionType} from "../../shared/store";
 import {InteractiveMap} from "../../components/maps/russia/interactiveMap";
 import {dataTypeToMapType} from "../../shared/utils/dataTypeToMapType";
-import {casesMapColor} from "../../constants";
+import {casesMapColor} from "../../shared/constants";
 
 
 function CasesMapRu() {

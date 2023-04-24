@@ -1,5 +1,5 @@
 import {Data, Info} from "../api";
-import {countriesRu} from "../../constants";
+import {countriesRu} from "../constants";
 import {RegionId} from "../store";
 
 export function getMainData(data: Data, field: keyof Info, label: string, name: keyof Info = 'name') {

@@ -1,4 +1,4 @@
-import {russia} from "../../../constants";
+import {russia} from "../../../shared/constants";
 import {Bar, Cell, Tooltip, XAxis, YAxis, BarChart as ReBarChart, ResponsiveContainer} from "recharts";
 import {Tooltip as TooltipComponent} from "../../tooltip";
 import styles from "./styles/barChart.module.css";

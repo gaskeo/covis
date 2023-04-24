@@ -3,7 +3,7 @@ import {useGlobalContext} from "../../shared/context";
 import {RussiaActionType} from "../../shared/store";
 import {dataTypeToMapType} from "../../shared/utils/dataTypeToMapType";
 import {InteractiveMap} from "../../components/maps/russia/interactiveMap";
-import {deathsMapColor} from "../../constants";
+import {deathsMapColor} from "../../shared/constants";
 
 
 function DeathsMapRu() {

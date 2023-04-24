@@ -1,4 +1,4 @@
-import {badColor} from "../../constants";
+import {badColor} from "../../shared/constants";
 
 import {useGlobalContext} from "../../shared/context";
 import {RussiaActionType} from "../../shared/store";

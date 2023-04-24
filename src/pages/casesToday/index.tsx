@@ -1,4 +1,4 @@
-import {badColor, countriesRu} from "../../constants";
+import {badColor, countriesRu} from "../../shared/constants";
 import {getMainData} from "../../shared/utils/getters";
 
 import {BarChartContainer} from "../../components/charts/barChart/barChartContainer";
