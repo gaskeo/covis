@@ -1,3 +1,5 @@
+import {Data, Info} from "./shared/api";
+
 export const goodColor = '#00F067';
 export const badColor = '#CD5C5C'
 
@@ -54,24 +56,6 @@ export const diagramData = {
 }
 
 export const russia = 'Россия'
-
-export function getMainData(data, field, label, name = 'name') {
-    let maxValue = 0;
-    const convData = Object.keys(data).map(d => {
-        if (countriesRu.includes(data[d].info[name])) {
-            maxValue = Math.max(data[d].info[field], maxValue);
-
-            return {
-                name: data[d].info[name],
-                [label]: data[d].info[field]
-            }
-        }
-        return null;
-    }).filter(a => a);
-
-    convData.sort((a, b) => a.name.localeCompare(b.name));
-    return [convData, maxValue];
-}
 
 export function getVaccineData(data, field, label) {
     let maxValue = 0;
