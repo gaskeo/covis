@@ -11,7 +11,7 @@ export interface BarChartProps<D extends { [key: string | number]: string | numb
 }
 
 
-export function BarChart<D extends { [a: string | number]: string }>(
+export function BarChart<D extends { [a: string | number]: string | number }>(
     {data, xKey, yKey, color, max}: BarChartProps<D>) {
     return (
         <ResponsiveContainer width="100%" height={400}>

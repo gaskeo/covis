@@ -7,7 +7,7 @@ interface BarChartContainerProps<T extends { [key: string | number]: string | nu
 }
 
 
-export function BarChartContainer<T extends { [key: string]: string }>(
+export function BarChartContainer<T extends { [key: string]: string | number }>(
     {title, ...props}: BarChartContainerProps<T>
 ) {
     if (!props.data || props.data.length  === 0) {
