@@ -3,7 +3,7 @@ import {badColor} from "../../shared/constants";
 import {useGlobalContext} from "../../shared/context";
 import {RussiaActionType} from "../../shared/store";
 import {LineChartContainer} from "../../components/charts";
-import {generateLast30Days} from "../../shared/utils/statGenerator";
+import {generateLast30Days} from "../../shared/utils";
 
 const DeathsRuPage = () => {
     const {russiaStates} = useGlobalContext();

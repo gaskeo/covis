@@ -1,7 +1,7 @@
 import {badColor} from "../../../shared/constants";
 import {LineChartContainer} from "../../charts";
 import {RegionHistoryResponse} from "../../../shared/api";
-import {generateLast30Days} from "../../../shared/utils/statGenerator";
+import {generateLast30Days} from "../../../shared/utils";
 import styles from "../styles/regionCharts.module.css";
 
 interface RegionChartsProps {

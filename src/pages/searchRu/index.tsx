@@ -4,7 +4,7 @@ import {RussiaActionType} from "../../shared/store";
 import {getRegionData} from "../../shared/api";
 import Search from "../../components/search";
 import RegionCharts from "../../components/regionCharts";
-import {getRegionCodeByName} from "../../shared/utils/getters";
+import {getRegionCodeByName} from "../../shared/utils";
 
 function regionReducer(states: any, actions: any) {
     actions.map((action: any) => {

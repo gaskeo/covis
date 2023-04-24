@@ -1,5 +1,5 @@
 import React, {useRef, useState} from "react";
-import {getTicketPos} from "../../../shared/utils/position";
+import {getTicketPos} from "../../../shared/utils";
 import {AbsoluteTooltip} from "../../tooltip";
 import RussiaCSS, {mapType} from "./russia";
 
