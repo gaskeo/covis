@@ -53,10 +53,6 @@
     padding-left: 5px;
     padding-right: 5px;
 }
-
-.MenuButton > span {
-}
-
 .MenuHeader {
     font-family: 'Roboto', sans-serif;
 }
@@ -121,10 +117,11 @@
     transform: rotate(-45deg);
 }
 
-.menuButton > span {
+.menuButton span {
     display: block;
     width: 40px;
-    height: 4px;
+    height: 6px;
+    border-radius: 3px;
     background-color: black;
 }
 
@@ -132,7 +129,7 @@
     position: absolute;
     display: block;
     width: 40px;
-    height: 4px;
+    height: 6px;
     background-color: black;
 }
 

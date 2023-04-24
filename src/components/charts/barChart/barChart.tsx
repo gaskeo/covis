@@ -12,7 +12,6 @@ export interface BarChartProps<D extends { [key: string | number]: string | numb
     max: number;
 }
 
-
 export function BarChart<D extends { [a: string | number]: string | number }>(
     {data, xKey, yKey, color, max}: BarChartProps<D>) {
     const isDesktop = window.innerWidth > 1023;
