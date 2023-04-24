@@ -1,7 +1,7 @@
 import axios from "axios";
 import {russiaCasesLink, worldStatLink} from "../../Constants";
 
-interface Info {
+export interface Info {
     cases: number;
     casesDelta: number;
     date: string;
