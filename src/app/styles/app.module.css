@@ -1,0 +1,30 @@
+.contentWrapper {
+    width: 100%;
+}
+
+.dataContainer {
+    width: 100vw;
+    display: flex;
+    justify-content: center;
+}
+
+.dataWrapper {
+    width: 90vw;
+    max-width: 1400px;
+    min-height: 500px;
+    display: grid;
+    gap: 20px;
+    grid-template-columns: 1fr 6fr;
+}
+
+@media screen and (max-width: 1023px) {
+    .dataWrapper {
+        width: calc(100vw - 20px);
+        min-height: 500px;
+        display: grid;
+        gap: 20px;
+        grid-template-columns: 1fr;
+        grid-template-rows: 1fr 1fr;
+    }
+
+}
