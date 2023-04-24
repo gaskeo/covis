@@ -1,5 +1,5 @@
 import React from "react";
-import { MyGlobalContext } from "src/shared/context";
+import { GlobalContext } from "src/shared/context";
 import {RussiaReducer, WorldReducer} from "../../../shared/store";
 
 export function WithContext(Component: React.ElementType) {
@@ -10,12 +10,12 @@ export function WithContext(Component: React.ElementType) {
     }) {
         return (
             <>
-                <MyGlobalContext.Provider value={{
+                <GlobalContext.Provider value={{
                     worldStates: worldStates,
                     russiaStates: russiaStates
                 }}>
                     <Component {...props}/>
-                </MyGlobalContext.Provider>
+                </GlobalContext.Provider>
             </>
         )
     }

@@ -1,12 +1,12 @@
 import {createContext, useContext} from "react"
 import {russianInit, RussiaReducer, worldInit, WorldReducer} from "../store";
 
-export type GlobalContent = {
+export type GlobalContentType = {
     worldStates: WorldReducer
     russiaStates: RussiaReducer
 }
-export const MyGlobalContext = createContext<GlobalContent>({
+export const GlobalContext = createContext<GlobalContentType>({
     worldStates: worldInit,
     russiaStates: russianInit
 })
-export const useGlobalContext = () => useContext(MyGlobalContext)
+export const useGlobalContext = () => useContext(GlobalContext)

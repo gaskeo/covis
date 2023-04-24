@@ -1,6 +1,6 @@
-import {getCountriesAndRussianRegionsData, getRegionData, getRussiaHistoryData} from "./handlers";
-import {RussiaStatStructure,
-    WorldStatStructure,
+import {RussiaStatStructure} from "./models/russia";
+import {WorldStatStructure} from "./models/world";
+import {
     VaccinationStructure,
     VaccinationStructureRaw,
     DataRaw,
@@ -10,7 +10,7 @@ import {RussiaStatStructure,
     CountriesAndRussianRegionsResponse,
     RegionHistoryResponseRaw,
     RegionHistoryResponse
-} from "./models";
+} from "./models/shared";
 
 export type {
     RussiaStatStructure,
@@ -25,4 +25,3 @@ export type {
     RegionHistoryResponseRaw,
     RegionHistoryResponse
 };
-export {getRegionData, getCountriesAndRussianRegionsData, getRussiaHistoryData};

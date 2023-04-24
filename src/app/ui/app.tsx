@@ -5,7 +5,7 @@ import {getCountriesAndRussianRegionsData, getRussiaHistoryData} from "../../sha
 import {
     RussiaActionType,
     russianInit,
-    russianReducer,
+    russiaReducer,
     WorldActionTypes,
     worldInit,
     worldReducer
@@ -42,7 +42,7 @@ function App() {
 
 
     const [worldStates, worldStatesDispatch] = useReducer(worldReducer, worldInit, i => i);
-    const [russianStates, russianStatesDispatch] = useReducer(russianReducer, russianInit, i => i);
+    const [russiaStates, russianStatesDispatch] = useReducer(russiaReducer, russianInit, i => i);
 
     useEffect(() => {
         if (worldStates.allCountriesData === null) {
@@ -63,7 +63,7 @@ function App() {
     }, []);
 
     useEffect(() => {
-        if (russianStates.russiaCasesHistory === null) {
+        if (russiaStates.russiaCasesHistory === null) {
             getRussiaHistoryData().then(d => {
                 russianStatesDispatch([{type: RussiaActionType.russiaCasesHistory, data: d}]);
             });
@@ -72,7 +72,7 @@ function App() {
 
     return <ContentWithRouterAndContext
         worldStates={worldStates}
-        russiaStates={russianStates}
+        russiaStates={russiaStates}
         ContentWrapper={({children}: { children: React.ReactNode }) => children}
     />
 }
