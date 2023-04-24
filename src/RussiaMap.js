@@ -1,5 +1,5 @@
 import {useReducer, useRef} from 'react';
-import RussiaSVG from './Russia'
+import RussiaSVG from './components/maps/russia/Russia'
 import {checkPage, cssMapGenerator, diagramData, getFieldByName, getRussianInfo, ticketMargin} from "./Constants";
 
 function mapReducer(states, actions) {
@@ -52,7 +52,7 @@ function RenderRussiaMap(props) {
         }])
     }
 
-    if (dataStates.preparedData === null && props.data !== null) {
+    if (dataStates.preparedData === null) {
         updateDataStates([{type: 'preparedData', data: getRussianInfo(props.data)}]);
     }
 
