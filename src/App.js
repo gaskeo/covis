@@ -48,7 +48,7 @@ function App() {
 
     const [worldStates, worldStatesDispatch] = useReducer(worldReducer, worldInit, i => i);
     const [russianStates, russianStatesDispatch] = useReducer(russianReducer, russianInit, i => i);
-    console.log(russianStates)
+
     useEffect(() => {
         if (worldStates.allCountriesData === null) {
             worldStatesDispatch([{type: WorldActionTypes.allCountriesData, data: []}]);

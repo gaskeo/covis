@@ -91,7 +91,12 @@ const MenuItems: (MenuLink | MenuHeader)[] = [
         to: "casesMap",
         linkType: "bad"
     },
-
+    {
+        type: "link",
+        label: "Смерти на карте",
+        to: "deathsMap",
+        linkType: "bad"
+    },
 ]
 
 interface MenuLinkProps {

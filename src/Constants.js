@@ -128,7 +128,7 @@ export const ticketMargin = 10;
 
 
 export function getFieldByName(data, name, field) {
-    if (!data) return 0;
+    if (!data || data) return 0;
     for (let d of data) {
         if (d.name === name) {
             return d[field];

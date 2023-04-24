@@ -1,13 +1,18 @@
 import styles from "./styles/russia.module.css";
 import React from "react";
+import {Info} from "../../../shared/api";
 
 interface RussiaSVGProps {
     sendClick: (e: React.MouseEvent, name: string) => void;
     sendPos: (e: React.MouseEvent) => void;
 }
 
+export interface mapType {
+    [key: string]: Info
+}
+
 interface RussiaCSSProps extends RussiaSVGProps {
-    data: any[]
+    data: mapType
     color: { r: number, g: number, b: number };
     mapRef: React.RefObject<HTMLDivElement>;
 }
@@ -17,13 +22,13 @@ export function RussiaCSS({data, color, sendClick, sendPos, mapRef}: RussiaCSSPr
     return (
         <>
             {
-                data.map((d, index) => {
-                    let name = d.name
-                    let opacity = Math.max(d.cases / d['population'] * 6, 0.05);
+                Object.keys(data).map((t) => {
+                    const info = data[t];
+                    let opacity = Math.max(info.cases / info.population * 6, 0.05);
                     let preparedColor = `rgba(${color.r}, ${color.g}, ${color.b}, ${opacity})`
-                    let cssText = cssNames.map(n => `${n}[data-name="${name}"] {fill: ${preparedColor}}`).join(' ')
+                    let cssText = cssNames.map(n => `${n}[data-name="${info.name}"] {fill: ${preparedColor}}`).join(' ')
 
-                    return <style key={index} type='text/css'>
+                    return <style key={info.name} type='text/css'>
                         {cssText}
                     </style>
                 })

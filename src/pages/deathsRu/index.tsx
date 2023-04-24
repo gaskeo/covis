@@ -7,9 +7,7 @@ import {generateLast30Days} from "../../shared/utils/statGenerator";
 
 const DeathsRuPage = () => {
     const {russiaStates} = useGlobalContext();
-    console.log(russiaStates)
     const russiaData = russiaStates[RussiaActionType.russiaCasesHistory]
-    console.log(123)
     if (!russiaStates || !russiaData || !russiaData.cases) return <></>
 
     const {
