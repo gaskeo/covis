@@ -62,6 +62,17 @@ const MenuItems: (MenuLink | MenuHeader)[] = [
         to: "search",
         linkType: "bad"
     },
+
+    {
+        type: "header",
+        label: "Россия"
+    },
+    {
+        type: "link",
+        label: "Заболеваний за месяц",
+        to: "casesRu",
+        linkType: "bad"
+    },
 ]
 
 interface MenuLinkProps {

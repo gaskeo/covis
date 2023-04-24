@@ -7,7 +7,7 @@ interface LineChartContainerProps<T extends { [key: string | number]: string | n
 }
 
 
-export function LineChartContainer<T extends { [key: string]: string }>(
+export function LineChartContainer<T extends { [key: string]: string | number }>(
     {title, ...props}: LineChartContainerProps<T>
 ) {
     if (!props.data || props.data.length === 0) {

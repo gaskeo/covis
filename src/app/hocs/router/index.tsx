@@ -7,6 +7,7 @@ import {DeathsTodayPage} from "../../../pages/deathsToday";
 import {VaccinesPage} from "../../../pages/vaccines";
 import {VaccinesFullPage} from "../../../pages/vaccinesFull";
 import {SearchPage} from "../../../pages/search";
+import {CasesRuPage} from "../../../pages/casesRu";
 
 const worldButtons = [
     {
@@ -36,6 +37,10 @@ const worldButtons = [
     {
         to: "search",
         object: <SearchPage/>,
+    },
+    {
+        to: "casesRu",
+        object: <CasesRuPage/>,
     }
 
 ]

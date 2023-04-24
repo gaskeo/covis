@@ -25,7 +25,7 @@ export function BarChart<D extends { [a: string | number]: string | number }>(
                     angle={-45}
                     interval={0}
                     textAnchor="end"
-                    height={80}
+                    height={100}
                 />
                 <YAxis
                     tickFormatter={(value) => numberShortener(value)}

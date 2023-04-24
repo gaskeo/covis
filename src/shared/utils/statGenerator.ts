@@ -15,5 +15,5 @@ export function generateLast30Days(data: [number, number][]) {
 
         return {x: `${day}-${month}-${year}`, y: d[1]}
     })
-    return [convData, minValue, maxValue]
+    return {data: convData, min: minValue, max: maxValue}
 }

@@ -12,7 +12,7 @@ export interface LineChartProps<D extends { [key: string | number]: string | num
     min: number;
 }
 
-export function LineChart<D extends { [a: string | number]: string }>(
+export function LineChart<D extends { [a: string | number]: string | number }>(
     {data, yKey, xKey, color, max, min}: LineChartProps<D>
 ): JSX.Element {
     return (

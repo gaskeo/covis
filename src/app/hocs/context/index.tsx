@@ -3,16 +3,16 @@ import { MyGlobalContext } from "src/shared/context";
 import {RussiaReducer, WorldReducer} from "../../../shared/store";
 
 export function WithContext(Component: React.ElementType) {
-    return function WithContextComponent({worldStates, russianStates, ...props}: {
+    return function WithContextComponent({worldStates, russiaStates, ...props}: {
         worldStates: WorldReducer,
-        russianStates: RussiaReducer,
+        russiaStates: RussiaReducer,
 
     }) {
         return (
             <>
                 <MyGlobalContext.Provider value={{
                     worldStates: worldStates,
-                    russiaStates: russianStates
+                    russiaStates: russiaStates
                 }}>
                     <Component {...props}/>
                 </MyGlobalContext.Provider>

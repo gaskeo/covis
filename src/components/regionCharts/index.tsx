@@ -10,9 +10,16 @@ interface RegionChartsProps {
 
 const RegionCharts = ({regionHistory}: RegionChartsProps) => {
     if (!regionHistory?.cases || !regionHistory?.deaths) return <></>;
-    const [cases, minCases, maxCases] = generateLast30Days(regionHistory.cases)
-    const [deaths, minDeaths, maxDeaths]
-        = generateLast30Days(regionHistory.deaths)
+    const {
+        data: cases,
+        min: minCases,
+        max: maxCases
+    } = generateLast30Days(regionHistory.cases)
+    const {
+        data: deaths,
+        min: minDeaths,
+        max: maxDeaths
+    } = generateLast30Days(regionHistory.deaths)
 
     return (
         <div className={styles.regionCharts}>
@@ -23,11 +30,11 @@ const RegionCharts = ({regionHistory}: RegionChartsProps) => {
                         style={{textTransform: 'capitalize'}}>{regionHistory.info.name}</span>
                     </>
                 }
-                data={cases as any}
+                data={cases}
                 yKey="y"
                 xKey="x"
-                min={Math.ceil(Number(minCases) * 0.9)}
-                max={Math.ceil(Number(maxCases) * 1.1)}
+                min={minCases * 0.9}
+                max={maxCases * 1.1}
                 color={badColor}
             />
             <LineChartContainer
@@ -37,11 +44,11 @@ const RegionCharts = ({regionHistory}: RegionChartsProps) => {
                         style={{textTransform: 'capitalize'}}>{regionHistory.info.name}</span>
                     </>
                 }
-                data={deaths as any}
+                data={deaths}
                 yKey="y"
                 xKey="x"
-                min={Math.ceil(Number(minDeaths) * 0.9)}
-                max={Math.ceil(Number(maxDeaths) * 1.1)}
+                min={minDeaths * 0.9}
+                max={maxDeaths * 1.1}
                 color={badColor}
             />
         </div>
