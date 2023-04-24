@@ -1,4 +1,4 @@
-import {Data, RussiaHistoryResponse, RussiaHistoryResponseRaw, VaccinationStructure} from "../api/index";
+import {Data, RegionHistoryResponse, RegionHistoryResponseRaw, VaccinationStructure} from "../api/index";
 
 type RegionId = { name: string, code: string }
 
@@ -60,7 +60,7 @@ export enum RussiaActionType {
 export interface RussiaReducer {
     russiaRegionsData: null | Data;
     russiaRegionsIds: null | RegionId[];
-    russiaCasesHistory: null | RussiaHistoryResponse;
+    russiaCasesHistory: null | RegionHistoryResponse;
 }
 
 interface russiaRegionsDataAction {
@@ -75,7 +75,7 @@ interface russiaRegionsIdsAction {
 
 interface russiaCasesHistoryAction {
     type: RussiaActionType.russiaCasesHistory;
-    data: RussiaHistoryResponse;
+    data: RegionHistoryResponse;
 }
 
 type RussiaAction = russiaRegionsDataAction | russiaRegionsIdsAction | russiaCasesHistoryAction;

@@ -1,12 +1,11 @@
 .RegionSuggestionBlock {
     border-radius: 10px;
     box-shadow: 0 0 10px 3px #dadada;
-    margin-top: 2rem;
-
-    position: relative;
+    position: absolute;
     width: 100%;
     background-color: #fafafa;
     padding-top: 3rem;
+    z-index: 300;
 }
 
 .RegionSuggestions {

@@ -1,26 +1,7 @@
 import {useEffect, useReducer, useState} from 'react';
-import {
-    HashRouter as Router, Route, Link, Routes, Navigate
-} from "react-router-dom";
-
-import RenderCountrySearch from './CountrySearch';
-import RenderRussiaRegionSearch from './RussiaRegionSearch';
-import RenderRussiaMap from './RussiaMap';
-import {BarChartContainer} from "./components/charts/barChart/barChartContainer";
-import {LineChartContainer} from "./components/charts/lineChart/lineChartContainer.tsx";
-
 import './App.css';
-import {
-    badColor,
-    diagramData,
-    getMainData, getRegionData,
-    getVaccineData,
-    goodColor,
-} from "./Constants";
 import {getCountriesAndRussianRegionsData, getRussiaHistoryData} from "./shared/api";
 import {RussiaActionType, russianInit, russianReducer, WorldActionTypes, worldInit, worldReducer} from "./shared/store";
-import {CasesPage} from "./pages/cases/cases";
-import {MyGlobalContext} from "./shared/context";
 import {WithContext} from "./app/hocs/context";
 import {WithRouter} from "./app/hocs/router";
 import {compose} from "./app/hocs";
@@ -292,7 +273,6 @@ function App() {
     //     },
     // ];
 
-    console.log(worldStates)
     return <ContentWithRouterAndContext
         worldStates={worldStates}
         russiaStates={russianStates}

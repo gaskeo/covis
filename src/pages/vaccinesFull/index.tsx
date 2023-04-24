@@ -1,32 +1,30 @@
-import {badColor, countriesRu, diagramData} from "../../Constants";
-import {getMainData} from "../../shared/utils/getters";
+import {countriesRu, goodColor} from "../../Constants";
 
 import {BarChartContainer} from "../../components/charts/barChart/barChartContainer";
 import {useGlobalContext} from "../../shared/context";
 import {WorldActionTypes} from "../../shared/store";
 
-const CasesPage = () => {
+const VaccinesFullPage = () => {
     const {worldStates} = useGlobalContext();
-    const worldData = worldStates[WorldActionTypes.allCountriesData]
+    const worldData = worldStates[WorldActionTypes.allCountriesVaccineData]
     if (!worldStates || !worldData || !worldStates[WorldActionTypes.countriesIds]) return <></>
 
     let maxValue = 0;
     const data = worldStates[WorldActionTypes.countriesIds]
         .filter(region => countriesRu.includes(region.name) && region.code !== "10000")
         .map((region) => {
-            const cases = worldData[Number(region.code)].info.cases;
-            maxValue = Math.max(cases, maxValue);
+            const vaccines = worldData[Number(region.code)].peopleFullVaccinated;
+            maxValue = Math.max(vaccines, maxValue);
             return {
-                x: worldData[Number(region.code)].info.name,
-                y: cases
+                x: worldData[Number(region.code)].nameRu,
+                y: vaccines
             }
         })
 
     return (
         <BarChartContainer
-            key={1}
-            color={badColor}
-            title='Всего заболеваний'
+            color={goodColor}
+            title='Полных вакцин сделано'
             xKey="x"
             yKey="y"
             max={maxValue}
@@ -34,4 +32,4 @@ const CasesPage = () => {
     )
 }
 
-export {CasesPage};
+export {VaccinesFullPage};

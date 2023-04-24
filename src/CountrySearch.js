@@ -32,7 +32,6 @@ async function searchRegion(regIndex) {
 
 function RenderCountrySearch(props) {
     const [regionStates, updateRegionStates] = useReducer(regionReducer, regionInit, i => i);
-    const [selectedRegion, updateSelectedRegion] = useState("");
 
     if (!props.data) {
         return null;
@@ -41,7 +40,6 @@ function RenderCountrySearch(props) {
     function getRegion(region) {
         const regionIndex = getRegionByName(props.data, region);
         if (regionIndex !== -1) {
-            console.log(132);
             searchRegion(regionIndex).then(d => updateRegionStates([
                 {type: 'regionData', data: d},
                 {type: 'foundRegion', data: region},
@@ -91,8 +89,6 @@ function RenderCountrySearch(props) {
 
     return <div style={{width: '100%'}}>
         <Search suggestions={names} onSubmit={(region) => {
-            console.log("submit")
-            updateSelectedRegion(region);
             getRegion(region);
         }}/>
         {mainData}

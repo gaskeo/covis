@@ -1,5 +1,5 @@
 import axios from "axios";
-import {russiaCasesLink, worldStatLink} from "../../Constants";
+import {generateLinkByRegId, russiaCasesLink, worldStatLink} from "../../Constants";
 
 export interface Info {
     cases: number;
@@ -158,20 +158,20 @@ export async function getCountriesAndRussianRegionsData() {
 }
 
 
-export interface RussiaHistoryResponseRaw {
+export interface RegionHistoryResponseRaw {
     cases: [a: number, b: number][];
     deaths: [a: number, b: number][];
     info: InfoRaw;
 }
 
-export interface RussiaHistoryResponse {
+export interface RegionHistoryResponse {
     cases: [a: number, b: number][];
     deaths: [a: number, b: number][];
     info: Info;
 }
 
-export async function getRussiaHistoryData(): Promise<RussiaHistoryResponse> {
-    return await axios.get<RussiaHistoryResponseRaw>(russiaCasesLink).then((r) => {
+export async function getRussiaHistoryData(): Promise<RegionHistoryResponse> {
+    return await axios.get<RegionHistoryResponseRaw>(russiaCasesLink).then((r) => {
         const data = r.data
         return {
             cases: data.cases,
@@ -191,4 +191,29 @@ export async function getRussiaHistoryData(): Promise<RussiaHistoryResponse> {
             }
         }
     })
+}
+
+export async function getRegionData(regionIndex: number): Promise<RegionHistoryResponse> {
+    return await axios.get<RegionHistoryResponseRaw>(generateLinkByRegId(regionIndex)).then(
+        r => {
+            const data = r.data
+            return {
+                cases: data.cases,
+                deaths: data.deaths,
+                info: {
+                    cases: data.info.cases,
+                    casesDelta: data.info["cases_delta"],
+                    date: data.info.date,
+                    deaths: data.info.deaths,
+                    deathsDelta: data.info["deaths_delta"],
+                    fullName: data.info["full_name"],
+                    name: data.info.name,
+                    population: data.info.population,
+                    rt: data.info.rt,
+                    searchNames: data.info["search_names"],
+                    shortName: data.info["short_name"]
+                }
+            }
+        }
+    )
 }

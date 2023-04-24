@@ -72,22 +72,22 @@ export function getVaccineData(data, field, label) {
     return [convData, maxValue];
 }
 
-export function getRegionData(data, field, label) {
+export function generateLast30Days(data) {
     const date = new Date()
     date.setDate(date.getDate() - 30)
     let [minValue, maxValue] = [10_000_000_000, 0]
 
-    const convData = Object.keys(data[field]).slice(Object.keys(data[field]).length - 30).map(d => {
+    const convData = data.slice(data.length - 30).map(d => {
         let day = (date.getDate()).toString().padStart(2, '0')
         let month = (date.getMonth() + 1).toString().padStart(2, '0')
         let year = date.getFullYear();
 
         date.setDate(date.getDate() + 1);
 
-        maxValue = Math.max(data[field][d][1], maxValue);
-        minValue = Math.min(data[field][d][1], minValue);
+        maxValue = Math.max(d[1], maxValue);
+        minValue = Math.min(d[1], minValue);
 
-        return {name: `${day}-${month}-${year}`, [label]: data[field][d][1]}
+        return {x: `${day}-${month}-${year}`, y: d[1]}
     })
     return [convData, minValue, maxValue]
 }

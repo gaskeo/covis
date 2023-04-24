@@ -44,37 +44,40 @@ export function Search({suggestions, onSubmit}: SearchProps) {
     }
 
     return (
-        <div className={styles.searchContainer}
-             ref={searchRef}
-        >
-            <form
-                className={styles.inputContainer}
-                onSubmit={e => {
-                    e.preventDefault();
-                    if (inputInSuggestions) {
-                        _onSubmit(searchValue)
-                    }
-                }}>
-                <input
-                    style={{textTransform: 'capitalize'}}
-                    type='text'
-                    className={styles.input}
-                    list='suggestions'
-                    value={searchValue}
-                    onChange={e =>
-                        updateSearchValue(e.target.value)}
-                    onFocus={() => updateIsSearch(true)}
-                    placeholder='Введите регион'/>
-                <button className={styles.button} disabled={!inputInSuggestions} type="submit">
-                    Найти
-                </button>
-            </form>
-            {isSearch && <Suggestions
-                onClose={() => undefined}
-                elems={filteredSuggestions}
-                onClick={(r) => _onSubmit(r)}
-            />
-            }
-        </div>
+        <>
+            <div className={`${styles.blur} ${!isSearch && styles.noBlur}`}/>
+            <div className={styles.searchContainer}
+                 ref={searchRef}
+            >
+                <form
+                    className={styles.inputContainer}
+                    onSubmit={e => {
+                        e.preventDefault();
+                        if (inputInSuggestions) {
+                            _onSubmit(searchValue)
+                        }
+                    }}>
+                    <input
+                        style={{textTransform: 'capitalize'}}
+                        type='text'
+                        className={styles.input}
+                        list='suggestions'
+                        value={searchValue}
+                        onChange={e =>
+                            updateSearchValue(e.target.value)}
+                        onFocus={() => updateIsSearch(true)}
+                        placeholder='Введите регион'/>
+                    <button className={styles.button} disabled={!inputInSuggestions} type="submit">
+                        Найти
+                    </button>
+                </form>
+                {isSearch && <Suggestions
+                    onClose={() => undefined}
+                    elems={filteredSuggestions}
+                    onClick={(r) => _onSubmit(r)}
+                />
+                }
+            </div>
+        </>
     )
 }

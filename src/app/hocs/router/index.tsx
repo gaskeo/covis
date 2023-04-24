@@ -1,8 +1,12 @@
 import React from "react";
 import {Navigate, Route, Routes, HashRouter as Router} from "react-router-dom";
-import {CasesPage} from "../../../pages/cases/cases";
-import {RussiaReducer, WorldReducer} from "../../../shared/store";
-import {CasesTodayPage} from "../../../pages/casesToday/casesToday";
+import {CasesPage} from "../../../pages/cases";
+import {CasesTodayPage} from "../../../pages/casesToday";
+import {DeathsPage} from "../../../pages/deaths";
+import {DeathsTodayPage} from "../../../pages/deathsToday";
+import {VaccinesPage} from "../../../pages/vaccines";
+import {VaccinesFullPage} from "../../../pages/vaccinesFull";
+import {SearchPage} from "../../../pages/search";
 
 const worldButtons = [
     {
@@ -12,7 +16,28 @@ const worldButtons = [
     {
         to: "casesToday",
         object: <CasesTodayPage/>,
+    },
+    {
+        to: "deaths",
+        object: <DeathsPage/>,
+    },
+    {
+        to: "deathsToday",
+        object: <DeathsTodayPage/>,
+    },
+    {
+        to: "vac",
+        object: <VaccinesPage/>,
+    },
+    {
+        to: "vacFull",
+        object: <VaccinesFullPage/>,
+    },
+    {
+        to: "search",
+        object: <SearchPage/>,
     }
+
 ]
 
 export function WithRouter(Component: React.ElementType) {

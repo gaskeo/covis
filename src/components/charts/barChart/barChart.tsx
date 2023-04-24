@@ -1,7 +1,7 @@
 import {diagramHeight, diagramWidth, russia} from "../../../Constants";
 import {Bar, Cell, Tooltip, XAxis, YAxis, BarChart as ReBarChart, ResponsiveContainer} from "recharts";
 import styles from "./styles/barChart.module.css";
-import {number} from "prop-types";
+import {numberShortener} from "../../../shared/utils/numberShortener";
 
 export interface BarChartProps<D extends { [key: string | number]: string | number }> {
     data: D[];
@@ -14,18 +14,7 @@ export interface BarChartProps<D extends { [key: string | number]: string | numb
 
 export function BarChart<D extends { [a: string | number]: string | number }>(
     {data, xKey, yKey, color, max}: BarChartProps<D>) {
-    const formatter = (value: number) => {
-        if (value < 1000) {
-            return value.toString();
-        }
-        if (value < 1_000_000) {
-            return Math.ceil(value / 1000).toString() + 'k'
-        }
-        if (value < 1_000_000_000) {
-            return Math.ceil(value / 1_000_000).toString() + 'kk'
-        }
-        return value.toString();
-    }
+
     return (
         <ResponsiveContainer debounce={1}  height={400}>
             <ReBarChart className='LineChart' width={window.innerWidth / diagramWidth()}
@@ -39,7 +28,7 @@ export function BarChart<D extends { [a: string | number]: string | number }>(
                     height={80}
                 />
                 <YAxis
-                    tickFormatter={(value) => formatter(value)}
+                    tickFormatter={(value) => numberShortener(value)}
                     width={80}
                     domain={[0, max]}
                 />
