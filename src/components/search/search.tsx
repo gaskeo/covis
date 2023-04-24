@@ -43,6 +43,7 @@ export function Search({suggestions, onSubmit}: SearchProps) {
         onSubmit(value);
     }
 
+    console.log(filteredSuggestions[0])
     return (
         <>
             <div className={`${styles.blur} ${!isSearch && styles.noBlur}`}/>
@@ -50,24 +51,39 @@ export function Search({suggestions, onSubmit}: SearchProps) {
                  ref={searchRef}
             >
                 <form
+                    onFocus={() => updateIsSearch(true)}
+                    autoFocus
                     className={styles.inputContainer}
                     onSubmit={e => {
                         e.preventDefault();
-                        if (inputInSuggestions) {
-                            _onSubmit(searchValue)
+                        if (filteredSuggestions[0]) {
+                            _onSubmit(filteredSuggestions[0])
                         }
-                    }}>
+                    }}
+                >
                     <input
-                        style={{textTransform: 'capitalize'}}
+                        onFocus={() => updateIsSearch(true)}
+
                         type='text'
                         className={styles.input}
                         list='suggestions'
                         value={searchValue}
-                        onChange={e =>
-                            updateSearchValue(e.target.value)}
-                        onFocus={() => updateIsSearch(true)}
-                        placeholder='Введите регион'/>
-                    <button className={styles.button} disabled={!inputInSuggestions} type="submit">
+                        onChange={e => {
+                            updateSearchValue(e.target.value);
+                            updateIsSearch(true)
+                        }}
+                        placeholder='Введите регион'
+
+                    />
+                    {
+                        (searchValue.length && filteredSuggestions.length) ?
+                        <span className={styles.suggestion}>{searchValue}
+                            <span>
+                                {filteredSuggestions[0].slice(searchValue.length)}
+                            </span>
+                        </span> : <></>
+                    }
+                    <button className={styles.button} disabled={!filteredSuggestions.length} type="submit">
                         Найти
                     </button>
                 </form>

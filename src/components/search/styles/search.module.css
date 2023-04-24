@@ -23,6 +23,9 @@
 }
 
 .inputContainer {
+    background-color: #DDD;
+    border-radius: 10px;
+
     text-align: center;
     display: flex;
     justify-content: center;
@@ -32,12 +35,15 @@
 }
 
 .input {
-    width: 100%;
+    z-index: 4;
     border-radius: 10px;
+
+    text-transform: capitalize;
+    width: 100%;
     height: 3rem;
     font-size: 1.4em;
-    background-color: #DDD;
-    padding: 0.2rem 0.8rem;
+    background-color: transparent;
+    padding: 0.2rem 10px;
     outline: none;
     font-family: 'Roboto', sans-serif;
     box-sizing: border-box;
@@ -49,10 +55,33 @@
     border: 2px solid #AAA;
 }
 
+.suggestion {
+    text-transform: capitalize;
+
+    position: absolute;
+    left: 0;
+    font-size: 1.4em;
+    font-family: 'Roboto', sans-serif;
+    box-sizing: border-box;
+    height: 3rem;
+    display: flex;
+    align-items: center;
+    color: transparent;
+    padding-left: 10px;
+    border: 2px solid transparent;
+}
+
+.suggestion > span {
+    text-transform: none;
+    color: #BBB;
+}
+
 .button {
+    cursor: pointer;
+    position: absolute;
+    right: 0;
     z-index: 20;
     display: inline;
-    background-color: #DDD;
     color: black;
     border: 0 solid;
     font-family: 'Roboto', sans-serif;
@@ -60,10 +89,17 @@
     font-size: 1.4em;
     text-align: center;
     border-radius: 10px;
+    padding-right: 10px;
+    background-color: transparent;
+    transition: all .3s;
 }
 
 .button:disabled {
     color: #aaa;
+}
+
+.button:hover {
+    text-decoration: underline;
 }
 
 
