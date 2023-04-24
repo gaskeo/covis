@@ -1,15 +1,10 @@
-import {useReducer, useState} from 'react';
-import {
-    badColor,
-    diagramData, generateLast30Days, generateLinkByRegId,
-    getRegionByName, russia,
-} from "../../Constants";
-import axios from "axios";
+import {useReducer} from 'react';
 import {useGlobalContext} from "../../shared/context";
-import {RussiaActionType, WorldActionTypes} from "../../shared/store";
+import {RussiaActionType} from "../../shared/store";
 import {getRegionData} from "../../shared/api";
 import {Search} from "../../components/search/search";
 import {RegionCharts} from "../../components/regionCharts";
+import {getRegionCodeByName} from "../../shared/utils/getters";
 
 function regionReducer(states: any, actions: any) {
     actions.map((action: any) => {
@@ -25,12 +20,6 @@ const regionInit = {
 }
 
 
-async function searchRegion(regIndex: number) {
-    return axios.get(generateLinkByRegId(regIndex))
-        .then((r) => r.data
-        )
-}
-
 function SearchRuPage() {
     const [regionStates, updateRegionStates] = useReducer(regionReducer, regionInit, i => i);
 
@@ -39,7 +28,8 @@ function SearchRuPage() {
     if (!russiaStates|| !russianData || !russiaStates[RussiaActionType.russiaRegionsIds]) return <></>
 
     function getRegion(region: string) {
-        const regionIndex = getRegionByName(russianData, region);
+        if (!russianData) return;
+        const regionIndex = getRegionCodeByName(russianData, region);
         if (regionIndex !== -1) {
             getRegionData(regionIndex).then(d => updateRegionStates([
                 {type: 'regionData', data: d},

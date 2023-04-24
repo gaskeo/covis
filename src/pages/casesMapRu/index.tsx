@@ -1,5 +1,4 @@
 import React from 'react';
-import {getFieldByName} from "../../Constants";
 import {useGlobalContext} from "../../shared/context";
 import {RussiaActionType} from "../../shared/store";
 import {InteractiveMap} from "../../components/maps/russia/interactiveMap";

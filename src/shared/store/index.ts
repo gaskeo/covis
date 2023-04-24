@@ -1,6 +1,6 @@
 import {Data, RegionHistoryResponse, RegionHistoryResponseRaw, VaccinationStructure} from "../api/index";
 
-type RegionId = { name: string, code: string }
+export type RegionId = { name: string, code: string }
 
 
 export enum WorldActionTypes {

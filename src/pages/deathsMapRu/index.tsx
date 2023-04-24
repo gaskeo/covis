@@ -1,10 +1,6 @@
-import React, {useRef, useState} from 'react';
-import {RussiaCSS} from '../../components/maps/russia/russia';
-import {getFieldByName, getRussianInfo} from "../../Constants";
+import React from 'react';
 import {useGlobalContext} from "../../shared/context";
 import {RussiaActionType} from "../../shared/store";
-import {getTicketPos} from "../../shared/utils/position";
-import {AbsoluteTooltip, Tooltip} from "../../components/tooltip";
 import {dataTypeToMapType} from "../../shared/utils/dataTypeToMapType";
 import {InteractiveMap} from "../../components/maps/russia/interactiveMap";
 

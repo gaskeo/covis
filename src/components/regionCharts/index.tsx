@@ -1,4 +1,4 @@
-import {badColor} from "../../Constants";
+import {badColor} from "../../constants";
 import {LineChartContainer} from "../charts/lineChart/lineChartContainer";
 import {RegionHistoryResponse} from "../../shared/api";
 import {generateLast30Days} from "../../shared/utils/statGenerator";

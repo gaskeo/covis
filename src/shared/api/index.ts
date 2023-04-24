@@ -1,5 +1,5 @@
 import axios from "axios";
-import {generateLinkByRegId, russiaCasesLink, worldStatLink} from "../../Constants";
+import {getWorldInfoLink, getRussiaInfoLink, getRegionLink} from "./links";
 
 export interface Info {
     cases: number;
@@ -99,7 +99,7 @@ function infoTransformer(info: InfoRaw): Info {
 }
 
 export async function getCountriesAndRussianRegionsData() {
-    return axios.get<CountriesAndRussianRegionsResponse>(worldStatLink).then((r) => {
+    return axios.get<CountriesAndRussianRegionsResponse>(getWorldInfoLink()).then((r) => {
             const data = r.data;
             const worldDataRaw = data['world_stat_struct']['data']
             const worldData: Data = {};
@@ -171,7 +171,7 @@ export interface RegionHistoryResponse {
 }
 
 export async function getRussiaHistoryData(): Promise<RegionHistoryResponse> {
-    return await axios.get<RegionHistoryResponseRaw>(russiaCasesLink).then((r) => {
+    return await axios.get<RegionHistoryResponseRaw>(getRussiaInfoLink()).then((r) => {
         const data = r.data
         return {
             cases: data.cases,
@@ -194,7 +194,7 @@ export async function getRussiaHistoryData(): Promise<RegionHistoryResponse> {
 }
 
 export async function getRegionData(regionIndex: number): Promise<RegionHistoryResponse> {
-    return await axios.get<RegionHistoryResponseRaw>(generateLinkByRegId(regionIndex)).then(
+    return await axios.get<RegionHistoryResponseRaw>(getRegionLink(regionIndex)).then(
         r => {
             const data = r.data
             return {

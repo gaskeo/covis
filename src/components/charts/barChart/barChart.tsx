@@ -1,4 +1,4 @@
-import {diagramHeight, diagramWidth, russia} from "../../../Constants";
+import {russia} from "../../../constants";
 import {Bar, Cell, Tooltip, XAxis, YAxis, BarChart as ReBarChart, ResponsiveContainer} from "recharts";
 import {Tooltip as TooltipComponent} from "../../tooltip";
 import styles from "./styles/barChart.module.css";
@@ -17,10 +17,8 @@ export function BarChart<D extends { [a: string | number]: string | number }>(
     {data, xKey, yKey, color, max}: BarChartProps<D>) {
 
     return (
-        <ResponsiveContainer debounce={1}  height={400}>
-            <ReBarChart className='LineChart' width={window.innerWidth / diagramWidth()}
-                        height={window.innerHeight / diagramHeight()}
-                        data={data}>
+        <ResponsiveContainer width="100%" debounce={1} height={400}>
+            <ReBarChart data={data}>
                 <XAxis
                     dataKey={(d) => d[xKey]}
                     angle={-45}

@@ -1,4 +1,4 @@
-import {countriesRu, goodColor} from "../../Constants";
+import {countriesRu, goodColor} from "../../constants";
 
 import {BarChartContainer} from "../../components/charts/barChart/barChartContainer";
 import {useGlobalContext} from "../../shared/context";

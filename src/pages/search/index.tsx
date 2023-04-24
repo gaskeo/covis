@@ -1,15 +1,11 @@
-import {useReducer, useState} from 'react';
-import {
-    badColor,
-    diagramData, generateLast30Days, generateLinkByRegId,
-    getRegionByName,
-} from "../../Constants";
-import axios from "axios";
+import {useReducer} from 'react';
+
 import {useGlobalContext} from "../../shared/context";
 import {WorldActionTypes} from "../../shared/store";
 import {getRegionData} from "../../shared/api";
 import {Search} from "../../components/search/search";
 import {RegionCharts} from "../../components/regionCharts";
+import {getRegionCodeByName} from "../../shared/utils/getters";
 
 function regionReducer(states: any, actions: any) {
     actions.map((action: any) => {
@@ -24,13 +20,6 @@ const regionInit = {
     regionDataRequired: false,
 }
 
-
-async function searchRegion(regIndex: number) {
-    return axios.get(generateLinkByRegId(regIndex))
-        .then((r) => r.data
-        )
-}
-
 function SearchPage() {
     const [regionStates, updateRegionStates] = useReducer(regionReducer, regionInit, i => i);
 
@@ -39,8 +28,9 @@ function SearchPage() {
     if (!worldStates || !worldData || !worldStates[WorldActionTypes.countriesIds]) return <></>
 
     function getRegion(region: string) {
-        const regionIndex = getRegionByName(worldData, region);
-        if (regionIndex !== -1) {
+        if (!worldData) return;
+        const regionIndex = getRegionCodeByName(worldData, region);
+        if (regionIndex) {
             getRegionData(regionIndex).then(d => updateRegionStates([
                 {type: 'regionData', data: d},
                 {type: 'regionDataRequired', data: false},

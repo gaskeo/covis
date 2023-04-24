@@ -1,5 +1,6 @@
 import {Data, Info} from "../api";
-import {countriesRu} from "../../Constants";
+import {countriesRu} from "../../constants";
+import {RegionId} from "../store";
 
 export function getMainData(data: Data, field: keyof Info, label: string, name: keyof Info = 'name') {
     let maxValue = 0;
@@ -20,4 +21,14 @@ export function getMainData(data: Data, field: keyof Info, label: string, name: 
 
     convData.sort((a, b) => a.name.localeCompare(b.name));
     return {data: convData, maxValue};
+}
+
+export function getRegionCodeByName(data: RegionId[], regionName: string) {
+    const region = regionName.toLowerCase()
+    for (let i in Object.entries(data)) {
+        if (data[i].name.toLowerCase() === region) {
+            return Number(data[i].code);
+        }
+    }
+    return 0;
 }
