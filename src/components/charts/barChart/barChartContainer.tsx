@@ -1,4 +1,5 @@
 import {BarChart, BarChartProps} from "./barChart";
+import styles from "./styles/barChart.module.css"
 import React from "react";
 
 interface BarChartContainerProps<T extends { [key: string | number]: string | number }>
@@ -15,11 +16,11 @@ export function BarChartContainer<T extends { [key: string]: string | number }>(
     }
 
     return (
-        <div className='DiagramContainer'>
+        <>
             <h2>{title}</h2>
-            <div className='BarChartContainer'>
+            <div className={styles.barChartContainer}>
                 <BarChart {...props}/>
             </div>
-        </div>
+        </>
     );
 }

@@ -15,11 +15,11 @@ export function LineChartContainer<T extends { [key: string]: string | number }>
     }
 
     return (
-        <div className='DiagramContainer'>
+        <>
             <h2>{title}</h2>
-            <div className='BarChartContainer'>
+            <div className='barChartContainer'>
                 <LineChart<T> {...props}/>
             </div>
-        </div>
+        </>
     )
 }

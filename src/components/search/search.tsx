@@ -1,4 +1,4 @@
-import React, {useEffect, useRef, useState} from "react";
+import React, {useRef, useState} from "react";
 import {Suggestions} from "./suggestions/suggestions";
 import styles from "./styles/search.module.css";
 import {useBlur} from "../../shared/hooks/useBlur";
@@ -8,10 +8,6 @@ interface SearchProps {
     suggestions: string[];
 }
 
-function isStringInArray(data: string, array: string[]) {
-    return array.map(s => s.toLowerCase())
-        .includes(data.toLowerCase())
-}
 
 export function Search({suggestions, onSubmit}: SearchProps) {
     const searchRef = useRef<HTMLDivElement>(null);
@@ -60,7 +56,7 @@ export function Search({suggestions, onSubmit}: SearchProps) {
 
                     />
                     {
-                        (searchValue.length && filteredSuggestions.length) ?
+                        (searchValue.length && filteredSuggestions.length && filteredSuggestions[0].startsWith(searchValue)) ?
                         <span className={styles.suggestion}>{searchValue}
                             <span>
                                 {filteredSuggestions[0].slice(searchValue.length)}

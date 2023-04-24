@@ -23,8 +23,6 @@
 }
 
 .inputContainer {
-    box-shadow: 0 0 10px 3px #dadada;
-
     background-color: #DDD;
     border-radius: 10px;
 
@@ -53,6 +51,7 @@
 }
 
 .suggestion {
+    white-space: pre;
     text-transform: capitalize;
 
     position: absolute;
@@ -69,6 +68,7 @@
 }
 
 .suggestion > span {
+    white-space: pre;
     text-transform: none;
     color: #BBB;
 }

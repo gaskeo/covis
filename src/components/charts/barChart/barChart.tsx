@@ -50,7 +50,6 @@ export function BarChart<D extends { [a: string | number]: string | number }>(
                               className={styles.cell}
                               style={{
                                   opacity: (d.name === russia) ? 0.5 : 1,
-                                  borderTopRightRadius: "5px !important",
                               }}/>
                     )}
                 </Bar>

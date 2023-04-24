@@ -4,31 +4,12 @@ h2 {
     font-family: 'Roboto', sans-serif;
 }
 
-
-
-
-.close-x {
-    stroke: black;
-    fill: transparent;
-    stroke-linecap: round;
-    stroke-width: 5;
-}
-
 .DiagramContainer {
-    width: 100%;
-    border-radius: 10px;
-    box-shadow: 0 0 10px 3px #dadada;
-    padding: 1rem;
-    background-color: #fafafa;
-    height: 100%;
-    box-sizing: border-box;
+
 }
 
 
 @media only screen and (min-width: 800px) {
-    .DiagramContainer {
-    }
-
     .BarChart {
         margin-left: auto;
         margin-right: auto;
@@ -51,50 +32,8 @@ h2 {
     body {
         overflow-x: hidden;
     }
-
-    .Map {
-        margin-left: 0.3rem;
-        margin-right: 0.3rem;
-    }
-
     .DiagramContainer {
-        border: none;
-        box-shadow: none;
-        margin: 0;
-        padding: 0;
-        background-color: #fff;
-    }
 
-    .BarChartContainer {
-        margin: 0;
-    }
-
-    .logo {
-        text-align: center;
-        margin-bottom: 0;
-    }
-
-    .logo > h1 {
-        margin-bottom: 0;
-    }
-
-
-    .MenuHeader {
-        line-height: 1rem;
-        display: block;
-        text-align: center;
-    }
-
-    .InputForm {
-        justify-content: center;
-        margin-left: 0;
-        left: 0;
-    }
-
-
-
-    .SearchButton {
-        width: 30vw;
     }
 }
 

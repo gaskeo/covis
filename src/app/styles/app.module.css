@@ -8,6 +8,16 @@
     justify-content: center;
 }
 
+.content {
+    width: 100%;
+    border-radius: 10px;
+    box-shadow: 0 0 10px 3px #dadada;
+    padding: 1rem;
+    background-color: #fafafa;
+    height: 100%;
+    box-sizing: border-box;
+}
+
 .dataWrapper {
     position: relative;
     padding-top: calc(var(--header-height) + var(--size-m));
@@ -25,6 +35,14 @@
         gap: 20px;
         grid-template-columns: 1fr;
         grid-template-rows: 1fr;
+    }
+
+    .content {
+        border: none;
+        box-shadow: none;
+        margin: 0;
+        padding: 0;
+        background-color: #fff;
     }
 
 }

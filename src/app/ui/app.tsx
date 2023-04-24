@@ -3,13 +3,20 @@ import '../../App.css';
 import styles from "../styles/app.module.css";
 
 import {getCountriesAndRussianRegionsData, getRussiaHistoryData} from "../../shared/api";
-import {RussiaActionType, russianInit, russianReducer, WorldActionTypes, worldInit, worldReducer} from "../../shared/store";
+import {
+    RussiaActionType,
+    russianInit,
+    russianReducer,
+    WorldActionTypes,
+    worldInit,
+    worldReducer
+} from "../../shared/store";
 import {WithContext, WithRouter, compose} from "../hocs";
 import {Menu} from "../../components/menu";
 import {Logo} from "../../components/logo";
 import {Header} from "../../components/header";
 
-function Content({children}: {children: React.ReactNode}) {
+function Content({children}: { children: React.ReactNode }) {
     return (
         <>
             <Header/>
@@ -17,7 +24,9 @@ function Content({children}: {children: React.ReactNode}) {
                 <div className={styles.dataWrapper}>
                     <Menu/>
                     <div className={styles.contentWrapper}>
-                        {children}
+                        <div className={styles.content}>
+                            {children}
+                        </div>
                     </div>
                 </div>
             </div>
@@ -66,7 +75,7 @@ function App() {
     return <ContentWithRouterAndContext
         worldStates={worldStates}
         russiaStates={russianStates}
-        ContentWrapper={({children}: {children: React.ReactNode}) =>  children}
+        ContentWrapper={({children}: { children: React.ReactNode }) => children}
     />
 }
 
