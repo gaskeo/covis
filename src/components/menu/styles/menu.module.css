@@ -1,0 +1,63 @@
+.menu {
+    box-shadow: 0 0 10px 3px #dadada;
+    padding: 10px;
+    border-radius: 10px;
+}
+
+.MenuButton {
+    z-index: 20;
+    display: block;
+    background-color: transparent;
+    font-family: 'Roboto', sans-serif;
+    color: black;
+    border: 0 solid;
+    -webkit-appearance: button !important;
+    line-height: 2rem;
+    border-image: none;
+    font-size: 1em;
+    outline-offset: 0;
+    outline: black;
+    width: 12rem;
+    text-align: left;
+    border-radius: 10px;
+    box-shadow: none;
+    margin-bottom: 0.3rem;
+    text-decoration: none;
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
+.MenuButton > span {
+}
+
+.MenuHeader {
+    font-family: 'Roboto', sans-serif;
+}
+
+.BadButton {
+    background-color: #CD5C5C;
+    color: #fff;
+    border-radius: 10px;
+}
+
+.GoodButton {
+    border-radius: 10px;
+    background-color: #00F067;
+}
+
+.NotSelectedButton {
+    background: none;
+    color: #000;
+    border: none;
+    box-shadow: none;
+}
+
+@media screen and (max-width: 799px) {
+    .MenuButton {
+        display: block;
+        line-height: 1.6rem;
+        width: auto;
+        margin-left: 0.2rem;
+        margin-right: 0.2rem;
+    }
+}

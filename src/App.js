@@ -24,6 +24,7 @@ import {MyGlobalContext} from "./shared/context";
 import {WithContext} from "./app/hocs/context";
 import {WithRouter} from "./app/hocs/router";
 import {compose} from "./app/hocs";
+import {Menu} from "./components/menu";
 
 function Content(props) {
     const href = window.location.href.split('/')[window.location.href.split('/').length - 1];
@@ -32,7 +33,6 @@ function Content(props) {
 
     const worldButtons = [
         {
-            n: 0,
             name: "Всего заболеваний",
             to: "cases",
             classes: ['MenuButton', 'BadButton']
@@ -46,20 +46,7 @@ function Content(props) {
             </div>
             <div className="contentContainer">
                 <div className="contentWrapper">
-                    <div className='Menu'>
-                        <div className='MenuSection'>
-                            <h3 className='MenuHeader'>Мир</h3>
-                            {worldButtons.map(b => <Link
-                                key={b.n}
-                                to={b.to}
-                                onClick={() => updateActiveTab(b.to)}
-                                className={[...b.classes, activeTab === b.to ? '' : (b.classes.includes('BadButton') ? 'NotSelectedBadButton' : 'NotSelectedGoodButton')].join(' ')}><span>{b.name}</span></Link>)}
-
-                        </div>
-                        <div className='MenuSection'>
-                            <h3 className='MenuHeader'>Россия</h3>
-                        </div>
-                    </div>
+                    <Menu/>
                     <div className="Diagrams">
                         {props.children}
                     </div>

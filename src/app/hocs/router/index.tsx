@@ -2,18 +2,21 @@ import React from "react";
 import {Navigate, Route, Routes, HashRouter as Router} from "react-router-dom";
 import {CasesPage} from "../../../pages/cases/cases";
 import {RussiaReducer, WorldReducer} from "../../../shared/store";
+import {CasesTodayPage} from "../../../pages/casesToday/casesToday";
 
+const worldButtons = [
+    {
+        to: "cases",
+        object: <CasesPage/>,
+    },
+    {
+        to: "casesToday",
+        object: <CasesTodayPage/>,
+    }
+]
 
 export function WithRouter(Component: React.ElementType) {
-    const worldButtons = [
-        {
-            n: 0,
-            name: "123",
-            to: "cases",
-            object: <CasesPage/>,
-            classes: ['MenuButton', 'BadButton']
-        }
-    ]
+
     return function WithRouterComponent({...props}) {
         return (
             <>
@@ -22,8 +25,7 @@ export function WithRouter(Component: React.ElementType) {
                         <Routes>
                             <Route path='/' element={<Navigate to='cases'/>}/>
                             {worldButtons.map(b =>
-                                <Route key={b.n} path={b.to}
-                                       element={b.object}/>)}
+                                <Route key={b.to} path={b.to} element={b.object}/>)}
                         </Routes>
                     </Component>
                 </Router>
