@@ -3,6 +3,7 @@ import {useGlobalContext} from "../../shared/context";
 import {RussiaActionType} from "../../shared/store";
 import {InteractiveMap} from "../../components/maps/russia/interactiveMap";
 import {dataTypeToMapType} from "../../shared/utils/dataTypeToMapType";
+import {casesMapColor} from "../../constants";
 
 
 function CasesMapRu() {
@@ -14,7 +15,7 @@ function CasesMapRu() {
     return (
         <InteractiveMap
             data={data}
-            color={{r: 220, g: 20, b: 60}}
+            color={casesMapColor}
             getTooltip={(l) => ({
                 text: new Intl.NumberFormat('en')
                     .format(data[l].cases),

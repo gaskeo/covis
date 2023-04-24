@@ -7,7 +7,7 @@
 .blur {
     z-index: 30;
     content: "";
-    position: absolute;
+    position: fixed;
     display: block;
     top: 0;
     left: 0;

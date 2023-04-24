@@ -3,6 +3,7 @@ import {useGlobalContext} from "../../shared/context";
 import {RussiaActionType} from "../../shared/store";
 import {dataTypeToMapType} from "../../shared/utils/dataTypeToMapType";
 import {InteractiveMap} from "../../components/maps/russia/interactiveMap";
+import {deathsMapColor} from "../../constants";
 
 
 function DeathsMapRu() {
@@ -12,15 +13,15 @@ function DeathsMapRu() {
     if (!russiaData) return <></>
     const data = dataTypeToMapType(russiaData)
     return (
-            <InteractiveMap
-                data={data}
-                color={{r: 120, g: 20, b: 60}}
-                getTooltip={(l) => ({
-                    text: new Intl.NumberFormat('en')
-                        .format(data[l].deaths),
-                    title: l
-                })}
-            />
+        <InteractiveMap
+            data={data}
+            color={deathsMapColor}
+            getTooltip={(l) => ({
+                text: new Intl.NumberFormat('en')
+                    .format(data[l].deaths),
+                title: l
+            })}
+        />
     )
 }
 
