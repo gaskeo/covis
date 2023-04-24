@@ -1,0 +1,19 @@
+.tooltip {
+    padding: 10px;
+    outline: none !important;
+    border: none !important;
+    background-color: #EEE;
+    tab-index: -1;
+    border-radius: 5px;
+    transition: 500ms ease-out;
+    pointer-events: none;
+}
+
+.tooltip > p {
+    font-weight: 600;
+    margin: 0;
+}
+
+.absoluteTooltip {
+    position: absolute;
+}
