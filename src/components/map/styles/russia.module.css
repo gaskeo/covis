@@ -1,0 +1,25 @@
+.cls1 {
+    fill: #181918;
+}
+
+.cls1, .cls2 {
+    fill: #89FF7E;
+}
+
+.cls1:hover {
+    opacity: 0.4;
+}
+
+.tooltip {
+    padding: var(--size-s);
+    outline: none !important;
+    border: none !important;
+    background-color: #EEE;
+    tab-index: -1;
+    border-radius: var(--size-xs);
+}
+
+.tooltip > p {
+    font-weight: 600;
+    margin: 0;
+}

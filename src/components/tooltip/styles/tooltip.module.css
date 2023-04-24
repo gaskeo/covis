@@ -1,0 +1,19 @@
+.tooltip {
+    padding: var(--size-s);
+    outline: none !important;
+    border: none !important;
+    background-color: var(--color-accent-500);
+    tab-index: -1;
+    border-radius: var(--size-xs);
+    transition: 300ms ease-out;
+    pointer-events: none;
+}
+
+.tooltip > p {
+    font-weight: 600;
+    margin: 0;
+}
+
+.absoluteTooltip {
+    position: absolute;
+}

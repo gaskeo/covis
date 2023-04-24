@@ -1,0 +1,167 @@
+.menu {
+    box-shadow: var(--shadow);
+    padding: var(--size-s);
+    border-radius: var(--size-s);
+    height: max-content;
+    background-color: var(--color-dominant);
+    z-index: var(--z-index-xxl);
+}
+
+.menu > h3 {
+    line-height: 1.5;
+    margin-top: var(--size-s);
+    margin-bottom: var(--size-xs);
+}
+
+.blur {
+    z-index: var(--z-index-xxl);
+    content: "";
+    position: fixed;
+    display: block;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    backdrop-filter: blur(var(--size-xs));
+    transition: all .2s;
+}
+
+.noBlur {
+    backdrop-filter: blur(0);
+    transform: scale(0);
+}
+
+.menuItem {
+    padding: var(--size-s);
+    z-index: var(--z-index-xxl);
+    display: block;
+    background-color: transparent;
+    font-family: var(--font-family-t);
+    font-size: var(--font-size-m);
+    color: black;
+    border: 0 solid;
+    -webkit-appearance: button !important;
+    border-image: none;
+    line-height: 1;
+    outline-offset: 0;
+    width: 100%;
+    min-width: 190px;
+    box-sizing: border-box;
+    text-align: left;
+    border-radius: var(--size-xs);
+    box-shadow: none;
+    margin-bottom: 0.3rem;
+    text-decoration: none;
+    padding-left: var(--size-xs);
+    padding-right: var(--size-xs);
+}
+.menuHeader {
+    font-family: 'Roboto', sans-serif;
+}
+
+.badButton {
+    background-color: #CD5C5C;
+    color: #fff;
+}
+
+.goodButton {
+    background-color: #00F067;
+}
+
+.notSelectedButton {
+    background: none;
+    color: #000;
+    border: none;
+    box-shadow: none;
+}
+
+.burgerMenuButton {
+    position: absolute;
+    right: 0;
+
+    height: var(--header-height);
+    font-family: var(--font-family-t);
+    font-size: var(--font-size-m);
+    top: 0;
+    cursor: pointer;
+    z-index: var(--z-index-xxxl);
+    color: black;
+    border: 0 solid;
+    text-align: center;
+    background-color: transparent;
+    transition: all .3s;
+    flex-direction: column;
+    gap: var(--size-xs);
+    justify-content: center;
+}
+
+.burgerMenuButton span {
+    transition: all .3s;
+}
+
+.burgerMenuButtonOpen > span:last-child, .burgerMenuButtonOpen > span:first-child {
+    opacity: 0;
+}
+
+.burgerMenuButtonOpen > span:nth-child(2) {
+    transition: none;
+    width: 0;
+}
+
+
+.burgerMenuButtonOpen > span > span:first-child {
+    transform: rotate(45deg);
+}
+
+.burgerMenuButtonOpen > span > span:last-child {
+    transform: rotate(-45deg);
+}
+
+.burgerMenuButton span {
+    display: block;
+    width: var(--size-xl);
+    height: var(--size-xs);
+    border-radius: var(--size-xs);
+    background-color: black;
+}
+
+.burgerMenuButton > span > span {
+    position: absolute;
+    display: block;
+    background-color: black;
+}
+
+@media screen and (min-width: 1024px) {
+    .burgerMenuButton {
+        display: none;
+    }
+    .menu {
+        display: block;
+        position: unset;
+    }
+}
+
+@media screen and (max-width: 1023px) {
+    .menuItem {
+        display: block;
+        width: auto;
+    }
+
+    .burgerMenuButton {
+        display: flex;
+    }
+
+    .menu {
+        position: absolute;
+        right: 0;
+        top: 0;
+        padding-top: var(--header-height);
+        border-top-right-radius: 0;
+        border-top-left-radius: 0;
+    }
+
+    .menuContainer {
+        width: 100%;
+        position: absolute;
+    }
+}

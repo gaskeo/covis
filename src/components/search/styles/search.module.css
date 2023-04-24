@@ -1,0 +1,109 @@
+.searchContainer {
+    width: 100%;
+    z-index: var(--z-index-xl);
+    position: relative;
+}
+
+.blur {
+    z-index: var(--z-index-xl);
+    content: "";
+    position: fixed;
+    display: block;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    backdrop-filter: blur(var(--size-xs));
+    transition: all .2s;
+}
+
+.noBlur {
+    backdrop-filter: blur(0);
+    transform: scale(0);
+}
+
+.inputContainer {
+    background-color: var(--color-accent-500);
+    border-radius: var(--size-s);
+
+    text-align: center;
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    margin-bottom: var(--size-m);
+}
+
+.input {
+    line-height: 1;
+    border-radius: var(--size-s);
+
+    text-transform: capitalize;
+    width: 100%;
+    height: var(--size-xxl);
+    font-size: var(--font-size-l);
+    background-color: transparent;
+    padding: 0 var(--size-s);
+    display: flex;
+    align-items: center;
+    outline: none;
+    font-family: var(--font-family-t);
+    box-sizing: border-box;
+    border: 2px solid transparent;
+    transition: .3s border;
+}
+
+.suggestion {
+    line-height: 1;
+    font-size: var(--font-size-l);
+    font-family: var(--font-family-t);
+    height: var(--size-xxl);
+    padding-left: var(--size-s);
+    border: 2px solid transparent;
+
+    pointer-events: none;
+    white-space: pre;
+    text-transform: capitalize;
+
+    position: absolute;
+    left: 0;
+    top: 1px;
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+
+    color: transparent;
+
+}
+
+.suggestion > span {
+    text-transform: none;
+    pointer-events: none;
+    color: var(--color-accent-300);
+}
+
+.searchButton {
+    cursor: pointer;
+    position: absolute;
+    right: 0;
+    z-index: var(--z-index-xxl);
+    display: flex;
+    align-items: center;
+    line-height: 1;
+    color: black;
+    border: 0 solid;
+    font-family: 'Roboto', sans-serif;
+    height: var(--size-xxl);
+    font-size: var(--font-size-l);
+    text-align: center;
+    padding-right: var(--size-s);
+    background-color: transparent;
+    transition: all .3s;
+}
+
+.searchButton:disabled {
+    color: var(--color-accent-300);
+}
+
+.searchButton:hover {
+    text-decoration: underline;
+}

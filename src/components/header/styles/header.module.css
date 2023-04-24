@@ -1,0 +1,16 @@
+.header {
+    width: 100vw;
+    height: var(--header-height);
+    margin-top: 0;
+    top: 0;
+    position: absolute;
+    display: flex;
+    justify-content: center;
+}
+
+.header > div {
+    width: var(--content-width);
+    max-width: var(--content-max-width);
+    display: flex;
+    align-items: center;
+}

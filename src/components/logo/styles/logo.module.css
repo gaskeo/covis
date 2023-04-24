@@ -1,0 +1,26 @@
+.logo {
+    margin: 0;
+    height: max-content;
+    box-sizing: border-box;
+}
+
+.logo h1 {
+    display: flex;
+    line-height: 1;
+    gap: 3px;
+    box-sizing: border-box;
+    height: max-content;
+}
+
+.redBack {
+    display: block;
+    line-height: 1;
+    background-color: red;
+    color: white;
+    width: 40px;
+    border-radius: 5px;
+    height: 30px;
+    padding-left: 6px;
+    padding-right: 6px;
+    padding-bottom: 6px;
+}
