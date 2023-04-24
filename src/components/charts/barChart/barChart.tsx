@@ -15,20 +15,21 @@ export interface BarChartProps<D extends { [key: string | number]: string | numb
 
 export function BarChart<D extends { [a: string | number]: string | number }>(
     {data, xKey, yKey, color, max}: BarChartProps<D>) {
+    const isDesktop = window.innerWidth > 1023;
 
     return (
-        <ResponsiveContainer width="100%" debounce={1} height={400}>
+        <ResponsiveContainer width="100%" debounce={1} height={isDesktop ? 400 : 300}>
             <ReBarChart data={data}>
                 <XAxis
                     dataKey={(d) => d[xKey]}
                     angle={-45}
-                    interval={0}
+                    interval={isDesktop ? 0 : 1}
                     textAnchor="end"
                     height={100}
                 />
                 <YAxis
                     tickFormatter={(value) => numberShortener(value)}
-                    width={80}
+                    width={44}
                     domain={[0, max]}
                 />
                 <Tooltip

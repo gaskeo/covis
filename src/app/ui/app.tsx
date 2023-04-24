@@ -7,11 +7,12 @@ import {RussiaActionType, russianInit, russianReducer, WorldActionTypes, worldIn
 import {WithContext, WithRouter, compose} from "../hocs";
 import {Menu} from "../../components/menu";
 import {Logo} from "../../components/logo";
+import {Header} from "../../components/header";
 
 function Content({children}: {children: React.ReactNode}) {
     return (
         <>
-            <Logo/>
+            <Header/>
             <div className={styles.dataContainer}>
                 <div className={styles.dataWrapper}>
                     <Menu/>

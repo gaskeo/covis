@@ -1,11 +1,11 @@
 .searchContainer {
     width: 100%;
-    z-index: 31;
+    z-index: var(--z-index-xl);
     position: relative;
 }
 
 .blur {
-    z-index: 30;
+    z-index: var(--z-index-xl);
     content: "";
     position: fixed;
     display: block;
@@ -30,14 +30,13 @@
 
     text-align: center;
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
     gap: 1rem;
     width: 100%;
     margin-bottom: 1rem;
 }
 
 .input {
-    z-index: 4;
     border-radius: 10px;
 
     text-transform: capitalize;
@@ -78,7 +77,7 @@
     cursor: pointer;
     position: absolute;
     right: 0;
-    z-index: 20;
+    z-index: var(--z-index-xxl);
     display: inline;
     color: black;
     border: 0 solid;

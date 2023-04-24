@@ -2,54 +2,42 @@
     border-radius: 10px;
     box-shadow: 0 0 10px 3px #dadada;
     position: absolute;
+    box-sizing: border-box;
     width: 100%;
-    background-color: #fafafa;
-    padding-top: 3rem;
-    z-index: 300;
+    background-color: #ddd;
+    z-index: var(--z-index-xl);
+    padding: 30px;
 }
 
 .RegionSuggestions {
-    display: flex;
-    justify-content: left;
-    flex-wrap: wrap;
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    justify-content: space-between;
+    gap: 30px;
+    align-items: center;
 }
 
 .RegionSuggestions > p {
+    cursor: pointer;
+    margin: 0;
     background-color: #fff;
-    width: calc(21% - 0.2rem);
-    padding: 0.1rem;
+    padding: 1rem;
     text-align: center;
     height: 6rem;
-    margin-left: 2%;
-    margin-right: 2%;
     display: flex;
     justify-content: center;
     align-items: center;
     font-size: 1.4em;
     font-family: 'Roboto', sans-serif;
+    border-radius: 10px;
 }
 
 .RegionSuggestions > p:hover {
     background-color: #00F067;
-    border-radius: 10px;
     box-shadow: 0 0 10px 3px #dadada;
 }
 
-.CloseButton {
-    position: absolute;
-    background-color: transparent;
-    right: 1rem;
-    top: 1rem;
-    width: 2rem;
-    height: 2rem;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border: none;
-    outline: none;
-    border-radius: 50%;
-
-}
 
 .CloseButton:hover {
     background-color: #ddd;
@@ -58,7 +46,6 @@
 
 @media screen and (max-width: 799px) {
     .RegionSuggestionBlock {
-        width: 95vw;
         margin-right: auto;
         margin-left: auto;
         left: 0;
@@ -66,14 +53,7 @@
     }
 
     .RegionSuggestions {
-        flex-direction: column;
+        grid-template-columns: 1fr;
     }
 
-    .RegionSuggestions > p {
-        width: auto;
-        padding: 0.6rem 0.2rem;
-        height: auto;
-        margin-top: 0.4rem;
-        margin-bottom: 0.4rem;
-    }
 }

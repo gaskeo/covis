@@ -33,7 +33,7 @@ export function RussiaCSS({data, color, sendClick, sendPos, mapRef}: RussiaCSSPr
                     </style>
                 })
             }
-            <div ref={mapRef}>
+            <div ref={mapRef} className="DiagramContainer">
                 <RussiaSVG sendClick={sendClick} sendPos={sendPos}/>
             </div>
         </>

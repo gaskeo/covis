@@ -12,23 +12,23 @@ export interface LineChartProps<D extends { [key: string | number]: string | num
 }
 
 export function LineChart<D extends { [a: string | number]: string | number }>(
-    {data, yKey, xKey, color, max, min}: LineChartProps<D>
-): JSX.Element {
+    {data, yKey, xKey, color, max, min}: LineChartProps<D>): JSX.Element {
+    const isDesktop = window.innerWidth > 1023;
+
     return (
-        <ResponsiveContainer width="100%" height={400} debounce={1}>
+        <ResponsiveContainer width="100%" height={isDesktop? 400 : 300} debounce={1}>
             <ReLineChart data={data}>
                 <Line type="monotone" dataKey={yKey as any} stroke={color} activeDot={{r: 12}}/>
                 <CartesianGrid vertical={false} stroke="#ccc"/>
                 <XAxis
                     dataKey={(x) => x[xKey].replaceAll("-", ".")}
                     angle={-45}
-                    interval={1}
                     textAnchor="end"
                     height={80}
                 />
                 <YAxis
                     tickFormatter={(value) => numberShortener(value)}
-                    width={80}
+                    width={isDesktop ? 48 : 0}
                     domain={[min, max]}
                 />
                 <Tooltip

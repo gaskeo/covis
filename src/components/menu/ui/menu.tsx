@@ -1,6 +1,7 @@
 import {Link, useLocation, useRoutes} from "react-router-dom";
 import styles from "../styles/menu.module.css";
-import {useState} from "react";
+import {useRef, useState} from "react";
+import {useBlur} from "../../../shared/hooks/useBlur";
 
 interface MenuLink {
     type: "link"
@@ -104,31 +105,66 @@ interface MenuLinkProps {
     type: "good" | "bad"
     label: string
     active: boolean
+    onClick?: () => void
 }
 
-const MenuLink = ({active, to, type, label}: MenuLinkProps) => {
+const MenuLink = ({active, to, type, label, onClick}: MenuLinkProps) => {
     const goodOrBad = type === "good" ? styles.GoodButton : styles.BadButton;
     const activeOrNot = active ? "" : styles.NotSelectedButton;
-    return <Link to={to} className={`${styles.MenuButton} ${goodOrBad} ${activeOrNot}`}>{label}</Link>
+    return (
+        <Link
+            to={to}
+            className={`${styles.MenuButton} ${goodOrBad} ${activeOrNot}`}
+            onClick={onClick}
+        >
+            {label}
+        </Link>
+    )
 }
 
 const Menu = () => {
     const location = useLocation();
     const href = location.pathname.replace("/", "");
+    const [open, updateOpen] = useState(false);
+    const menuRef = useRef<HTMLDivElement>(null);
 
     const activeTab = href ? href : 'cases';
 
+    const isDesktop = window.innerWidth > 1023;
+    const renderMenu = isDesktop || open;
+    useBlur<HTMLDivElement>(menuRef, () => updateOpen(false));
+
+
     return (
-        <div className={styles.menu}>
-            {MenuItems.map(item => {
-                if (item.type === "link") {
-                    return (
-                        <MenuLink key={item.label} to={item.to} type={item.linkType} label={item.label} active={activeTab === item.to}/>
-                    )
+        <>
+            <div className={`${styles.blur} ${(isDesktop || !open) && styles.noBlur}`}/>
+
+            <div ref={menuRef} className={styles.menuContainer}>
+                <button className={`${styles.menuButton} ${open && styles.menuButtonOpen}`}
+                        onClick={() => updateOpen(!open)}>
+                    <span/>
+                    <span>
+                    <span/>
+                    <span/>
+                </span>
+                    <span/>
+                </button>
+                {renderMenu &&
+                    <div className={styles.menu}>
+                        {MenuItems.map(item => {
+                            if (item.type === "link") {
+                                return (
+                                    <MenuLink key={item.label} to={item.to} type={item.linkType} label={item.label}
+                                              onClick={() => updateOpen(false)}
+                                              active={activeTab === item.to}/>
+                                )
+                            }
+                            return <h3 key={item.label}>{item.label}</h3>
+                        })}
+                    </div>
                 }
-                return <h3 key={item.label}>{item.label}</h3>
-            })}
-        </div>
+            </div>
+        </>
     )
 }
 

@@ -47,7 +47,7 @@ h2 {
     }
 }
 
-@media screen and (max-width: 799px) {
+@media screen and (max-width: 1023px) {
     body {
         overflow-x: hidden;
     }
@@ -96,10 +96,5 @@ h2 {
     .SearchButton {
         width: 30vw;
     }
-
-
-
-
-
 }
 

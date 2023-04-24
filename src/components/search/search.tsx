@@ -1,23 +1,11 @@
 import React, {useEffect, useRef, useState} from "react";
 import {Suggestions} from "./suggestions/suggestions";
 import styles from "./styles/search.module.css";
+import {useBlur} from "../../shared/hooks/useBlur";
 
 interface SearchProps {
     onSubmit: (value: string) => void;
     suggestions: string[];
-}
-
-const useBlur = <T extends HTMLElement, >(elementRef: React.RefObject<T>, onBlur: () => void) => {
-    useEffect(() => {
-        const root = document.getRootNode();
-        const listener = (event: Event) => {
-            if (elementRef.current && !elementRef.current.contains(event.target as Node)) {
-                onBlur();
-            }
-        }
-        root.addEventListener("click", listener)
-        return () => root.removeEventListener("click", listener)
-    }, [])
 }
 
 function isStringInArray(data: string, array: string[]) {
