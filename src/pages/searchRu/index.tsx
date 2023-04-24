@@ -16,7 +16,7 @@ function SearchRuPage() {
     function getRegion(region: string) {
         if (!russianData) return;
         const regionIndex = getRegionCodeByName(russianData, region);
-        if (regionIndex !== -1) {
+        if (regionIndex) {
             getRegionData(regionIndex).then(d => updateRegionData(d));
         }
     }
