@@ -73,6 +73,13 @@ const MenuItems: (MenuLink | MenuHeader)[] = [
         to: "casesRu",
         linkType: "bad"
     },
+    {
+        type: "link",
+        label: "Смертей за месяц",
+        to: "deathsRu",
+        linkType: "bad"
+    },
+
 ]
 
 interface MenuLinkProps {

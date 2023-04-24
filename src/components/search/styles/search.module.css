@@ -23,6 +23,8 @@
 }
 
 .inputContainer {
+    box-shadow: 0 0 10px 3px #dadada;
+
     background-color: #DDD;
     border-radius: 10px;
 
@@ -49,10 +51,6 @@
     box-sizing: border-box;
     border: 2px solid transparent;
     transition: .3s border;
-}
-
-.input:focus {
-    border: 2px solid #AAA;
 }
 
 .suggestion {

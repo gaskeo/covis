@@ -5,7 +5,7 @@ import {RussiaActionType} from "../../shared/store";
 import {LineChartContainer} from "../../components/charts/lineChart/lineChartContainer";
 import {generateLast30Days} from "../../shared/utils/statGenerator";
 
-const CasesRuPage = () => {
+const DeathsRuPage = () => {
     const {russiaStates} = useGlobalContext();
     console.log(russiaStates)
     const russiaData = russiaStates[RussiaActionType.russiaCasesHistory]
@@ -16,12 +16,12 @@ const CasesRuPage = () => {
         data,
         min,
         max
-        } = generateLast30Days(russiaData.cases)
+    } = generateLast30Days(russiaData.deaths)
 
     return (
         <LineChartContainer
             color={badColor}
-            title='Заболеваний за месяц'
+            title='Смертей за месяц'
             xKey="x"
             yKey="y"
             min={min * 0.9}
@@ -30,4 +30,4 @@ const CasesRuPage = () => {
     )
 }
 
-export {CasesRuPage};
+export {DeathsRuPage};
