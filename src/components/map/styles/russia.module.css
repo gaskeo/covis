@@ -11,12 +11,12 @@
 }
 
 .tooltip {
-    padding: 10px;
+    padding: var(--size-s);
     outline: none !important;
     border: none !important;
     background-color: #EEE;
     tab-index: -1;
-    border-radius: 5px;
+    border-radius: var(--size-xs);
 }
 
 .tooltip > p {

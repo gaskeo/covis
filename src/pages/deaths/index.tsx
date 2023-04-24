@@ -1,6 +1,6 @@
 import {badColor, countriesRu} from "../../shared/constants";
 
-import {BarChartContainer} from "../../components/charts/barChart/barChartContainer";
+import {BarChartContainer} from "../../components/charts";
 import {useGlobalContext} from "../../shared/context";
 import {WorldActionTypes} from "../../shared/store";
 

@@ -1,3 +1,3 @@
-import {Menu} from "./ui/menu";
+import Menu from "./ui/menu";
 
-export {Menu};
+export default Menu;

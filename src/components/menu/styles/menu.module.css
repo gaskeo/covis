@@ -1,16 +1,16 @@
 .menu {
-    box-shadow: 0 0 10px 3px #dadada;
-    padding: 10px;
-    border-radius: 10px;
+    box-shadow: var(--shadow);
+    padding: var(--size-s);
+    border-radius: var(--size-s);
     height: max-content;
-    background-color: #FFF;
+    background-color: var(--color-dominant);
     z-index: var(--z-index-xxl);
 }
 
 .menu > h3 {
-    line-height: 1;
-    margin-top: 8px;
-    margin-bottom: 4px;
+    line-height: 1.5;
+    margin-top: var(--size-s);
+    margin-bottom: var(--size-xs);
 }
 
 .blur {
@@ -22,7 +22,7 @@
     left: 0;
     width: 100vw;
     height: 100vh;
-    backdrop-filter: blur(10px);
+    backdrop-filter: blur(var(--size-xs));
     transition: all .2s;
 }
 
@@ -31,7 +31,8 @@
     transform: scale(0);
 }
 
-.MenuButton {
+.menuItem {
+    padding: var(--size-s);
     z-index: var(--z-index-xxl);
     display: block;
     background-color: transparent;
@@ -40,42 +41,41 @@
     color: black;
     border: 0 solid;
     -webkit-appearance: button !important;
-    line-height: 2rem;
     border-image: none;
+    line-height: 1;
     outline-offset: 0;
-    outline: black;
-    width: 12rem;
+    width: 100%;
+    min-width: 190px;
+    box-sizing: border-box;
     text-align: left;
-    border-radius: 10px;
+    border-radius: var(--size-xs);
     box-shadow: none;
     margin-bottom: 0.3rem;
     text-decoration: none;
-    padding-left: 5px;
-    padding-right: 5px;
+    padding-left: var(--size-xs);
+    padding-right: var(--size-xs);
 }
-.MenuHeader {
+.menuHeader {
     font-family: 'Roboto', sans-serif;
 }
 
-.BadButton {
+.badButton {
     background-color: #CD5C5C;
     color: #fff;
-    border-radius: 10px;
 }
 
-.GoodButton {
-    border-radius: 10px;
+.goodButton {
     background-color: #00F067;
 }
 
-.NotSelectedButton {
+.notSelectedButton {
     background: none;
     color: #000;
     border: none;
     box-shadow: none;
 }
 
-.menuButton {
+.burgerMenuButton {
     position: absolute;
     right: 0;
 
@@ -91,50 +91,48 @@
     background-color: transparent;
     transition: all .3s;
     flex-direction: column;
-    gap: 8px;
+    gap: var(--size-xs);
     justify-content: center;
 }
 
-.menuButton span {
+.burgerMenuButton span {
     transition: all .3s;
 }
 
-.menuButtonOpen > span:last-child, .menuButtonOpen > span:first-child {
+.burgerMenuButtonOpen > span:last-child, .burgerMenuButtonOpen > span:first-child {
     opacity: 0;
 }
 
-.menuButtonOpen > span:nth-child(2) {
+.burgerMenuButtonOpen > span:nth-child(2) {
     transition: none;
     width: 0;
 }
 
 
-.menuButtonOpen > span > span:first-child {
+.burgerMenuButtonOpen > span > span:first-child {
     transform: rotate(45deg);
 }
 
-.menuButtonOpen > span > span:last-child {
+.burgerMenuButtonOpen > span > span:last-child {
     transform: rotate(-45deg);
 }
 
-.menuButton span {
+.burgerMenuButton span {
     display: block;
-    width: 40px;
-    height: 6px;
-    border-radius: 3px;
+    width: var(--size-xl);
+    height: var(--size-xs);
+    border-radius: var(--size-xs);
     background-color: black;
 }
 
-.menuButton > span > span {
+.burgerMenuButton > span > span {
     position: absolute;
     display: block;
-    width: 40px;
-    height: 6px;
     background-color: black;
 }
 
 @media screen and (min-width: 1024px) {
-    .menuButton {
+    .burgerMenuButton {
         display: none;
     }
     .menu {
@@ -144,15 +142,12 @@
 }
 
 @media screen and (max-width: 1023px) {
-    .MenuButton {
+    .menuItem {
         display: block;
-        line-height: 1.6rem;
         width: auto;
-        margin-left: 0.2rem;
-        margin-right: 0.2rem;
     }
 
-    .menuButton {
+    .burgerMenuButton {
         display: flex;
     }
 
@@ -163,7 +158,6 @@
         padding-top: var(--header-height);
         border-top-right-radius: 0;
         border-top-left-radius: 0;
-
     }
 
     .menuContainer {

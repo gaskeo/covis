@@ -1,6 +1,6 @@
-import {CartesianGrid, Line, LineChart as ReLineChart, ResponsiveContainer, Tooltip, XAxis, YAxis} from "recharts";
-import {Tooltip as TooltipComponent} from "../../tooltip";
-import {numberShortener} from "../../../shared/utils/numberShortener";
+import {CartesianGrid, Line, LineChart as ReLineChart, ResponsiveContainer, Tooltip as ReTooltip, XAxis, YAxis} from "recharts";
+import Tooltip from "../../../tooltip";
+import {numberShortener} from "../../../../shared/utils/numberShortener";
 
 export interface LineChartProps<D extends { [key: string | number]: string | number }> {
     data: D[];
@@ -11,7 +11,7 @@ export interface LineChartProps<D extends { [key: string | number]: string | num
     min: number;
 }
 
-export function LineChart<D extends { [a: string | number]: string | number }>(
+export default function LineChart<D extends { [a: string | number]: string | number }>(
     {data, yKey, xKey, color, max, min}: LineChartProps<D>): JSX.Element {
     const isDesktop = window.innerWidth > 1023;
 
@@ -31,11 +31,11 @@ export function LineChart<D extends { [a: string | number]: string | number }>(
                     width={isDesktop ? 48 : 0}
                     domain={[min, max]}
                 />
-                <Tooltip
+                <ReTooltip
                     wrapperStyle={{outline: "none"}}
                     content={({label, payload, active}) =>
                         (payload && active && payload.length) &&
-                        <TooltipComponent
+                        <Tooltip
                             title={label}
                             text={new Intl.NumberFormat('en').format(Number(payload[0].value))}
                         />

@@ -1,7 +1,7 @@
 import React, {useRef, useState} from "react";
-import {Suggestions} from "./suggestions/suggestions";
-import styles from "./styles/search.module.css";
-import {useBlur} from "../../shared/hooks/useBlur";
+import Suggestions from "../suggestions";
+import styles from "../styles/search.module.css";
+import {useBlur} from "../../../shared/hooks/useBlur";
 
 interface SearchProps {
     onSubmit: (value: string) => void;
@@ -9,7 +9,7 @@ interface SearchProps {
 }
 
 
-export function Search({suggestions, onSubmit}: SearchProps) {
+export default function Search({suggestions, onSubmit}: SearchProps) {
     const searchRef = useRef<HTMLDivElement>(null);
     useBlur<HTMLDivElement>(searchRef, () => updateIsSearch(false));
 
@@ -57,21 +57,21 @@ export function Search({suggestions, onSubmit}: SearchProps) {
                     />
                     {
                         (searchValue.length && filteredSuggestions.length && filteredSuggestions[0].startsWith(searchValue)) ?
-                        <span className={styles.suggestion}>{searchValue}
-                            <span>
+                            <span className={styles.suggestion}>{searchValue}
+                                <span>
                                 {filteredSuggestions[0].slice(searchValue.length)}
                             </span>
                         </span> : <></>
                     }
-                    <button className={styles.button} disabled={!filteredSuggestions.length} type="submit">
+                    <button className={styles.searchButton} disabled={!filteredSuggestions.length} type="submit">
                         Найти
                     </button>
                 </form>
-                {isSearch && <Suggestions
-                    onClose={() => undefined}
-                    elems={filteredSuggestions}
-                    onClick={(r) => _onSubmit(r)}
-                />
+                {isSearch &&
+                    <Suggestions
+                        elems={filteredSuggestions}
+                        onClick={(r) => _onSubmit(r)}
+                    />
                 }
             </div>
         </>

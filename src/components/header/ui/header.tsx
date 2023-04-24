@@ -1,5 +1,5 @@
-import styles from "./styles/header.module.css";
-import {Logo} from "../logo";
+import styles from "../styles/header.module.css";
+import Logo from "../../logo";
 
 const Header = () => {
     return (
@@ -11,4 +11,4 @@ const Header = () => {
     )
 };
 
-export {Header};
+export default Header;

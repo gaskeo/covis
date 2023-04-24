@@ -1,4 +1,4 @@
-import styles from "./styles/russia.module.css";
+import styles from "../styles/russia.module.css";
 import React from "react";
 import {Info} from "../../../shared/api";
 
@@ -17,7 +17,7 @@ interface RussiaCSSProps extends RussiaSVGProps {
     mapRef: React.RefObject<HTMLDivElement>;
 }
 
-export function RussiaCSS({data, color, sendClick, sendPos, mapRef}: RussiaCSSProps) {
+export default function RussiaCSS({data, color, sendClick, sendPos, mapRef}: RussiaCSSProps) {
     let cssNames = ['polygon', 'g', 'path', 'polyline']
     return (
         <>
@@ -592,5 +592,3 @@ function RussiaSVG(props: RussiaSVGProps) {
         </svg>
     )
 }
-
-export default RussiaSVG;

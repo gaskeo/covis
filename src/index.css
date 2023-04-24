@@ -29,7 +29,14 @@ code {
 
 :root {
   --header-height: 60px;
+  --size-xxl: 50px;
+  --size-xl: 40px;
+  --size-l: 30px;
   --size-m: 20px;
+  --size-s: 10px;
+  --size-xs: 5px;
+
+
   --content-width: 90vw;
   --content-max-width: 1400px;
   --font-family-h: 'Roboto', sans-serif;
@@ -45,6 +52,16 @@ code {
   --z-index-l: 2;
   --z-index-m: 1;
   --z-index-s: 0;
+
+  --color-dominant: #FFF;
+  --color-secondary: #000;
+  --color-accent-300: #BBB;
+  --color-accent-500: #DDD;
+  --color-accent-700: #DADADA;
+
+  --color-success: #00F067;
+
+  --shadow: 0 0 10px 3px var(--color-accent-700);
 
   margin: 0;
 }

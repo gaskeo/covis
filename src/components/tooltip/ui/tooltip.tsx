@@ -1,5 +1,5 @@
 import React, {RefObject} from "react";
-import styles from "./styles/tooltip.module.css";
+import styles from "../styles/tooltip.module.css";
 
 interface TooltipProps {
     title: React.ReactNode;
@@ -33,4 +33,5 @@ const AbsoluteTooltip = ({title, text, tooltipRef, position}: AbsoluteTooltipPro
     );
 }
 
-export {Tooltip, AbsoluteTooltip};
+export default Tooltip;
+export {AbsoluteTooltip};

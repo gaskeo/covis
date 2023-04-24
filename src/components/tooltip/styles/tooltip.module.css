@@ -1,11 +1,11 @@
 .tooltip {
-    padding: 10px;
+    padding: var(--size-s);
     outline: none !important;
     border: none !important;
-    background-color: #EEE;
+    background-color: var(--color-accent-500);
     tab-index: -1;
-    border-radius: 5px;
-    transition: 500ms ease-out;
+    border-radius: var(--size-xs);
+    transition: 300ms ease-out;
     pointer-events: none;
 }
 

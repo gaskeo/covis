@@ -1,59 +1,46 @@
-.RegionSuggestionBlock {
-    border-radius: 10px;
-    box-shadow: 0 0 10px 3px #dadada;
+.suggestionBlock {
+    border-radius: var(--size-s);
+    box-shadow: var(--shadow);
     position: absolute;
     box-sizing: border-box;
     width: 100%;
-    background-color: #ddd;
+    background-color: var(--color-accent-500);
     z-index: var(--z-index-xl);
-    padding: 30px;
+    padding: var(--size-l);
 }
 
-.RegionSuggestions {
+.suggestions {
     width: 100%;
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     justify-content: space-between;
-    gap: 30px;
+    gap: var(--size-l);
     align-items: center;
 }
 
-.RegionSuggestions > p {
+.suggestions > p {
     cursor: pointer;
     margin: 0;
-    background-color: #fff;
-    padding: 1rem;
+    background-color: var(--color-dominant);
+    padding: var(--size-s);
     text-align: center;
-    height: 6rem;
+    height: var(--size-xxl);
     display: flex;
     justify-content: center;
     align-items: center;
     font-size: var(--font-size-l);
     font-family: 'Roboto', sans-serif;
-    border-radius: 10px;
+    border-radius: var(--size-xs);
+    transition: .3s all;
 }
 
-.RegionSuggestions > p:hover {
-    background-color: #00F067;
-    box-shadow: 0 0 10px 3px #dadada;
+.suggestions > p:hover {
+    background-color: var(--color-success);
+    box-shadow: var(--shadow);
 }
-
-
-.CloseButton:hover {
-    background-color: #ddd;
-}
-
 
 @media screen and (max-width: 799px) {
-    .RegionSuggestionBlock {
-        margin-right: auto;
-        margin-left: auto;
-        left: 0;
-        right: 0;
-    }
-
-    .RegionSuggestions {
+    .suggestions {
         grid-template-columns: 1fr;
     }
-
 }

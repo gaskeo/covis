@@ -1,5 +1,4 @@
 import React, {useEffect, useReducer} from 'react';
-import '../../App.css';
 import styles from "../styles/app.module.css";
 
 import {getCountriesAndRussianRegionsData, getRussiaHistoryData} from "../../shared/api";
@@ -12,9 +11,8 @@ import {
     worldReducer
 } from "../../shared/store";
 import {WithContext, WithRouter, compose} from "../hocs";
-import {Menu} from "../../components/menu";
-import {Logo} from "../../components/logo";
-import {Header} from "../../components/header";
+import Menu from "../../components/menu";
+import Header from "../../components/header";
 
 function Content({children}: { children: React.ReactNode }) {
     return (

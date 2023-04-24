@@ -1,7 +1,7 @@
 import React, {useRef, useState} from "react";
 import {getTicketPos} from "../../../shared/utils/position";
 import {AbsoluteTooltip} from "../../tooltip";
-import {mapType, RussiaCSS} from "./russia";
+import RussiaCSS, {mapType} from "./russia";
 
 
 interface InteractiveMapProps {
@@ -10,7 +10,7 @@ interface InteractiveMapProps {
     getTooltip: (activeRegion: string) => {title: string, text: string};
 }
 
-export function InteractiveMap({data, color, getTooltip}: InteractiveMapProps) {
+export default function InteractiveMap({data, color, getTooltip}: InteractiveMapProps) {
     const ticketRef = useRef<HTMLDivElement>(null);
     const mapRef = useRef<HTMLDivElement>(null);
 

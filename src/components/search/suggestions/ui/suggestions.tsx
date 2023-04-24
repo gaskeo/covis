@@ -1,17 +1,16 @@
 import React from "react";
-import styles from "./styles/suggestions.module.css";
+import styles from "../styles/suggestions.module.css";
 
 interface SuggestionsProps {
     elems: string[];
-    onClose: () => void;
     onClick: (elem: string) => void;
 }
 
 
-export const Suggestions = ({elems, onClose, onClick}: SuggestionsProps) => {
+const Suggestions = ({elems, onClick}: SuggestionsProps) => {
     return (
-        <div className={styles.RegionSuggestionBlock}>
-            <div className={styles.RegionSuggestions}>
+        <div className={styles.suggestionBlock}>
+            <div className={styles.suggestions}>
                 {elems.map(elem => (
                     <p onClick={() => onClick(elem)} key={elem}>
                         <span style={{textTransform: 'capitalize'}}>{elem}</span>
@@ -21,3 +20,5 @@ export const Suggestions = ({elems, onClose, onClick}: SuggestionsProps) => {
         </div>
     )
 }
+
+export default Suggestions;

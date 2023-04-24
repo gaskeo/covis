@@ -2,7 +2,7 @@ import {badColor} from "../../shared/constants";
 
 import {useGlobalContext} from "../../shared/context";
 import {RussiaActionType} from "../../shared/store";
-import {LineChartContainer} from "../../components/charts/lineChart/lineChartContainer";
+import {LineChartContainer} from "../../components/charts";
 import {generateLast30Days} from "../../shared/utils/statGenerator";
 
 const CasesRuPage = () => {

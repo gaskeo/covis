@@ -1,5 +1,5 @@
 import {Data, Info} from "../api";
-import {mapType} from "../../components/maps/russia/russia";
+import {mapType} from "../../components/map/ui/russia";
 
 export function dataTypeToMapType(data: Data): mapType {
     const mapType: mapType = {}

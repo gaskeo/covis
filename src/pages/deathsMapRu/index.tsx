@@ -2,7 +2,7 @@ import React from 'react';
 import {useGlobalContext} from "../../shared/context";
 import {RussiaActionType} from "../../shared/store";
 import {dataTypeToMapType} from "../../shared/utils/dataTypeToMapType";
-import {InteractiveMap} from "../../components/maps/russia/interactiveMap";
+import InteractiveMap from "../../components/map/ui/interactiveMap";
 import {deathsMapColor} from "../../shared/constants";
 
 

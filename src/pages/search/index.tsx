@@ -3,8 +3,8 @@ import {useReducer} from 'react';
 import {useGlobalContext} from "../../shared/context";
 import {WorldActionTypes} from "../../shared/store";
 import {getRegionData} from "../../shared/api";
-import {Search} from "../../components/search/search";
-import {RegionCharts} from "../../components/regionCharts";
+import Search from "../../components/search";
+import RegionCharts from "../../components/regionCharts";
 import {getRegionCodeByName} from "../../shared/utils/getters";
 
 function regionReducer(states: any, actions: any) {

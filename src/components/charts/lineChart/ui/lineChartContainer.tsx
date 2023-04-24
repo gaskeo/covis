@@ -1,4 +1,4 @@
-import {LineChart, LineChartProps} from "./lineChart";
+import LineChart, {LineChartProps} from "./lineChart";
 import React from "react";
 
 interface LineChartContainerProps<T extends { [key: string | number]: string | number }>
@@ -7,7 +7,7 @@ interface LineChartContainerProps<T extends { [key: string | number]: string | n
 }
 
 
-export function LineChartContainer<T extends { [key: string]: string | number }>(
+export default function LineChartContainer<T extends { [key: string]: string | number }>(
     {title, ...props}: LineChartContainerProps<T>
 ) {
     if (!props.data || props.data.length === 0) {

@@ -109,12 +109,12 @@ interface MenuLinkProps {
 }
 
 const MenuLink = ({active, to, type, label, onClick}: MenuLinkProps) => {
-    const goodOrBad = type === "good" ? styles.GoodButton : styles.BadButton;
-    const activeOrNot = active ? "" : styles.NotSelectedButton;
+    const goodOrBad = type === "good" ? styles.goodButton : styles.badButton;
+    const activeOrNot = active ? "" : styles.notSelectedButton;
     return (
         <Link
             to={to}
-            className={`${styles.MenuButton} ${goodOrBad} ${activeOrNot}`}
+            className={`${styles.menuItem} ${goodOrBad} ${activeOrNot}`}
             onClick={onClick}
         >
             {label}
@@ -140,7 +140,7 @@ const Menu = () => {
             <div className={`${styles.blur} ${(isDesktop || !open) && styles.noBlur}`}/>
 
             <div ref={menuRef} className={styles.menuContainer}>
-                <button className={`${styles.menuButton} ${open && styles.menuButtonOpen}`}
+                <button className={`${styles.burgerMenuButton} ${open && styles.burgerMenuButtonOpen}`}
                         onClick={() => updateOpen(!open)}>
                     <span/>
                     <span>
@@ -168,4 +168,4 @@ const Menu = () => {
     )
 }
 
-export {Menu}
+export default Menu;

@@ -13,7 +13,7 @@
     left: 0;
     width: 100vw;
     height: 100vh;
-    backdrop-filter: blur(10px);
+    backdrop-filter: blur(var(--size-xs));
     transition: all .2s;
 }
 
@@ -23,87 +23,87 @@
 }
 
 .inputContainer {
-    background-color: #DDD;
-    border-radius: 10px;
+    background-color: var(--color-accent-500);
+    border-radius: var(--size-s);
 
     text-align: center;
     display: flex;
     justify-content: space-between;
-    gap: 1rem;
     width: 100%;
-    margin-bottom: 1rem;
+    margin-bottom: var(--size-m);
 }
 
 .input {
-    border-radius: 10px;
+    line-height: 1;
+    border-radius: var(--size-s);
 
     text-transform: capitalize;
     width: 100%;
-    height: 3rem;
+    height: var(--size-xxl);
     font-size: var(--font-size-l);
     background-color: transparent;
-    padding: 0.2rem 10px;
+    padding: 0 var(--size-s);
+    display: flex;
+    align-items: center;
     outline: none;
-    font-family: 'Roboto', sans-serif;
+    font-family: var(--font-family-t);
     box-sizing: border-box;
     border: 2px solid transparent;
     transition: .3s border;
 }
 
 .suggestion {
+    line-height: 1;
+    font-size: var(--font-size-l);
+    font-family: var(--font-family-t);
+    height: var(--size-xxl);
+    padding-left: var(--size-s);
+    border: 2px solid transparent;
+
+    pointer-events: none;
     white-space: pre;
     text-transform: capitalize;
 
     position: absolute;
-    pointer-events: none;
     left: 0;
-    font-size: var(--font-size-l);
-    font-family: 'Roboto', sans-serif;
+    top: 1px;
     box-sizing: border-box;
-    height: 3rem;
     display: flex;
     align-items: center;
+
     color: transparent;
-    padding-left: 10px;
-    border: 2px solid transparent;
+
 }
 
 .suggestion > span {
-    pointer-events: none;
-    white-space: pre;
     text-transform: none;
-    color: #BBB;
+    pointer-events: none;
+    color: var(--color-accent-300);
 }
 
-.button {
+.searchButton {
     cursor: pointer;
     position: absolute;
     right: 0;
     z-index: var(--z-index-xxl);
-    display: inline;
+    display: flex;
+    align-items: center;
+    line-height: 1;
     color: black;
     border: 0 solid;
     font-family: 'Roboto', sans-serif;
-    height: 3rem;
+    height: var(--size-xxl);
     font-size: var(--font-size-l);
     text-align: center;
-    border-radius: 10px;
-    padding-right: 10px;
+    padding-right: var(--size-s);
     background-color: transparent;
     transition: all .3s;
 }
 
-.button:disabled {
-    color: #aaa;
+.searchButton:disabled {
+    color: var(--color-accent-300);
 }
 
-.button:hover {
+.searchButton:hover {
     text-decoration: underline;
-}
-
-
-@media screen and (max-width: 799px) {
-    .input {
-        width: 60vw;
-    }
 }
