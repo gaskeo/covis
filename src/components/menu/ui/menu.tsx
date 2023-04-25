@@ -22,39 +22,20 @@ const MenuItems: (MenuLink | MenuHeader)[] = [
     },
     {
         type: "link",
-        label: "Всего заболеваний",
+        label: "Заболевания",
         to: "cases",
         linkType: "bad"
     },
     {
         type: "link",
-        label: "Заболеваний сегодня",
-        to: "casesToday",
-        linkType: "bad"
-    },
-    {
-        type: "link",
-        label: "Всего смертей",
+        label: "Смерти",
         to: "deaths",
         linkType: "bad"
     },
     {
         type: "link",
-        label: "Смертей сегодня",
-        to: "deathsToday",
-        linkType: "bad"
-    },
-
-    {
-        type: "link",
-        label: "Вакцин сделано",
+        label: "Вакцины",
         to: "vac",
-        linkType: "good"
-    },
-    {
-        type: "link",
-        label: "Полные вакцины",
-        to: "vacFull",
         linkType: "good"
     },
     {

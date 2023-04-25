@@ -4,14 +4,16 @@ import styles from "../styles/tooltip.module.css";
 interface TooltipProps {
     title: React.ReactNode;
     text: React.ReactNode;
+    subtext?: React.ReactNode;
     tooltipRef?: RefObject<HTMLDivElement>
 }
 
-const Tooltip = ({title, text, tooltipRef}: TooltipProps) => {
+const Tooltip = ({title, text, subtext, tooltipRef}: TooltipProps) => {
     return (
         <div className={styles.tooltip} ref={tooltipRef}>
-            <p>{title}</p>
+            <p className={styles.title}>{title}</p>
             <span>{text}</span>
+            {subtext && <p className={styles.subtext}>{subtext}</p>}
         </div>
     );
 }

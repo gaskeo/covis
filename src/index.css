@@ -70,3 +70,8 @@ code {
 h2 {
   font-size: var(--font-size-xl);
 }
+
+p {
+  margin-top: var(--size-xs);
+  margin-bottom: var(--size-xs);
+}

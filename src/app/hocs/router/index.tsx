@@ -1,9 +1,7 @@
 import React from "react";
 import {Route, Routes, HashRouter as Router, Navigate} from "react-router-dom";
 import {CasesPage} from "../../../pages/cases";
-import {CasesTodayPage} from "../../../pages/casesToday";
 import {DeathsPage} from "../../../pages/deaths";
-import {DeathsTodayPage} from "../../../pages/deathsToday";
 import {VaccinesPage} from "../../../pages/vaccines";
 import {VaccinesFullPage} from "../../../pages/vaccinesFull";
 import {SearchPage} from "../../../pages/search";
@@ -19,16 +17,8 @@ const worldButtons = [
         object: <CasesPage/>,
     },
     {
-        to: "casesToday",
-        object: <CasesTodayPage/>,
-    },
-    {
         to: "deaths",
         object: <DeathsPage/>,
-    },
-    {
-        to: "deathsToday",
-        object: <DeathsTodayPage/>,
     },
     {
         to: "vac",
