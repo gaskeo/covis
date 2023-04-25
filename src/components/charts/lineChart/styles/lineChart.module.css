@@ -1,3 +1,5 @@
 .subtitle {
     font-size: var(--size-m);
+    color: var(--color-accent-300);
+    font-weight: 400;
 }

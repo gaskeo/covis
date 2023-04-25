@@ -3,7 +3,7 @@ import {badColor} from "../../shared/constants";
 import {useGlobalContext} from "../../shared/context";
 import {RussiaActionType} from "../../shared/store";
 import {LineChartContainer} from "../../components/charts";
-import {generateLast30Days} from "../../shared/utils";
+import {generateHumanDate, generateLast30Days} from "../../shared/utils";
 
 const DeathsRuPage = () => {
     const {russiaStates} = useGlobalContext();
@@ -19,7 +19,8 @@ const DeathsRuPage = () => {
     return (
         <LineChartContainer
             color={badColor}
-            title='Смертей за месяц'
+            title="Погибло за месяц"
+            subtitle={`Последние данные: ${generateHumanDate(new Date(russiaData.info.date), ".")}`}
             xKey="x"
             yKey="y"
             min={min * 0.9}
