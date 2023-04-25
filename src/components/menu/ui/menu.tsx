@@ -109,7 +109,7 @@ const Menu = () => {
     const [open, updateOpen] = useState(false);
     const menuRef = useRef<HTMLDivElement>(null);
 
-    const activeTab = href ? href : 'cases';
+    const activeTab = href;
 
     const isDesktop = window.innerWidth > 1023;
     const renderMenu = isDesktop || open;

@@ -27,6 +27,9 @@
 }
 
 .socialLink img {
+    width: var(--size-l);
+    height: var(--size-l);
+    aspect-ratio: 1 / 1;
     filter: brightness(0);
 }
 

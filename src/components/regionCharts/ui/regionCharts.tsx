@@ -4,11 +4,8 @@ import {RegionHistoryResponse} from "../../../shared/api";
 import {
     generateHumanDate,
     generateLast30Days,
-    getMaxDateFromData,
-    getNameToCodeRegionMapFromRegionIds
 } from "../../../shared/utils";
 import styles from "../styles/regionCharts.module.css";
-import {WorldActionTypes} from "../../../shared/store";
 
 interface RegionChartsProps {
     regionHistory: RegionHistoryResponse | null;
