@@ -1,5 +1,5 @@
-export function generateLast30Days(data: [number, number][]) {
-    const date = new Date()
+export function generateLast30Days(data: [number, number][], lastDate?: Date) {
+    const date = lastDate ? lastDate : new Date();
     date.setDate(date.getDate() - 30)
     let [minValue, maxValue] = [10_000_000_000, 0]
 

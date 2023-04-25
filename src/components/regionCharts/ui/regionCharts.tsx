@@ -14,12 +14,12 @@ const RegionCharts = ({regionHistory}: RegionChartsProps) => {
         data: cases,
         min: minCases,
         max: maxCases
-    } = generateLast30Days(regionHistory.cases)
+    } = generateLast30Days(regionHistory.cases, new Date(regionHistory.info.date));
     const {
         data: deaths,
         min: minDeaths,
         max: maxDeaths
-    } = generateLast30Days(regionHistory.deaths)
+    } = generateLast30Days(regionHistory.deaths, new Date(regionHistory.info.date))
 
     return (
         <div className={styles.regionCharts}>

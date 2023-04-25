@@ -14,7 +14,7 @@ const DeathsRuPage = () => {
         data,
         min,
         max
-    } = generateLast30Days(russiaData.deaths)
+    } = generateLast30Days(russiaData.deaths, new Date(russiaData.info.date))
 
     return (
         <LineChartContainer
