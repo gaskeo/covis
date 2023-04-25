@@ -7,9 +7,12 @@ import {RussiaStatStructure,
     Data,
     InfoRaw,
     Info,
+    InfoFields,
     CountriesAndRussianRegionsResponse,
     RegionHistoryResponseRaw,
-    RegionHistoryResponse
+    RegionHistoryResponse,
+    Vaccination,
+    VaccinationFields
 } from "./models";
 
 export type {
@@ -21,8 +24,11 @@ export type {
     Data,
     InfoRaw,
     Info,
+    InfoFields,
     CountriesAndRussianRegionsResponse,
     RegionHistoryResponseRaw,
-    RegionHistoryResponse
+    RegionHistoryResponse,
+    Vaccination,
+    VaccinationFields
 };
 export {getRegionData, getCountriesAndRussianRegionsData, getRussiaHistoryData};

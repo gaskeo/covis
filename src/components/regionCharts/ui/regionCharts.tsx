@@ -1,7 +1,10 @@
 import {badColor} from "../../../shared/constants";
 import {LineChartContainer} from "../../charts";
 import {RegionHistoryResponse} from "../../../shared/api";
-import {generateLast30Days} from "../../../shared/utils";
+import {
+    generateHumanDate,
+    generateLast30Days,
+} from "../../../shared/utils";
 import styles from "../styles/regionCharts.module.css";
 
 interface RegionChartsProps {
@@ -14,12 +17,14 @@ const RegionCharts = ({regionHistory}: RegionChartsProps) => {
         data: cases,
         min: minCases,
         max: maxCases
-    } = generateLast30Days(regionHistory.cases)
+    } = generateLast30Days(regionHistory.cases, new Date(regionHistory.info.date));
     const {
         data: deaths,
         min: minDeaths,
         max: maxDeaths
-    } = generateLast30Days(regionHistory.deaths)
+    } = generateLast30Days(regionHistory.deaths, new Date(regionHistory.info.date))
+
+    const date = generateHumanDate(new Date(regionHistory.info.date), ".");
 
     return (
         <div className={styles.regionCharts}>
@@ -30,6 +35,7 @@ const RegionCharts = ({regionHistory}: RegionChartsProps) => {
                         style={{textTransform: 'capitalize'}}>{regionHistory.info.name}</span>
                     </>
                 }
+                subtitle={`Последние данные: ${date}`}
                 data={cases}
                 yKey="y"
                 xKey="x"
@@ -44,6 +50,7 @@ const RegionCharts = ({regionHistory}: RegionChartsProps) => {
                         style={{textTransform: 'capitalize'}}>{regionHistory.info.name}</span>
                     </>
                 }
+                subtitle={`Последние данные: ${date}`}
                 data={deaths}
                 yKey="y"
                 xKey="x"

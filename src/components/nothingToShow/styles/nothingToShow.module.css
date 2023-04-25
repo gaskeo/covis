@@ -1,0 +1,29 @@
+.nothingToShow {
+    position: absolute;
+    width: 100%;
+    min-height: 300px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    text-align: center;
+
+    border-radius: var(--size-s);
+    box-shadow: var(--shadow);
+    box-sizing: border-box;
+    background-color: var(--color-accent-500);
+    z-index: var(--z-index-xl);
+    padding: var(--size-l);
+}
+
+.nothingToShow > span {
+    font-size: var(--size-xxl);
+}
+
+.nothingToShow > h3 {
+    font-size: var(--size-m);
+}
+
+.nothingToShow > p {
+    font-size: var(--size-m);
+}

@@ -11,6 +11,7 @@ export async function getCountriesAndRussianRegionsData() {
                 (index) => {
                     const currentRegion = worldDataRaw[Number(index)];
                     worldData[Number(index)] = {info: infoTransformer(currentRegion.info)}
+                    return undefined;
                 });
 
             const worldRegions =
@@ -30,7 +31,8 @@ export async function getCountriesAndRussianRegionsData() {
                         peopleFullVaccinated: currentVaccination["peop_full_vac"],
                         population: currentVaccination.pop,
                         vaccinated: currentVaccination.vac,
-                    }
+                    };
+                    return undefined;
                 })
 
             const russianDataRaw = data['russia_stat_struct']['data'];
@@ -39,8 +41,8 @@ export async function getCountriesAndRussianRegionsData() {
                 (index) => {
                     const currentRegion = russianDataRaw[Number(index)];
                     russianData[Number(index)] =
-                        {info: infoTransformer(currentRegion.info)}
-
+                        {info: infoTransformer(currentRegion.info)};
+                    return undefined;
                 });
 
             const russianRegions =

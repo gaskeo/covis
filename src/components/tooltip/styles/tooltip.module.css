@@ -9,11 +9,15 @@
     pointer-events: none;
 }
 
-.tooltip > p {
+.title {
     font-weight: 600;
     margin: 0;
 }
 
 .absoluteTooltip {
     position: absolute;
+}
+
+.subtext {
+    color: var(--color-accent-300)
 }

@@ -36,12 +36,15 @@ export function russiaReducer(states: RussiaReducer, actions: RussiaAction[]) {
         switch (action.type) {
             case RussiaActionType.russiaRegionsData:
                 states[RussiaActionType.russiaRegionsData] = action.data;
-                return;
+                return undefined;
             case RussiaActionType.russiaRegionsIds:
                 states[RussiaActionType.russiaRegionsIds] = action.data;
-                return;
+                return undefined;
             case RussiaActionType.russiaCasesHistory:
                 states[RussiaActionType.russiaCasesHistory] = action.data;
+                return undefined;
+            default:
+                return undefined;
         }
     });
     return {...states};

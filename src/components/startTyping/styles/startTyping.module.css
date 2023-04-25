@@ -1,0 +1,21 @@
+.startTyping {
+    width: 100%;
+    min-height: 300px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    text-align: center;
+}
+
+.startTyping > span {
+    font-size: var(--size-xxl);
+}
+
+.startTyping > h3 {
+    font-size: var(--size-m);
+}
+
+.startTyping > p {
+    font-size: var(--size-m);
+}

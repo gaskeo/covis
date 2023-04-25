@@ -38,12 +38,15 @@ export function worldReducer(
         switch (action.type) {
             case WorldActionTypes.allCountriesData:
                 states[WorldActionTypes.allCountriesData] = action.data;
-                return;
+                return undefined;
             case WorldActionTypes.countriesIds:
                 states[WorldActionTypes.countriesIds] = action.data;
-                return;
+                return undefined;
             case WorldActionTypes.allCountriesVaccineData:
-                states[WorldActionTypes.allCountriesVaccineData] = action.data
+                states[WorldActionTypes.allCountriesVaccineData] = action.data;
+                return undefined;
+            default:
+                return undefined;
         }
     });
     return {...states};

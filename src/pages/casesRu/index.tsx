@@ -3,7 +3,7 @@ import {badColor} from "../../shared/constants";
 import {useGlobalContext} from "../../shared/context";
 import {RussiaActionType} from "../../shared/store";
 import {LineChartContainer} from "../../components/charts";
-import {generateLast30Days} from "../../shared/utils";
+import {generateHumanDate, generateLast30Days} from "../../shared/utils";
 
 const CasesRuPage = () => {
     const {russiaStates} = useGlobalContext();
@@ -14,12 +14,14 @@ const CasesRuPage = () => {
         data,
         min,
         max
-        } = generateLast30Days(russiaData.cases)
+        } = generateLast30Days(russiaData.cases, new Date(russiaData.info.date))
+    const date = generateHumanDate(new Date(russiaData.info.date), ".")
 
     return (
         <LineChartContainer
             color={badColor}
             title='Заболеваний за месяц'
+            subtitle={`Последние данные: ${date}`}
             xKey="x"
             yKey="y"
             min={min * 0.9}

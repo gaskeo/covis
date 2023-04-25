@@ -5,6 +5,7 @@ export function dataTypeToMapType(data: Data): mapType {
     const mapType: mapType = {}
     Object.keys(data).map(key => {
         mapType[data[Number(key)].info.name] = data[Number(key)].info
+        return undefined;
     });
     return mapType;
 }

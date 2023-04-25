@@ -1,7 +1,24 @@
 import {RussiaStatStructure} from "./russia";
 import {WorldStatStructure} from "./world";
 
-export interface Info {
+export type InfoFields =
+    | "cases"
+    | "casesDelta"
+    | "date"
+    | "deaths"
+    | "deathsDelta"
+    | "fullName"
+    | "name"
+    | "population"
+    | "rt"
+    | "searchNames"
+    | "shortName"
+
+type InfoStructureType = {
+    [key in InfoFields]: unknown;
+};
+
+export interface Info extends InfoStructureType {
     cases: number;
     casesDelta: number;
     date: string;
@@ -37,7 +54,20 @@ export interface DataRaw {
     [index: number]: { info: InfoRaw };
 }
 
-interface Vaccination {
+export type VaccinationFields =
+    | "date"
+    | "id"
+    | "name"
+    | "nameRu"
+    | "peopleFullVaccinated"
+    | "population"
+    | "vaccinated"
+
+type VaccinationStructureType = {
+    [key in VaccinationFields]: unknown;
+};
+
+export interface Vaccination extends VaccinationStructureType {
     date: string;
     id: number;
     name: string;

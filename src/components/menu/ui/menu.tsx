@@ -3,7 +3,7 @@ import styles from "../styles/menu.module.css";
 import {useRef, useState} from "react";
 import {useBlur} from "../../../shared/hooks";
 
-interface MenuLink {
+interface MenuLinkContent {
     type: "link"
     label: string;
     to: string;
@@ -15,46 +15,27 @@ interface MenuHeader {
     label: string;
 }
 
-const MenuItems: (MenuLink | MenuHeader)[] = [
+const MenuItems: (MenuLinkContent | MenuHeader)[] = [
     {
         type: "header",
         label: "Мир"
     },
     {
         type: "link",
-        label: "Всего заболеваний",
+        label: "Заболевания",
         to: "cases",
         linkType: "bad"
     },
     {
         type: "link",
-        label: "Заболеваний сегодня",
-        to: "casesToday",
-        linkType: "bad"
-    },
-    {
-        type: "link",
-        label: "Всего смертей",
+        label: "Смерти",
         to: "deaths",
         linkType: "bad"
     },
     {
         type: "link",
-        label: "Смертей сегодня",
-        to: "deathsToday",
-        linkType: "bad"
-    },
-
-    {
-        type: "link",
-        label: "Вакцин сделано",
+        label: "Вакцины",
         to: "vac",
-        linkType: "good"
-    },
-    {
-        type: "link",
-        label: "Полные вакцины",
-        to: "vacFull",
         linkType: "good"
     },
     {
@@ -128,7 +109,7 @@ const Menu = () => {
     const [open, updateOpen] = useState(false);
     const menuRef = useRef<HTMLDivElement>(null);
 
-    const activeTab = href ? href : 'cases';
+    const activeTab = href;
 
     const isDesktop = window.innerWidth > 1023;
     const renderMenu = isDesktop || open;

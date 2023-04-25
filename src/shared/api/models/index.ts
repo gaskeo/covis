@@ -9,7 +9,10 @@ import {
     Info,
     CountriesAndRussianRegionsResponse,
     RegionHistoryResponseRaw,
-    RegionHistoryResponse
+    RegionHistoryResponse,
+    Vaccination,
+    VaccinationFields,
+    InfoFields
 } from "./models/shared";
 
 export type {
@@ -21,7 +24,10 @@ export type {
     Data,
     InfoRaw,
     Info,
+    InfoFields,
     CountriesAndRussianRegionsResponse,
     RegionHistoryResponseRaw,
-    RegionHistoryResponse
+    RegionHistoryResponse,
+    Vaccination,
+    VaccinationFields
 };
