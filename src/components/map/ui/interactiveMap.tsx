@@ -2,15 +2,18 @@ import React, {useRef, useState} from "react";
 import {getTicketPos} from "../../../shared/utils";
 import {AbsoluteTooltip} from "../../tooltip";
 import RussiaCSS, {mapType} from "./russia";
+import styles from "../../charts/barChart/styles/barChart.module.css";
 
 
 interface InteractiveMapProps {
     data: mapType;
     color: {r: number, g: number, b: number};
     getTooltip: (activeRegion: string) => {title: string, text: string};
+    title?: string;
+    subtitle?: string;
 }
 
-export default function InteractiveMap({data, color, getTooltip}: InteractiveMapProps) {
+export default function InteractiveMap({data, color, getTooltip, title: mapTitle, subtitle}: InteractiveMapProps) {
     const ticketRef = useRef<HTMLDivElement>(null);
     const mapRef = useRef<HTMLDivElement>(null);
 
@@ -48,6 +51,8 @@ export default function InteractiveMap({data, color, getTooltip}: InteractiveMap
                 title={title}
                 text={text}
             />
+            <h2>{mapTitle}</h2>
+            <h3 className={styles.subtitle}>{subtitle}</h3>
             <RussiaCSS
                 mapRef={mapRef}
                 sendClick={onMapClick}

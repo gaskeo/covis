@@ -6,6 +6,7 @@ import {getRegionData, RegionHistoryResponse} from "../../shared/api";
 import Search from "../../components/search";
 import RegionCharts from "../../components/regionCharts";
 import {getRegionCodeByName} from "../../shared/utils";
+import StartTyping from "../../components/startTyping";
 
 
 function SearchPage() {
@@ -28,6 +29,7 @@ function SearchPage() {
         <Search suggestions={names} onSubmit={(region: string) => {
             getRegion(region);
         }}/>
+        {!regionData && <StartTyping/>}
         <RegionCharts regionHistory={regionData}/>
     </div>
 }

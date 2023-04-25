@@ -1,8 +1,14 @@
 import {badColor} from "../../../shared/constants";
 import {LineChartContainer} from "../../charts";
 import {RegionHistoryResponse} from "../../../shared/api";
-import {generateLast30Days} from "../../../shared/utils";
+import {
+    generateHumanDate,
+    generateLast30Days,
+    getMaxDateFromData,
+    getNameToCodeRegionMapFromRegionIds
+} from "../../../shared/utils";
 import styles from "../styles/regionCharts.module.css";
+import {WorldActionTypes} from "../../../shared/store";
 
 interface RegionChartsProps {
     regionHistory: RegionHistoryResponse | null;
@@ -21,6 +27,8 @@ const RegionCharts = ({regionHistory}: RegionChartsProps) => {
         max: maxDeaths
     } = generateLast30Days(regionHistory.deaths, new Date(regionHistory.info.date))
 
+    const date = generateHumanDate(new Date(regionHistory.info.date), ".");
+
     return (
         <div className={styles.regionCharts}>
             <LineChartContainer
@@ -30,6 +38,7 @@ const RegionCharts = ({regionHistory}: RegionChartsProps) => {
                         style={{textTransform: 'capitalize'}}>{regionHistory.info.name}</span>
                     </>
                 }
+                subtitle={`Последние данные: ${date}`}
                 data={cases}
                 yKey="y"
                 xKey="x"
@@ -44,6 +53,7 @@ const RegionCharts = ({regionHistory}: RegionChartsProps) => {
                         style={{textTransform: 'capitalize'}}>{regionHistory.info.name}</span>
                     </>
                 }
+                subtitle={`Последние данные: ${date}`}
                 data={deaths}
                 yKey="y"
                 xKey="x"

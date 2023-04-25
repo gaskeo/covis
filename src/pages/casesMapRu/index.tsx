@@ -2,7 +2,7 @@ import React from 'react';
 import {useGlobalContext} from "../../shared/context";
 import {RussiaActionType} from "../../shared/store";
 import InteractiveMap from "../../components/map/ui/interactiveMap";
-import {dataTypeToMapType} from "../../shared/utils";
+import {dataTypeToMapType, generateHumanDate} from "../../shared/utils";
 import {casesMapColor} from "../../shared/constants";
 
 
@@ -15,6 +15,7 @@ function CasesMapRu() {
     return (
         <InteractiveMap
             data={data}
+            subtitle={`Последние данные: ${generateHumanDate(new Date(russiaStates.russiaCasesHistory?.info.date || ""), ".")}`}
             color={casesMapColor}
             getTooltip={(l) => ({
                 text: new Intl.NumberFormat('en')

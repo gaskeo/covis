@@ -5,6 +5,7 @@ import {getRegionData, RegionHistoryResponse} from "../../shared/api";
 import Search from "../../components/search";
 import RegionCharts from "../../components/regionCharts";
 import {getRegionCodeByName} from "../../shared/utils";
+import StartTyping from "../../components/startTyping";
 
 function SearchRuPage() {
     const [regionData, updateRegionData] = useState<RegionHistoryResponse | null>(null);
@@ -27,6 +28,7 @@ function SearchRuPage() {
         <Search suggestions={names} onSubmit={(region: string) => {
             getRegion(region);
         }}/>
+        {!regionData && <StartTyping/>}
         <RegionCharts regionHistory={regionData}/>
     </div>
 }

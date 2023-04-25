@@ -15,12 +15,13 @@ const DeathsRuPage = () => {
         min,
         max
     } = generateLast30Days(russiaData.deaths, new Date(russiaData.info.date))
+    const date = generateHumanDate(new Date(russiaData.info.date), ".")
 
     return (
         <LineChartContainer
             color={badColor}
             title="Погибло за месяц"
-            subtitle={`Последние данные: ${generateHumanDate(new Date(russiaData.info.date), ".")}`}
+            subtitle={`Последние данные: ${date}`}
             xKey="x"
             yKey="y"
             min={min * 0.9}

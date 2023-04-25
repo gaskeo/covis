@@ -17,12 +17,12 @@ export default function BarChartContainer<T extends { [key: string]: string | nu
     }
 
     return (
-        <>
+        <div>
             <h2>{title}</h2>
             <h3 className={styles.subtitle}>{subtitle}</h3>
             <div>
                 <BarChart {...props}/>
             </div>
-        </>
+        </div>
     );
 }
