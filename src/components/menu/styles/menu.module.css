@@ -1,3 +1,7 @@
+.menuContainer {
+
+}
+
 .menu {
     box-shadow: var(--shadow);
     padding: var(--size-s);
@@ -82,7 +86,7 @@
     height: var(--header-height);
     font-family: var(--font-family-t);
     font-size: var(--font-size-m);
-    top: 0;
+    top: calc(-(var(--header-height) + var(--size-s)));
     cursor: pointer;
     z-index: var(--z-index-xxxl);
     color: black;
@@ -161,7 +165,12 @@
     }
 
     .menuContainer {
-        width: 100%;
+        left: 0;
+        right: 0;
+        margin: auto;
+        max-width: var(--content-max-width);
+        width: var(--content-width);
+        top: 0;
         position: absolute;
     }
 }

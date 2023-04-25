@@ -59,6 +59,7 @@ code {
   --color-accent-500: #DDD;
   --color-accent-700: #DADADA;
 
+  --color-danger: #CD5C5C;
   --color-success: #00F067;
 
   --shadow: 0 0 10px 3px var(--color-accent-700);

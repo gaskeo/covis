@@ -10,8 +10,13 @@ import {DeathsRuPage} from "../../../pages/deathsRu";
 import {SearchRuPage} from "../../../pages/searchRu";
 import {CasesMapRu} from "../../../pages/casesMapRu";
 import {DeathsMapRu} from "../../../pages/deathsMapRu";
+import {AboutPage} from "../../../pages/about/about";
 
 const worldButtons = [
+    {
+        to: "",
+        object: <AboutPage/>,
+    },
     {
         to: "cases",
         object: <CasesPage/>,
@@ -64,7 +69,6 @@ export function WithRouter(Component: React.ElementType) {
                 <Router>
                     <Component {...props}>
                         <Routes>
-                            <Route path='/' element={<Navigate to='cases'/>}/>
                             {worldButtons.map(b =>
                                 <Route key={b.to} path={b.to} element={b.object}/>)}
                         </Routes>

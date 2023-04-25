@@ -32,13 +32,13 @@ export default function BarChart<D extends { [a: string | number]: string | numb
                 <XAxis
                     dataKey={(d) => d[xKey]}
                     angle={-45}
-                    interval={isDesktop ? 0 : 1}
+                    interval={isDesktop ? 0 : undefined}
                     textAnchor="end"
                     height={100}
                 />
                 <YAxis
                     tickFormatter={(value) => numberShortener(value)}
-                    width={44}
+                    width={isDesktop ? 44 : 0}
                     domain={[0, max]}
                 />
                 <ReTooltip

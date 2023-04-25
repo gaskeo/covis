@@ -2,6 +2,7 @@ import React, {useRef, useState} from "react";
 import Suggestions from "../suggestions";
 import styles from "../styles/search.module.css";
 import {useBlur} from "../../../shared/hooks";
+import NothingToShow from "../../nothingToShow";
 
 interface SearchProps {
     onSubmit: (value: string) => void;
@@ -67,12 +68,13 @@ export default function Search({suggestions, onSubmit}: SearchProps) {
                         Найти
                     </button>
                 </form>
-                {isSearch &&
+                {(isSearch && filteredSuggestions.length) ?
                     <Suggestions
                         elems={filteredSuggestions}
                         onClick={(r) => _onSubmit(r)}
-                    />
+                    /> : <></>
                 }
+                {(isSearch && !filteredSuggestions.length) ? <NothingToShow/> : <></>}
             </div>
         </>
     )

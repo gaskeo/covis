@@ -1,10 +1,13 @@
 .logo {
+    text-decoration: none;
     margin: 0;
     height: max-content;
     box-sizing: border-box;
+    z-index: var(--z-index-xxxl);
 }
 
 .logo h1 {
+    color: black;
     display: flex;
     line-height: 1;
     gap: 3px;

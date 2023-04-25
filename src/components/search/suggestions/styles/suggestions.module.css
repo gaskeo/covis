@@ -21,6 +21,7 @@
 .suggestions > p {
     cursor: pointer;
     margin: 0;
+    overflow: hidden;
     background-color: var(--color-dominant);
     padding: var(--size-s);
     text-align: center;
@@ -28,7 +29,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    font-size: var(--font-size-l);
+    font-size: var(--size-m);
     font-family: 'Roboto', sans-serif;
     border-radius: var(--size-xs);
     transition: .3s all;
