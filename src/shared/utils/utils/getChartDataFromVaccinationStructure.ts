@@ -18,6 +18,7 @@ function getChartDataFromVaccinationStructure<T extends VaccinationFields>(
                 y: vaccines[field]
             });
         }
+        return undefined;
     })
     return {chart: chartData, max};
 }

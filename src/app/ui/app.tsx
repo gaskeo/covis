@@ -60,7 +60,7 @@ function App() {
                 ]);
             });
         }
-    }, []);
+    }, [worldStates.allCountriesData]);
 
     useEffect(() => {
         if (russiaStates.russiaCasesHistory === null) {

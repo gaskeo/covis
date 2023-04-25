@@ -3,7 +3,7 @@ import styles from "../styles/menu.module.css";
 import {useRef, useState} from "react";
 import {useBlur} from "../../../shared/hooks";
 
-interface MenuLink {
+interface MenuLinkContent {
     type: "link"
     label: string;
     to: string;
@@ -15,7 +15,7 @@ interface MenuHeader {
     label: string;
 }
 
-const MenuItems: (MenuLink | MenuHeader)[] = [
+const MenuItems: (MenuLinkContent | MenuHeader)[] = [
     {
         type: "header",
         label: "Мир"

@@ -20,6 +20,7 @@ function getChartDataFromData<T extends InfoFields>(
                 y: info[field]
             })
         }
+        return undefined;
     })
     return {chart: chartData, max};
 }
