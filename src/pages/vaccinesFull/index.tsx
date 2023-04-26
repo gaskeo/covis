@@ -1,8 +1,8 @@
-import {countriesRu, goodColor} from "../../shared/constants";
+import {countriesRu, goodColor} from "@/src/shared/constants";
 
-import {BarChartContainer} from "../../components/charts";
-import {useGlobalContext} from "../../shared/context";
-import {WorldActionTypes} from "../../shared/store";
+import {BarChartContainer} from "@/src/components/charts";
+import {useGlobalContext} from "@/src/shared/context";
+import {WorldActionTypes} from "@/src/shared/store";
 
 const VaccinesFullPage = () => {
     const {worldStates} = useGlobalContext();

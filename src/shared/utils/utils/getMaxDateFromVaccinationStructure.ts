@@ -1,4 +1,4 @@
-import {VaccinationStructure} from "../../api";
+import {VaccinationStructure} from "@/src/shared/api";
 import {generateHumanDate} from "./generateHumanDate";
 
 function getMaxDateFromVaccinationStructure(data: VaccinationStructure) {

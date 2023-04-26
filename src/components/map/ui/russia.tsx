@@ -1,6 +1,6 @@
 import styles from "../styles/russia.module.css";
 import React from "react";
-import {Info} from "../../../shared/api";
+import {Info} from "@/src/shared/api";
 
 interface RussiaSVGProps {
     sendClick: (e: React.MouseEvent, name: string) => void;

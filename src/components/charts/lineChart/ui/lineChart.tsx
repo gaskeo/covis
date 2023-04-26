@@ -1,6 +1,6 @@
 import {CartesianGrid, Line, LineChart as ReLineChart, ResponsiveContainer, Tooltip as ReTooltip, XAxis, YAxis} from "recharts";
-import Tooltip from "../../../tooltip";
-import {numberShortener} from "../../../../shared/utils";
+import Tooltip from "@/src/components/tooltip";
+import {numberShortener} from "@/src/shared/utils";
 
 export interface LineChartProps<D extends { [key: string | number]: string | number }> {
     data: D[];

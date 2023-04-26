@@ -1,5 +1,5 @@
-import {VaccinationStructure} from "../../api";
-import {Vaccination, VaccinationFields} from "../../api";
+import {VaccinationStructure} from "@/src/shared/api";
+import {Vaccination, VaccinationFields} from "@/src/shared/api";
 
 function getChartDataFromVaccinationStructure<T extends VaccinationFields>(
     data: VaccinationStructure,

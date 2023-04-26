@@ -1,4 +1,4 @@
-import {Data, RegionHistoryResponse} from "../../../api";
+import {Data, RegionHistoryResponse} from "@/src/shared/api";
 import {RegionId} from "./shared";
 
 export enum RussiaActionType {

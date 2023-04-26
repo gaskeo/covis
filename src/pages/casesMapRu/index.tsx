@@ -1,9 +1,9 @@
 import React from 'react';
-import {useGlobalContext} from "../../shared/context";
-import {RussiaActionType} from "../../shared/store";
-import InteractiveMap from "../../components/map/ui/interactiveMap";
-import {dataTypeToMapType, generateHumanDate} from "../../shared/utils";
-import {casesMapColor} from "../../shared/constants";
+import {useGlobalContext} from "@/src/shared/context";
+import {RussiaActionType} from "@/src/shared/store";
+import InteractiveMap from "@/src/components/map/ui/interactiveMap";
+import {dataTypeToMapType, generateHumanDate} from "@/src/shared/utils";
+import {casesMapColor} from "@/src/shared/constants";
 
 
 function CasesMapRu() {

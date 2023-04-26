@@ -1,15 +1,15 @@
-import {badColor, countriesRu} from "../../shared/constants";
+import {badColor, countriesRu} from "@/src/shared/constants";
 
-import {BarChartContainer} from "../../components/charts";
-import {useGlobalContext} from "../../shared/context";
-import {WorldActionTypes} from "../../shared/store";
+import {BarChartContainer} from "@/src/components/charts";
+import {useGlobalContext} from "@/src/shared/context";
+import {WorldActionTypes} from "@/src/shared/store";
 import {
     generateHumanDate,
     generateHumanNumber, getChartDataFromData,
     getMaxDateFromData,
     getNameToCodeRegionMapFromRegionIds
-} from "../../shared/utils";
-import Tooltip from "../../components/tooltip";
+} from "@/src/shared/utils";
+import Tooltip from "@/src/components/tooltip";
 
 const CasesPage = () => {
     const {worldStates} = useGlobalContext();

@@ -9,10 +9,10 @@ import {
     WorldActionTypes,
     worldInit,
     worldReducer
-} from "../../shared/store";
-import {WithContext, WithRouter, compose} from "../hocs";
-import Menu from "../../components/menu";
-import Header from "../../components/header";
+} from "@/src/shared/store";
+import {WithContext, WithRouter, compose} from "@/src/app/hocs";
+import Menu from "@/src/components/menu";
+import Header from "@/src/components/header";
 
 function Content({children}: { children: React.ReactNode }) {
     return (

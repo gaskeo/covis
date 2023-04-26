@@ -1,12 +1,12 @@
 import {useState} from 'react';
 
-import {useGlobalContext} from "../../shared/context";
-import {WorldActionTypes} from "../../shared/store";
-import {getRegionData, RegionHistoryResponse} from "../../shared/api";
-import Search from "../../components/search";
-import RegionCharts from "../../components/regionCharts";
-import {getRegionCodeByName} from "../../shared/utils";
-import StartTyping from "../../components/startTyping";
+import {useGlobalContext} from "@/src/shared/context";
+import {WorldActionTypes} from "@/src/shared/store";
+import {getRegionData, RegionHistoryResponse} from "@/src/shared/api";
+import Search from "@/src/components/search";
+import RegionCharts from "@/src/components/regionCharts";
+import {getRegionCodeByName} from "@/src/shared/utils";
+import StartTyping from "@/src/components/startTyping";
 
 
 function SearchPage() {

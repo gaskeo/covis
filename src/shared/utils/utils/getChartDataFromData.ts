@@ -1,5 +1,5 @@
-import {Data} from "../../api";
-import {Info, InfoFields} from "../../api";
+import {Data} from "@/src/shared/api";
+import {Info, InfoFields} from "@/src/shared/api";
 
 function getChartDataFromData<T extends InfoFields>(
     data: Data,

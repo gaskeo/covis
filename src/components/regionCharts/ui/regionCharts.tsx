@@ -1,10 +1,10 @@
-import {badColor} from "../../../shared/constants";
-import {LineChartContainer} from "../../charts";
-import {RegionHistoryResponse} from "../../../shared/api";
+import {badColor} from "@/src/shared/constants";
+import {LineChartContainer} from "@/src/components/charts";
+import {RegionHistoryResponse} from "@/src/shared/api";
 import {
     generateHumanDate,
     generateLast30Days,
-} from "../../../shared/utils";
+} from "@/src/shared/utils";
 import styles from "../styles/regionCharts.module.css";
 
 interface RegionChartsProps {

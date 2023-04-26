@@ -1,5 +1,5 @@
 import {generateHumanDate} from "./generateHumanDate";
-import {Data} from "../../api";
+import {Data} from "@/src/shared/api";
 
 function getMaxDateFromData(data: Data) {
     function reduce(maxRegionId: string, currentRegionId: string) {

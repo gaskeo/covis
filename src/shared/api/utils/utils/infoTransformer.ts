@@ -1,4 +1,4 @@
-import {Info, InfoRaw} from "../../models";
+import {Info, InfoRaw} from "@/src/shared/api";
 
 export default function infoTransformer(info: InfoRaw): Info {
     return {

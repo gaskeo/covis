@@ -1,5 +1,5 @@
 import {createContext, useContext} from "react"
-import {russianInit, RussiaReducer, worldInit, WorldReducer} from "../store";
+import {russianInit, RussiaReducer, worldInit, WorldReducer} from "@/src/shared/store";
 
 export type GlobalContentType = {
     worldStates: WorldReducer

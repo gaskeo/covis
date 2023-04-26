@@ -1,7 +1,7 @@
 import {Link, useLocation} from "react-router-dom";
 import styles from "../styles/menu.module.css";
 import {useRef, useState} from "react";
-import {useBlur} from "../../../shared/hooks";
+import {useBlur} from "@/src/shared/hooks";
 
 interface MenuLinkContent {
     type: "link"

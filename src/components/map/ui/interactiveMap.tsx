@@ -1,8 +1,8 @@
 import React, {useRef, useState} from "react";
-import {getTicketPos} from "../../../shared/utils";
-import {AbsoluteTooltip} from "../../tooltip";
+import {getTicketPos} from "@/src/shared/utils";
+import {AbsoluteTooltip} from "@/src/components/tooltip";
 import RussiaCSS, {mapType} from "./russia";
-import styles from "../../charts/barChart/styles/barChart.module.css";
+import styles from "../styles/russia.module.css";
 
 
 interface InteractiveMapProps {

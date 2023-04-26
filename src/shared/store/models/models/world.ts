@@ -1,4 +1,4 @@
-import {Data, VaccinationStructure} from "../../../api";
+import {Data, VaccinationStructure} from "@/src/shared/api";
 import {RegionId} from "./shared";
 
 export enum WorldActionTypes {

@@ -1,8 +1,8 @@
 import React, {useRef, useState} from "react";
 import Suggestions from "../suggestions";
 import styles from "../styles/search.module.css";
-import {useBlur} from "../../../shared/hooks";
-import NothingToShow from "../../nothingToShow";
+import {useBlur} from "@/src/shared/hooks";
+import NothingToShow from "@/src/components/nothingToShow";
 
 interface SearchProps {
     onSubmit: (value: string) => void;

@@ -1,9 +1,9 @@
-import {badColor} from "../../shared/constants";
+import {badColor} from "@/src/shared/constants";
 
-import {useGlobalContext} from "../../shared/context";
-import {RussiaActionType} from "../../shared/store";
-import {LineChartContainer} from "../../components/charts";
-import {generateHumanDate, generateLast30Days} from "../../shared/utils";
+import {useGlobalContext} from "@/src/shared/context";
+import {RussiaActionType} from "@/src/shared/store";
+import {LineChartContainer} from "@/src/components/charts";
+import {generateHumanDate, generateLast30Days} from "@/src/shared/utils";
 
 const CasesRuPage = () => {
     const {russiaStates} = useGlobalContext();

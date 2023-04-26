@@ -1,4 +1,4 @@
-import {RegionId} from "../../store";
+import {RegionId} from "@/src/shared/store";
 
 export function getRegionCodeByName(data: RegionId[], regionName: string) {
     const region = regionName.toLowerCase()

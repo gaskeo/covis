@@ -1,16 +1,16 @@
 import React from "react";
 import {Route, Routes, HashRouter as Router} from "react-router-dom";
-import {CasesPage} from "../../../pages/cases";
-import {DeathsPage} from "../../../pages/deaths";
-import {VaccinesPage} from "../../../pages/vaccines";
-import {VaccinesFullPage} from "../../../pages/vaccinesFull";
-import {SearchPage} from "../../../pages/search";
-import {CasesRuPage} from "../../../pages/casesRu";
-import {DeathsRuPage} from "../../../pages/deathsRu";
-import {SearchRuPage} from "../../../pages/searchRu";
-import {CasesMapRu} from "../../../pages/casesMapRu";
-import {DeathsMapRu} from "../../../pages/deathsMapRu";
-import {AboutPage} from "../../../pages/about/about";
+import {CasesPage} from "@/src/pages/cases";
+import {DeathsPage} from "@/src/pages/deaths";
+import {VaccinesPage} from "@/src/pages/vaccines";
+import {VaccinesFullPage} from "@/src/pages/vaccinesFull";
+import {SearchPage} from "@/src/pages/search";
+import {CasesRuPage} from "@/src/pages/casesRu";
+import {DeathsRuPage} from "@/src/pages/deathsRu";
+import {SearchRuPage} from "@/src/pages/searchRu";
+import {CasesMapRu} from "@/src/pages/casesMapRu";
+import {DeathsMapRu} from "@/src/pages/deathsMapRu";
+import {AboutPage} from "@/src/pages/about/about";
 
 const worldButtons = [
     {

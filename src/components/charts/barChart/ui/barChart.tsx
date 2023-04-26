@@ -1,7 +1,7 @@
-import {russia} from "../../../../shared/constants";
+import {russia} from "@/src/shared/constants";
 import {Bar, Cell, Tooltip as ReTooltip, XAxis, YAxis, BarChart as ReBarChart, ResponsiveContainer} from "recharts";
-import Tooltip from "../../../tooltip";
-import {generateHumanNumber, numberShortener} from "../../../../shared/utils";
+import Tooltip from "@/src/components/tooltip";
+import {generateHumanNumber, numberShortener} from "@/src/shared/utils";
 import React from "react";
 
 export interface BarChartProps<D extends { [key: string | number]: string | number }> {
