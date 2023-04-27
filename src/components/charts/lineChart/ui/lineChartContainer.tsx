@@ -1,6 +1,6 @@
 import LineChart, {LineChartProps} from "./lineChart";
 import React from "react";
-import styles from "@/src/styles/lineChart.module.css";
+import styles from "../styles/lineChart.module.css";
 
 interface LineChartContainerProps<T extends { [key: string | number]: string | number }>
     extends LineChartProps<T> {
