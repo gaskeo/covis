@@ -36,7 +36,6 @@
 }
 
 .menuItem {
-    padding: var(--size-s);
     z-index: var(--z-index-xxl);
     display: block;
     background-color: transparent;
@@ -44,18 +43,15 @@
     font-size: var(--font-size-m);
     color: black;
     border: 0 solid;
-    -webkit-appearance: button !important;
     border-image: none;
-    line-height: 1;
     outline-offset: 0;
     width: 100%;
     min-width: 190px;
     box-sizing: border-box;
     text-align: left;
     border-radius: var(--size-xs);
-    box-shadow: none;
-    margin-bottom: 0.3rem;
     text-decoration: none;
+    padding: var(--size-s);
     padding-left: var(--size-xs);
     padding-right: var(--size-xs);
 }

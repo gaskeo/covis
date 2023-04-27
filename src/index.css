@@ -8,6 +8,11 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   padding: 0;
+  background-color: var(--color-dominant);
+}
+
+html {
+  background-color: var(--color-dominant);
 }
 
 p, span, div {
