@@ -1,34 +1,51 @@
 # [covis](https://gaskeo.github.io/covis)
 
-![screenshot](assets/main-page.jpg)
+<details>
+  <summary><b>Photo gallery</b></summary>
 
-Site with information about COVID-19. It gets data from [yandex API](https://yandex.ru/covid19/stat).
+## [Cases page](https://gaskeo.github.io/covis/#/cases)
 
-You can visit covis [here](https://tikovka72.github.io/covis)
+![main page screenshot](assets/main-page.png)
 
----
+## [Search page](https://gaskeo.github.io/covis/#/search)
 
-The site was written on [react](https://ru.reactjs.org/). 
+![search page screenshot](assets/search-page.png)
+
+## [Map page](https://gaskeo.github.io/covis/#/casesMap)
+
+![map page screenshot](assets/map-page.png)
+
+</details>
+
+
+Site with information about **COVID-19**. This site gets data
+from [yandex API](https://web.archive.org/web/20220715023857/https://yandex.ru/covid19/stat).
+
+You can visit **covis** [here](https://gaskeo.github.io/covis).
+
+
+The site was written on [**react**](https://reactjs.org/) with [**recharts** library](https://recharts.org/).
 
 ## Running
-### From github
-To create deployment version of the project:
-1. download and install [node.js](https://nodejs.org/en/download/)
-2. run following command in project directory:
-```
-npm run build
-```
-After that all files will be in folder `build`
 
-### From [docker hub](https://hub.docker.com)
-1. install [docker](https://docker.com)
-2. run following commands:
-```
-docker pull tikovka72/covis:latest
-docker container run -p 80:80 --rm -d --name covis tikovka72/covis
-```
-To stop container you can use:
-```
-docker container stop covis
-```
-You can find all versions of covis [here](https://hub.docker.com/repository/docker/tikovka72/covis/tags)
+### From sources
+
+To create deployment version of the project:
+
+1. Download and install [**node.js**](https://nodejs.org/en/download/)
+2. Run `npm install` in project directory
+3. Build site with `npm run build` command
+4. Serve `build/` directory in your server (for example, you can use [Nginx](https://nginx.org/))
+
+> Notice: covis will try to fetch all static from the build/**covis**/static directory because of
+> the [canonical URL](https://gaskeo.github.io/covis). If you configure your server by the root URL (for
+> example, [yoursite.com/]()) covis will not be able to find static files.
+>
+> You can change it by passing `/` in `homepage` field in [package.json](package.json):
+> ```
+> {
+>   ...
+>   "homepage": "/",
+>   ...
+> }
+> ```
