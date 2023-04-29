@@ -1,13 +1,13 @@
 {
   "files": {
-    "main.css": "/covis/static/css/main.07c143b2.css",
-    "main.js": "/covis/static/js/main.6863e91a.js",
+    "main.css": "/covis/static/css/main.fc33a874.css",
+    "main.js": "/covis/static/js/main.7390eed7.js",
     "index.html": "/covis/index.html",
-    "main.07c143b2.css.map": "/covis/static/css/main.07c143b2.css.map",
-    "main.6863e91a.js.map": "/covis/static/js/main.6863e91a.js.map"
+    "main.fc33a874.css.map": "/covis/static/css/main.fc33a874.css.map",
+    "main.7390eed7.js.map": "/covis/static/js/main.7390eed7.js.map"
   },
   "entrypoints": [
-    "static/css/main.07c143b2.css",
-    "static/js/main.6863e91a.js"
+    "static/css/main.fc33a874.css",
+    "static/js/main.7390eed7.js"
   ]
 }
