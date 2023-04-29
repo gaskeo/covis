@@ -16,7 +16,15 @@ export default function Search({suggestions, onSubmit}: SearchProps) {
 
     const [searchValue, updateSearchValue] = useState("");
 
-    const filteredSuggestions = suggestions.filter(s => s.toLowerCase().includes(searchValue.toLowerCase()))
+    const filteredSuggestions =
+        suggestions
+            .filter(s => s.toLowerCase().includes(searchValue.toLowerCase().trim()))
+            .sort((a, b) => {
+                const aStarts = a.toLowerCase().startsWith(searchValue.toLowerCase());
+                const bStarts = b.toLowerCase().startsWith(searchValue.toLowerCase());
+
+                return (aStarts && !bStarts && -1) || (!aStarts && bStarts && 1) || 0;
+            })
     const [isSearch, updateIsSearch] = useState(false);
 
     const _onSubmit = (value: string) => {
@@ -57,8 +65,9 @@ export default function Search({suggestions, onSubmit}: SearchProps) {
 
                     />
                     {
-                        (searchValue.length && filteredSuggestions.length && filteredSuggestions[0].startsWith(searchValue)) ?
-                            <span className={styles.suggestion}>{searchValue}
+                        (searchValue.length && filteredSuggestions.length && filteredSuggestions[0].toLowerCase().startsWith(searchValue.toLowerCase())) ?
+                            <span className={styles.suggestion}>
+                                {searchValue}
                                 <span>
                                 {filteredSuggestions[0].slice(searchValue.length)}
                             </span>
@@ -68,13 +77,43 @@ export default function Search({suggestions, onSubmit}: SearchProps) {
                         Найти
                     </button>
                 </form>
-                {(isSearch && filteredSuggestions.length) ?
+                {(isSearch && filteredSuggestions.length) &&
                     <Suggestions
-                        elems={filteredSuggestions}
+                        elems={filteredSuggestions.map(suggestion => {
+                            let offset = 0;
+                            if (!searchValue) {
+                                return {
+                                    key: suggestion,
+                                    value: suggestion
+                                };
+                            }
+                            return {
+                                key: suggestion,
+                                value:
+                                    <>
+                                        {suggestion.toLowerCase()
+                                            .split(searchValue.toLowerCase())
+                                            .map((elem, index) => {
+                                                const offsetWithElem = offset + elem.length;
+                                                const offsetWithElemAndSearch = offsetWithElem + searchValue.length;
+                                                const component =
+                                                    <span key={elem + index.toString()}>
+                                                        {suggestion.slice(offset, offsetWithElem)}
+                                                        <span style={{backgroundColor: "var(--color-success)"}}>
+                                                            {suggestion.slice(offsetWithElem, offsetWithElemAndSearch)}
+                                                        </span>
+                                                    </span>;
+                                                offset = offsetWithElemAndSearch;
+                                                return component;
+                                            })
+                                        }
+                                    </>
+                            };
+                        })}
                         onClick={(r) => _onSubmit(r)}
-                    /> : <></>
+                    />
                 }
-                {(isSearch && !filteredSuggestions.length) ? <NothingToShow/> : <></>}
+                {(isSearch && !filteredSuggestions.length) && <NothingToShow/>}
             </div>
         </>
     )

@@ -24,7 +24,7 @@ function SearchPage() {
         }
     }
 
-    const names = worldData.map(d => d.name.toLowerCase()).sort((a, b) => a.localeCompare(b));
+    const names = worldData.map(d => d.name).sort((a, b) => a.toLowerCase().localeCompare(b.toLowerCase()));
     return <div style={{width: '100%'}}>
         <Search suggestions={names} onSubmit={(region: string) => {
             getRegion(region);

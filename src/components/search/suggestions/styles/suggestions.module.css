@@ -40,6 +40,9 @@
     box-shadow: var(--shadow);
 }
 
+.suggestions > p > span > span > span:first-child {
+}
+
 @media screen and (max-width: 799px) {
     .suggestions {
         grid-template-columns: 1fr;

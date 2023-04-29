@@ -31,8 +31,7 @@ const RegionCharts = ({regionHistory}: RegionChartsProps) => {
             <LineChartContainer
                 title={
                     <>
-                        Случаи заболевания по региону: <span
-                        style={{textTransform: 'capitalize'}}>{regionHistory.info.name}</span>
+                        Случаи заболевания по региону: {regionHistory.info.name}
                     </>
                 }
                 subtitle={`Последние данные: ${date}`}
@@ -46,8 +45,7 @@ const RegionCharts = ({regionHistory}: RegionChartsProps) => {
             <LineChartContainer
                 title={
                     <>
-                        Случаи смертей по региону: <span
-                        style={{textTransform: 'capitalize'}}>{regionHistory.info.name}</span>
+                        Случаи смертей по региону: {regionHistory.info.name}
                     </>
                 }
                 subtitle={`Последние данные: ${date}`}
